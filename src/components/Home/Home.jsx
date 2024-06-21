@@ -47,7 +47,7 @@ const Home = () => {
 
   return (
     <div className="home-container">
-      <h1>Hossio</h1>
+      <h1>Descubre donde <span className='highlight-text'>caer</span></h1>
       <div className="place-list">
         {places.map(place => (
           <PlaceCard key={place.id} place={place} />
