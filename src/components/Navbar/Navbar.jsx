@@ -5,7 +5,7 @@ const NavBar = () => {
   return (
     <nav className="navbar">
       <div className="navbar-left">
-        <h1 className="navbar-title">Hoss<span className='highlight-text'>i</span>o</h1>
+        <a href="/"><h1 className="navbar-title">Hoss<span className='highlight-text'>i</span>o</h1></a>
       </div>
       <div className="navbar-center">
         <input type="text" className="navbar-search" placeholder="Buscar lugares de ocio..." />
