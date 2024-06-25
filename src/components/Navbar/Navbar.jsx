@@ -11,7 +11,7 @@ const NavBar = () => {
         <input type="text" className="navbar-search" placeholder="Buscar lugares de ocio..." />
       </div>
       <div className="navbar-right">
-        <a href="#owners" className="btn-reverse">Para propietarios</a>
+        <a href="owners" className="btn-reverse">Para propietarios</a>
         <a href="#login" className="navbar-link">Iniciar sesión</a>
         <a href="#register" className="navbar-link">Registrarse</a>
       </div>

@@ -1,0 +1,13 @@
+.owner-panel-container {
+    display: flex;
+    min-height: 900px;
+}
+
+.owner-panel-left {
+    flex: 1;
+    background-color: rgb(192, 192, 192);
+}
+
+.owner-panel-right {
+    flex: 3;
+}
