@@ -1,0 +1,60 @@
+---
+import Navbar from "../../components/Navbar/Navbar";
+import Carrousel from "../../components/Carrousel/Carrousel";
+import ReviewComments from "../../components/ReviewComments/ReviewComments";
+import { placesData } from "../../data/places";
+import '../../styles/main.css'
+
+const { placeId } = Astro.params;
+const placeDetails = placesData.find(
+  (place) => place.id === parseInt(placeId != null ? placeId : "-1"),
+);
+
+if (!placeDetails) {
+  Astro.response.status = 404;
+  Astro.response.statusText = 'Not found';
+  throw Error("no page with this id was found")
+};
+---
+
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>{placeDetails.name} - Hossio</title>
+    <link rel="stylesheet" href="/styles/main.css" />
+    <style>
+      .place-details {
+        padding: 20px;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .place-details h1 {
+        font-size: 32px;
+        margin-bottom: 20px;
+      }
+
+      .place-info {
+        margin-top: 20px;
+      }
+
+      .place-info p {
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <Navbar client:load/>
+    <main class="place-details">
+      <h1>{placeDetails.name}</h1>
+      <div class="place-images">
+        <Carrousel client:load images={placeDetails.images} />
+      </div>
+      <div class="place-info">
+        <p>{placeDetails.description}</p>
+        <p>Calificaci&oacute;n promedio: {placeDetails.rating} / 5</p>
+      </div>
+      <ReviewComments client:visible reviews={placeDetails.reviews} />
+    </main>
+  </body>
+</html>
