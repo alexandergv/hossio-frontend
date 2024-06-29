@@ -2,6 +2,8 @@
 import Navbar from "../../components/Navbar/Navbar";
 import Carrousel from "../../components/Carrousel/Carrousel";
 import ReviewComments from "../../components/ReviewComments/ReviewComments";
+import Footer from '../../components/Footer/Footer';
+
 import { placesData } from "../../data/places";
 import '../../styles/main.css'
 
@@ -55,5 +57,6 @@ if (!placeDetails) {
       </div>
       <ReviewComments client:visible reviews={placeDetails.reviews} />
     </main>
+    <Footer/>
   </body>
 </html>
