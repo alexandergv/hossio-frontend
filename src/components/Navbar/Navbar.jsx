@@ -12,8 +12,8 @@ const NavBar = () => {
       </div>
       <div className="navbar-right">
         <a href="/owners" className="btn-reverse">Para propietarios</a>
-        <a href="#login" className="navbar-link">Iniciar sesión</a>
-        <a href="#register" className="navbar-link">Registrarse</a>
+        <a href="/login" className="navbar-link">Iniciar sesión</a>
+        <a href="/login" className="navbar-link">Registrarse</a>
       </div>
     </nav>
   );
