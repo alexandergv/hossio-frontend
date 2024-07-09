@@ -1,55 +1,88 @@
 /* NavBar.css */
 
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #ffffff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .navbar-left {
-    flex: 1;
-  }
-  
-  .navbar-title {
-    margin: 0;
-    font-size: 24px;
-    font-weight: bold;
-    color: #333;
-  }
-  
-  .navbar-center {
-    flex: 2;
-    display: flex;
-    justify-content: center;
-  }
-  
-  .navbar-search {
-    width: 60%;
-    padding: 8px 10px;
-    font-size: 16px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-  }
-  
-  .navbar-right {
-    flex: 1;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 15px;
-  }
-  
-  .navbar-link {
-    font-size: 16px;
-    color: #333;
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-  
-  .navbar-link:hover {
-    color: #007BFF;
-  }
-  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-left {
+  flex: 1;
+}
+
+.navbar-title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+.navbar-center {
+  flex: 2;
+  display: flex;
+  justify-content: center;
+}
+
+.navbar-center form {
+  display: flex;
+  width: 100%;
+  max-width: 600px;
+}
+
+.navbar-search {
+  width: 100%;
+  padding: 8px 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+}
+
+.navbar-search-button {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-left: none;
+  background-color: var(--color-primary);
+  color: white;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.navbar-right {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 15px;
+}
+
+.navbar-link {
+  font-size: 16px;
+  color: #333;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.navbar-link:hover {
+  color: #007BFF;
+}
+
+.btn-reverse {
+  background-color: black;
+  color: white;
+  border-radius: 5px;
+  padding: 10px;
+  text-decoration: none;
+}
+
+.btn-reverse:hover {
+  background-color: #333;
+}
+
+.highlight-text {
+  color: #00aaff;
+}

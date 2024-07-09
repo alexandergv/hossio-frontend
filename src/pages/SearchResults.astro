@@ -1,0 +1,19 @@
+---
+import React from 'react';
+import SearchResultsPage from '../components/SearchResultsPage/SearchResultsPage';
+import NavBar from '../components/Navbar/Navbar';
+import '../styles/main.css'
+
+---
+
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados de Búsqueda - Hossio</title>
+  </head>
+  <body>
+	<NavBar client:load/>
+  <SearchResultsPage client:load query={Astro.url.searchParams.get('query') || ''}/>
+  </body>
+</html>
