@@ -3,12 +3,14 @@ import Navbar from "../../components/Navbar/Navbar";
 import Carrousel from "../../components/Carrousel/Carrousel";
 import ReviewComments from "../../components/ReviewComments/ReviewComments";
 import Footer from '../../components/Footer/Footer';
+import Map from '../../components/Map/Map'; 
 
 import { placesData } from "../../data/places";
 import '../../styles/main.css'
 
 const { placeId } = Astro.params;
 const placeDetails = placesData.find(
+  // use -1 to avoid passing null as an argument to parseInt
   (place) => place.id === parseInt(placeId != null ? placeId : "-1"),
 );
 
@@ -33,14 +35,32 @@ if (!placeDetails) {
       .place-details h1 {
         font-size: 32px;
         margin-bottom: 20px;
+        text-align: center;
       }
 
       .place-info {
-        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
       }
 
       .place-info p {
         margin-bottom: 10px;
+      }
+
+      .place-content {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+      }
+
+      .place-images,
+      .place-map {
+        flex: 1;
+        margin-right: 20px;
+      }
+
+      .place-map {
+        margin-left: 20px;
       }
     </style>
   </head>
@@ -48,12 +68,17 @@ if (!placeDetails) {
     <Navbar client:load/>
     <main class="place-details">
       <h1>{placeDetails.name}</h1>
-      <div class="place-images">
-        <Carrousel client:load images={placeDetails.images} />
+      <div class="place-content">
+        <div class="place-images">
+          <Carrousel client:load images={placeDetails.images} />
+        </div>
+        <div class="place-map">
+          <Map client:only="react" latitude={placeDetails.latitude} longitude={placeDetails.longitude} name={placeDetails.name} />
+        </div>
       </div>
       <div class="place-info">
         <p>{placeDetails.description}</p>
-        <p>Calificaci&oacute;n promedio: {placeDetails.rating} / 5</p>
+        <p>Calificación promedio: {placeDetails.rating} / 5</p>
       </div>
       <ReviewComments client:visible reviews={placeDetails.reviews} />
     </main>
