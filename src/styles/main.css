@@ -7,27 +7,6 @@
     --color-text: #333; /* Color de Texto General */
   }
 
-.highlight-text {
-    color: var(--color-primary);
- }
-
- .btn-reverse {
-    background-color: #000; /* Fondo negro */
-    color: #fff; /* Letra en blanco */
-    padding: 8px 16px;
-    border: none;
-    border-radius: 20px; /* Bordes redondeados */
-    cursor: pointer;
-    font-size: 16px;
-    text-align: center;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
-  }
-  
-  .btn-reverse:hover {
-    background-color: #333; /* Fondo gris oscuro al pasar el mouse */
- }
-
 body {
   font-family: 'Roboto', 'Open Sans', 'Lato', 'Montserrat', 'Source Sans Pro', sans-serif;
   margin: 0;

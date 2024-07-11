@@ -65,7 +65,7 @@ if (!placeDetails) {
     </style>
   </head>
   <body>
-    <Navbar client:load/>
+    <Navbar client:only="react"/>
     <main class="place-details">
       <h1>{placeDetails.name}</h1>
       <div class="place-content">

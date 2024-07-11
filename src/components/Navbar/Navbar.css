@@ -16,7 +16,7 @@
 .navbar-title {
   margin: 0;
   font-size: 24px;
-  font-weight: bold;
+  font-weight: 700;
   color: #333;
 }
 
@@ -71,18 +71,23 @@
   color: #007BFF;
 }
 
+.highlight-text {
+  color: var(--color-primary);
+}
+
 .btn-reverse {
-  background-color: black;
-  color: white;
-  border-radius: 5px;
-  padding: 10px;
+  background-color: #000; /* Fondo negro */
+  color: #fff; /* Letra en blanco */
+  padding: 8px 16px;
+  border: none;
+  border-radius: 20px; /* Bordes redondeados */
+  cursor: pointer;
+  font-size: 16px;
+  text-align: center;
   text-decoration: none;
+  transition: background-color 0.3s ease;
 }
 
 .btn-reverse:hover {
-  background-color: #333;
-}
-
-.highlight-text {
-  color: #00aaff;
+  background-color: #333; /* Fondo gris oscuro al pasar el mouse */
 }
