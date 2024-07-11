@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import SideNav from './SideNav';
-import DashboardContent from './DashboardContent';
+import DashboardContent from './DashboardContent/DashboardContent';
 import './OwnerPanelStyles.css';
 import ProfileContent from './ProfileContent';
 import ReviewsContent from './ReviewsContent';
