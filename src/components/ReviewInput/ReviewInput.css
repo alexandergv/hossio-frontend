@@ -1,0 +1,79 @@
+/* src/components/ReviewInput/ReviewInput.css */
+
+.review-input-container {
+  margin-top: 20px;
+}
+
+.review-input-container h3 {
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.review-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-with-button {
+  display: flex;
+  position: relative;
+}
+
+textarea {
+  width: 100%;
+  padding: 10px;
+  padding-bottom: 30px; /* Espacio para las estrellas */
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  resize: none;
+  font-size: 16px;
+  position: relative;
+}
+
+.review-stars {
+  position: absolute;
+  bottom: 0px;
+  left: 10px;
+  display: flex;
+}
+
+.star {
+  font-size: 20px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.star.selected {
+  color: gold;
+}
+
+.divider {
+  position: absolute;
+  bottom: 30px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: #ddd;
+}
+
+.send-button {
+  position: absolute;
+  right: 10px;
+  top: 35%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #00aaff;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.send-button:hover {
+  color: #0088cc;
+}
+
+.input-with-button textarea {
+  min-height: 60px;
+  font-family: Roboto;
+}

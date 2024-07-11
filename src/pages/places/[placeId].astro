@@ -2,6 +2,7 @@
 import Navbar from "../../components/Navbar/Navbar";
 import Carrousel from "../../components/Carrousel/Carrousel";
 import ReviewComments from "../../components/ReviewComments/ReviewComments";
+import ReviewInput from '../../components/ReviewInput/ReviewInput';
 import Footer from '../../components/Footer/Footer';
 import Map from '../../components/Map/Map'; 
 
@@ -19,12 +20,18 @@ if (!placeDetails) {
   Astro.response.statusText = 'Not found';
   throw Error("no page with this id was found")
 };
+
+const handleReviewSubmit = (reviewText: string) => {
+  console.log(`Review submitted for place ${placeDetails.name}: ${reviewText}`);
+  // Aquí puedes agregar lógica para enviar la reseña a tu backend
+};
 ---
 
 <html>
   <head>
     <meta charset="UTF-8">
     <title>{placeDetails.name} - Hossio</title>
+	  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@400;700&family=Lato:wght@400;700&family=Montserrat:wght@400;700&family=Source+Sans+Pro:wght@400;700&display=swap">
     <style>
       .place-details {
         padding: 20px;
@@ -80,6 +87,7 @@ if (!placeDetails) {
         <p>{placeDetails.description}</p>
         <p>Calificación promedio: {placeDetails.rating} / 5</p>
       </div>
+      <ReviewInput client:load placeId={placeDetails.id} onSubmit={handleReviewSubmit} />
       <ReviewComments client:visible reviews={placeDetails.reviews} />
     </main>
     <Footer/>
