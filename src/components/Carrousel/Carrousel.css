@@ -24,6 +24,10 @@
   opacity: 1;
 }
 
+.carrousel:hover .carrousel-btn{
+  background: rgba(0, 0, 0, 0.9);
+}
+
 .carrousel-item img {
   width: 100%;
   min-height: 100%;
@@ -34,12 +38,13 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.1);
   border: none;
   color: #fff;
   padding: 10px 15px;
   cursor: pointer;
   border-radius: 50%;
+  transition: background 0.15s;
 }
 
 .carrousel-btn.prev {
