@@ -1,5 +1,6 @@
 import React from 'react';
 import './PlaceCard.css';
+import ReviewStars from '../ReviewStars/ReviewStars'; '../ReviewStars/ReviewStars.css';
 
 const PlaceCard = ({ place }) => {
   return (
@@ -9,7 +10,7 @@ const PlaceCard = ({ place }) => {
       <div className="place-details">
         <h2 className="place-name">{place.name}</h2>
         <p className="place-description">{place.description}</p>
-        <span className="place-rating">Calificacion: {place.rating}/ 5</span>
+        <span className="place-rating">Calificacion: <ReviewStars readOnly={true} ratingScore={place.rating}/></span>
       </div>
     </div>
     </a>

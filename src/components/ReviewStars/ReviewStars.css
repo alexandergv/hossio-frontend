@@ -1,0 +1,25 @@
+.review-stars {
+
+}
+  
+  .star {
+    font-size: 20px;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+  
+  .star.selected {
+    color: gold;
+  }
+
+/* Styles applied only when readOnly is false */
+.review-stars.editable .star:hover {
+    color: gold;
+  }
+  
+  .review-stars.editable {
+    position: absolute;
+    bottom: 0px;
+    left: 10px;
+    display: flex;
+  }

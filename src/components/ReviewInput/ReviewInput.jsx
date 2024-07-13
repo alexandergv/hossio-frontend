@@ -1,17 +1,14 @@
 import React, { useState } from 'react';
+import ReviewStars from '../ReviewStars/ReviewStars'
 import './ReviewInput.css';
 
 const ReviewInput = ({ placeId, onSubmit }) => {
   const [reviewText, setReviewText] = useState('');
-  const [rating, setRating] = useState(0);
 
   const handleInputChange = (e) => {
     setReviewText(e.target.value);
   };
 
-  const handleRatingChange = (newRating) => {
-    setRating(newRating);
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -31,17 +28,7 @@ const ReviewInput = ({ placeId, onSubmit }) => {
             placeholder="Escribe tu reseña aquí..."
             required
           ></textarea>
-          <div className="review-stars">
-            {[1, 2, 3, 4, 5].map((star) => (
-              <span
-                key={star}
-                className={`star ${rating >= star ? 'selected' : ''}`}
-                onClick={() => handleRatingChange(star)}
-              >
-                ★
-              </span>
-            ))}
-          </div>
+          <ReviewStars/>
           <div className="divider"></div>
           <button type="submit" className="send-button">➤</button>
         </div>

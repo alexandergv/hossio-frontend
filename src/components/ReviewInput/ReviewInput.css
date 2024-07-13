@@ -30,23 +30,6 @@ textarea {
   position: relative;
 }
 
-.review-stars {
-  position: absolute;
-  bottom: 0px;
-  left: 10px;
-  display: flex;
-}
-
-.star {
-  font-size: 20px;
-  cursor: pointer;
-  transition: color 0.3s;
-}
-
-.star.selected {
-  color: gold;
-}
-
 .divider {
   position: absolute;
   bottom: 30px;
