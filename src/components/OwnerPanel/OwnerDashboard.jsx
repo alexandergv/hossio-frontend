@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import SideNav from './SideNav';
 import DashboardContent from './DashboardContent/DashboardContent';
 import './OwnerPanelStyles.css';
-import ProfileContent from './ProfileContent';
+import BusinessProfile from './BusinessProfile/BusinessProfile';
 import ReviewsContent from './ReviewsContent';
 import EventsContent from './EventsContent';
 import GalleryContent from './GalleryContent';
@@ -15,11 +15,21 @@ const OwnerDashboard = () => {
   const [selectedSection, setSelectedSection] = useState('dashboard');
 
   const renderContent = () => {
+    const myBusiness = {
+      id: "1",
+      name: 'Mi Negocio',
+      address: 'Las Americas km 19, Sector los carpintersos, c/girasoles',
+      phone: '809-674-1235',
+      email: 'minegocio@gmail.com',
+      description: 'Un negocio de ocio.'
+    }
+
+
     switch (selectedSection) {
       case 'dashboard':
         return <DashboardContent />;
       case 'profile':
-        return <ProfileContent />;
+        return <BusinessProfile business={myBusiness}/>;
       case 'reviews':
         return <ReviewsContent />;
       case 'events':

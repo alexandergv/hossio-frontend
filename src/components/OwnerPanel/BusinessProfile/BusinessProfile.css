@@ -1,0 +1,81 @@
+.business-profile {
+    padding: 20px;
+    padding-right: 34px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .business-profile h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .actions {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  button {
+    padding: 10px 20px;
+    margin: 0 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #00aaff;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  button:hover {
+    background-color: #0088cc;
+  }
+  
+  .save-button {
+    background-color: #28a745; /* Green */
+  }
+  
+  .save-button:hover {
+    background-color: #218838; /* Darker green */
+  }
+  
+  .delete-button {
+    background-color: #dc3545; /* Red */
+  }
+  
+  .delete-button:hover {
+    background-color: #c82333; /* Darker red */
+  }
+  
+  .edit-button {
+    background-color: #ffc107; /* Yellow */
+    color: #333; /* Dark text */
+  }
+  
+  .edit-button:hover {
+    background-color: #e0a800; /* Darker yellow */
+  }
+  
