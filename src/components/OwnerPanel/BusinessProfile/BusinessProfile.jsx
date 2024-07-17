@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import Map from '../../Map/Map';
+import LocationPicker from './LocationPicker';
 import './BusinessProfile.css';
 
 const BusinessProfile = ({ business }) => {
+  const [location, setLocation] = useState([18.468692510573238, -69.93240723128731]); // Ubicación inicial
+
   const [businessInfo, setBusinessInfo] = useState(business || {
     name: '',
     address: '',
@@ -32,6 +36,11 @@ const BusinessProfile = ({ business }) => {
   const handleDelete = () => {
     // Implement delete logic (e.g., API call to delete business)
     console.log('Business deleted:', businessInfo.id);
+  };
+
+  const handleLocationSelect = (newLocation) => {
+    setLocation(newLocation);
+    console.log('Ubicación seleccionada:', newLocation);
   };
 
   return (
@@ -88,6 +97,7 @@ const BusinessProfile = ({ business }) => {
               onChange={handleChange}
             />
           </div>
+          <LocationPicker initialLocation={location} onLocationSelect={handleLocationSelect} />
           <div className="actions">
             <button className="save-button" onClick={handleSave}>Guardar</button>
             {business && (

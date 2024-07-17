@@ -29,7 +29,7 @@ const OwnerDashboard = () => {
       case 'dashboard':
         return <DashboardContent />;
       case 'profile':
-        return <BusinessProfile business={myBusiness}/>;
+        return <BusinessProfile/>;
       case 'reviews':
         return <ReviewsContent />;
       case 'events':
