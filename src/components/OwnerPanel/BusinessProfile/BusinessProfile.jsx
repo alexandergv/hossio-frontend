@@ -1,21 +1,35 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import Map from '../../Map/Map';
 import LocationPicker from './LocationPicker';
+import axios from 'axios';
 import './BusinessProfile.css';
+import config from '../../../config';
+
 
 const BusinessProfile = ({ business }) => {
-  const [location, setLocation] = useState([18.468692510573238, -69.93240723128731]); // Ubicación inicial
-
   const [businessInfo, setBusinessInfo] = useState(business || {
     name: '',
     address: '',
     phone: '',
     email: '',
-    description: ''
+    description: '',
+    place:  {
+      id: 1,
+      name: "Plaza Bolera",
+      description: "Lugar de bolos.",
+      rating: 5,
+      images: ["https://fastly.4sqi.net/img/general/600x600/11650357_IYY1ggRVQ-WuoxU63Sm-J8gKB0QXicQzH5uxy5QmTgQ.jpg"],
+      reviews: [
+          { text: 'Buen ambiente.', author: 'Carlos' },
+          { text: 'Servicio excelente.', author: 'Maria' }
+        ],
+      latitude: "18.468692510573238",
+      longitude: "-69.93240723128731"
+  }
   });
-
+  const [location, setLocation] = useState([18.468692510573238, -69.93240723128731]); // Ubicación inicial
   const [isEditing, setIsEditing] = useState(!business);
 
   const handleChange = (e) => {
@@ -23,10 +37,14 @@ const BusinessProfile = ({ business }) => {
     setBusinessInfo({ ...businessInfo, [name]: value });
   };
 
-  const handleSave = () => {
-    // Implement save logic (e.g., API call to save business info)
-    console.log('Business info saved:', businessInfo);
-    setIsEditing(false);
+  const handleSave = async () => {
+    try {
+      const response = await axios.post(`${config.apiUrl}/business/AddNewBusinness`, businessInfo);
+      console.log('Business info saved:', response.data);
+      setIsEditing(false);
+    } catch (error) {
+      console.error('Error saving business info:', error);
+    }
   };
 
   const handleEdit = () => {
