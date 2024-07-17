@@ -8,29 +8,44 @@ import './BusinessProfile.css';
 import config from '../../../config';
 
 
-const BusinessProfile = ({ business }) => {
-  const [businessInfo, setBusinessInfo] = useState(business || {
-    name: '',
-    address: '',
-    phone: '',
-    email: '',
-    description: '',
-    place:  {
-      id: 1,
-      name: "Plaza Bolera",
-      description: "Lugar de bolos.",
-      rating: 5,
-      images: ["https://fastly.4sqi.net/img/general/600x600/11650357_IYY1ggRVQ-WuoxU63Sm-J8gKB0QXicQzH5uxy5QmTgQ.jpg"],
-      reviews: [
-          { text: 'Buen ambiente.', author: 'Carlos' },
-          { text: 'Servicio excelente.', author: 'Maria' }
-        ],
-      latitude: "18.468692510573238",
-      longitude: "-69.93240723128731"
-  }
-  });
+const BusinessProfile = () => {
+
+  useEffect(() => {
+    const getBusiness = async () => {
+      let response = await axios.get(`${config.apiUrl}/business/getById/6fbaffd9-7f01-4098-8a69-8271d0dd3acb`);
+      let business = response.data;
+
+      setBusinessInfo(business);
+      setLocation([business.place.latitude, business.place.longitude])
+    }
+    getBusiness();
+  },[])
+
+  
+
+  const [businessInfo, setBusinessInfo] = useState({});
   const [location, setLocation] = useState([18.468692510573238, -69.93240723128731]); // Ubicación inicial
-  const [isEditing, setIsEditing] = useState(!business);
+  const [isEditing, setIsEditing] = useState(!businessInfo);
+
+  useEffect(() => {
+    let e = {
+      target: {
+        name: "place",
+        value:  {
+          id: 1,
+          name: businessInfo.name,
+          description: businessInfo.description,
+          rating: 0,
+          images: ["https://fastly.4sqi.net/img/general/600x600/11650357_IYY1ggRVQ-WuoxU63Sm-J8gKB0QXicQzH5uxy5QmTgQ.jpg"],
+          reviews: [],
+          latitude: location[0],
+          longitude: location[1]
+      }
+      }
+    }
+    handleChange(e);
+  },[location]);
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -118,7 +133,7 @@ const BusinessProfile = ({ business }) => {
           <LocationPicker initialLocation={location} onLocationSelect={handleLocationSelect} />
           <div className="actions">
             <button className="save-button" onClick={handleSave}>Guardar</button>
-            {business && (
+            {businessInfo && (
               <button className="delete-button" onClick={handleDelete}>
                 <FontAwesomeIcon icon={faTrash} /> Eliminar
               </button>

@@ -16,7 +16,7 @@ const LocationPicker = ({ initialLocation, onLocationSelect }) => {
 
   // Función para manejar el click en el mapa y actualizar la ubicación seleccionada
   const handleMapClick = (e) => {
-    setSelectedLocation(e.target._latlng);
+    setSelectedLocation([e.target._latlng.lat, e.target._latlng.lng]);
   };
 
   // Hook para actualizar la ubicación cuando cambia initialLocation
