@@ -16,7 +16,7 @@ const LocationPicker = ({ initialLocation, onLocationSelect }) => {
 
   // Función para manejar el click en el mapa y actualizar la ubicación seleccionada
   const handleMapClick = (e) => {
-    setSelectedLocation([e.target._latlng.lat, e.target._latlng.lng]);
+    onLocationSelect([e.target._latlng.lat, e.target._latlng.lng]);
   };
 
   // Hook para actualizar la ubicación cuando cambia initialLocation
@@ -34,11 +34,6 @@ const LocationPicker = ({ initialLocation, onLocationSelect }) => {
     return null;
   };
 
-//   // Función para confirmar la ubicación seleccionada y pasarla al padre
-  const confirmLocation = () => {
-    onLocationSelect(selectedLocation);
-  };
-
   return (
     <div className="location-picker">
       <MapContainer center={selectedLocation} zoom={13} style={{ height: '400px', width: '100%' }}>
@@ -48,9 +43,9 @@ const LocationPicker = ({ initialLocation, onLocationSelect }) => {
               dragend: handleMapClick,
             }} />
       </MapContainer>
-      <div className="location-actions">
+      {/* <div className="location-actions">
         <button onClick={confirmLocation}>Confirmar ubicación</button>
-      </div>
+      </div> */}
     </div>
   );
 };

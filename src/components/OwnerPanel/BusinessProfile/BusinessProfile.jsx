@@ -15,7 +15,11 @@ const BusinessProfile = () => {
       let response = await axios.get(`${config.apiUrl}/business/getById/6fbaffd9-7f01-4098-8a69-8271d0dd3acb`);
       let business = response.data;
 
+      // Set info for business
       setBusinessInfo(business);
+      // Set info for place
+      setPlaceInfo(business.place);
+      // Set location for map
       setLocation([business.place.latitude, business.place.longitude])
     }
     getBusiness();
@@ -24,6 +28,7 @@ const BusinessProfile = () => {
   
 
   const [businessInfo, setBusinessInfo] = useState({});
+  const [placeInfo, setPlaceInfo] = useState({});
   const [location, setLocation] = useState([18.468692510573238, -69.93240723128731]); // Ubicación inicial
   const [isEditing, setIsEditing] = useState(!businessInfo);
 
@@ -43,19 +48,32 @@ const BusinessProfile = () => {
       }
       }
     }
-    handleChange(e);
   },[location]);
 
 
-  const handleChange = (e) => {
+  const handleBusinessChange = (e) => {
     const { name, value } = e.target;
     setBusinessInfo({ ...businessInfo, [name]: value });
   };
 
+  const handlePlaceChange = (e) => {
+    const { name, value } = e.target;
+    setPlaceInfo({ ...placeInfo, [name.replace('place','')]: value });
+  };
+
   const handleSave = async () => {
     try {
-      const response = await axios.post(`${config.apiUrl}/business/AddNewBusinness`, businessInfo);
-      console.log('Business info saved:', response.data);
+      // Sending new place first;
+      console.log(placeInfo);
+      let placeInfoTemp = placeInfo;
+      delete placeInfoTemp._id;
+      const placesResponse = await axios.post(`${config.apiUrl}/places/AddNewPlace`, placeInfoTemp);
+
+      let businessInfoTemp = businessInfo;
+      businessInfoTemp.place = placesResponse.data;
+      delete businessInfoTemp._id;
+      const BusinessResponse = await axios.post(`${config.apiUrl}/business/AddNewBusinness`, businessInfoTemp);
+      console.log('Business info saved:', BusinessResponse.data);
       setIsEditing(false);
     } catch (error) {
       console.error('Error saving business info:', error);
@@ -88,7 +106,7 @@ const BusinessProfile = () => {
               id="name"
               name="name"
               value={businessInfo.name}
-              onChange={handleChange}
+              onChange={handleBusinessChange}
             />
           </div>
           <div className="form-group">
@@ -98,7 +116,7 @@ const BusinessProfile = () => {
               id="address"
               name="address"
               value={businessInfo.address}
-              onChange={handleChange}
+              onChange={handleBusinessChange}
             />
           </div>
           <div className="form-group">
@@ -108,7 +126,7 @@ const BusinessProfile = () => {
               id="phone"
               name="phone"
               value={businessInfo.phone}
-              onChange={handleChange}
+              onChange={handleBusinessChange}
             />
           </div>
           <div className="form-group">
@@ -118,7 +136,7 @@ const BusinessProfile = () => {
               id="email"
               name="email"
               value={businessInfo.email}
-              onChange={handleChange}
+              onChange={handleBusinessChange}
             />
           </div>
           <div className="form-group">
@@ -127,10 +145,33 @@ const BusinessProfile = () => {
               id="description"
               name="description"
               value={businessInfo.description}
-              onChange={handleChange}
+              onChange={handleBusinessChange}
             />
           </div>
+          <h2>Datos del lugar</h2>
+          <div className="form-group">
+            <label htmlFor="placename">Nombre del lugar</label>
+            <input
+              type="text"
+              id="placename"
+              name="placename"
+              value={placeInfo.name}
+              onChange={handlePlaceChange}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="placedescription">Descripcion del lugar</label>
+            <textarea
+              id="placedescription"
+              name="placedescription"
+              value={placeInfo.description}
+              onChange={handlePlaceChange}
+            />
+          </div>
+          <div className="form-group">
+          <label htmlFor="locationPicker">Ubicacion del lugar</label>
           <LocationPicker initialLocation={location} onLocationSelect={handleLocationSelect} />
+          </div>
           <div className="actions">
             <button className="save-button" onClick={handleSave}>Guardar</button>
             {businessInfo && (
