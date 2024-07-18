@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import Map from '../../Map/Map';
@@ -6,6 +6,7 @@ import LocationPicker from './LocationPicker';
 import axios from 'axios';
 import './BusinessProfile.css';
 import config from '../../../config';
+import ImageUploader from '../../ImageUploader/ImageUploader';
 
 
 const BusinessProfile = () => {
@@ -31,6 +32,8 @@ const BusinessProfile = () => {
   const [placeInfo, setPlaceInfo] = useState({});
   const [location, setLocation] = useState([18.468692510573238, -69.93240723128731]); // Ubicación inicial
   const [isEditing, setIsEditing] = useState(!businessInfo);
+  const [ImagesUrls, setImagesUrls] = useState([])
+  const imageUploaderRef = useRef(null);
 
   useEffect(() => {
     let e = {
@@ -63,18 +66,30 @@ const BusinessProfile = () => {
 
   const handleSave = async () => {
     try {
-      // Sending new place first;
-      console.log(placeInfo);
-      let placeInfoTemp = placeInfo;
-      delete placeInfoTemp._id;
-      const placesResponse = await axios.post(`${config.apiUrl}/places/AddNewPlace`, placeInfoTemp);
 
-      let businessInfoTemp = businessInfo;
-      businessInfoTemp.place = placesResponse.data;
-      delete businessInfoTemp._id;
-      const BusinessResponse = await axios.post(`${config.apiUrl}/business/AddNewBusinness`, businessInfoTemp);
-      console.log('Business info saved:', BusinessResponse.data);
-      setIsEditing(false);
+      if (imageUploaderRef.current) {
+      console.log(imageUploaderRef.current);
+        imageUploaderRef.current.handleUpload()
+          .then(async (urls) => {
+           // Sending new place first;
+            console.log(placeInfo);
+            let placeInfoTemp = placeInfo;
+            placeInfoTemp.images = urls;
+            delete placeInfoTemp._id;
+            const placesResponse = await axios.post(`${config.apiUrl}/places/AddNewPlace`, placeInfoTemp);
+
+            let businessInfoTemp = businessInfo;
+            businessInfoTemp.place = placesResponse.data;
+            delete businessInfoTemp._id;
+            const BusinessResponse = await axios.post(`${config.apiUrl}/business/AddNewBusinness`, businessInfoTemp);
+            console.log('Business info saved:', BusinessResponse.data);
+            setIsEditing(false);
+          })
+          .catch((error) => {
+            console.error('Error al subir imágenes:', error);
+          });
+      }
+
     } catch (error) {
       console.error('Error saving business info:', error);
     }
@@ -92,6 +107,11 @@ const BusinessProfile = () => {
   const handleLocationSelect = (newLocation) => {
     setLocation(newLocation);
     console.log('Ubicación seleccionada:', newLocation);
+  };
+
+  const handleImagesUploaded = (urls) => {
+    // Actualiza el estado con las URLs de las imágenes subidas
+    setImagesUrls(urls);
   };
 
   return (
@@ -167,6 +187,10 @@ const BusinessProfile = () => {
               value={placeInfo.description}
               onChange={handlePlaceChange}
             />
+          </div>
+          <div className="form-group">
+          {/* <label htmlFor="images">imágenes del lugar</label> */}
+          <ImageUploader ref={imageUploaderRef} onImagesUploaded={handleImagesUploaded} />
           </div>
           <div className="form-group">
           <label htmlFor="locationPicker">Ubicacion del lugar</label>
