@@ -28,12 +28,13 @@ const LoginSignup = () => {
     const isRegisteredUser = await checkIfRegistered();
     console.log(isRegisteredUser);
     if (isRegisteredUser) {
-      console.log(' se ha registrado')
+      console.log('Se ha registrado')
       // Handle login
-      axios.post(`${config.apiUrl}/auth/login`, { email, password })
+      axios.post(`${config.apiUrl}/auth/login`, { email, password }, { withCredentials: true })
         .then(response => {
           console.log('Logged in:', response.data);
           // Handle successful login
+          window.location.href = '/';
         })
         .catch(error => {
           console.error('Login error:', error);

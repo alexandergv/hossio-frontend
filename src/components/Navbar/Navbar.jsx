@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
-const NavBar = () => {
+const NavBar = ({userAuthenticated, user}) => {
   const [searchTerm, setSearchTerm] = useState('');
 
   const handleSearchChange = (event) => {
@@ -43,8 +43,9 @@ const NavBar = () => {
       </div>
       <div className="navbar-right">
         <a href="/owners" className="btn-reverse">Para propietarios</a>
-        <a href="/login" className="navbar-link">Iniciar sesión</a>
-        <a href="/login" className="navbar-link">Registrarse</a>
+        {!userAuthenticated && (<><a href="/login" className="navbar-link">Iniciar sesión</a>
+        <a href="/login" className="navbar-link">Registrarse</a></>)}
+        {userAuthenticated && (<p>Bienvenido, usuario!</p>)}
       </div>
     </nav>
   );

@@ -4,6 +4,12 @@ import Home from '../components/Home/Home.jsx';
 import NavBar from '../components/Navbar/Navbar.jsx';
 import Footer from '../components/Footer/Footer';
 import "../styles/main.css";
+
+// Manejo de sesiones
+import { getSession } from '../middleware/session';
+const session = await getSession(Astro.cookies.get('auth_token')?.value);
+const isAuthenticated = session.authenticated;
+const user = session.user;
 ---
 
 <html>
@@ -13,7 +19,7 @@ import "../styles/main.css";
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@400;700&family=Lato:wght@400;700&family=Montserrat:wght@400;700&family=Source+Sans+Pro:wght@400;700&display=swap">
   </head>
   <body>
-	<NavBar client:only="react"/>
+	<NavBar userAuthenticated={isAuthenticated} user={user} client:only="react"/>
   <Home client:load/>
   <Footer/>
   </body>
