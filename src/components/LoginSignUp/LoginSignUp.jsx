@@ -1,36 +1,58 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import config from '../../config';
 import './LoginSignup.css';
 
 const LoginSignup = () => {
-  const [isLogin, setIsLogin] = useState(true); // Determine whether it's login or signup
+  const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [isRegistered, setIsRegistered] = useState(true);
+  // const [isRegistered, setIsRegistered] = useState(null);
 
-  const checkIfRegistered = () => {
-    // Placeholder for the actual API call
-    // This should set `setIsRegistered` based on the response
-    setIsRegistered(email === 'registered@example.com'); // Simulated check
+  const checkIfRegistered = async () => {
+    try {
+      const response = await axios.post(`${config.apiUrl}/users/check`, { email });
+      return(response.data.isRegistered);
+    } catch (error) {
+      console.error('Error checking registration status:', error);
+    }
   };
 
-  useEffect(() => {
-    setIsLogin(isRegistered);
-  }, [isRegistered])
+  // useEffect(() => {
+  //   setIsLogin(isRegistered);
+  // }, [isRegistered]);
 
-  useEffect(() => {
-    if (isRegistered) {
-      // Handle login
-      console.log('Logging in with', { email, password });
-    } else if(email !='' && password != ''){
-      // Handle signup
-      console.log('Signing up with', { email, username, password });
-    }
-  }, [isLogin])
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    checkIfRegistered();
+    const isRegisteredUser = await checkIfRegistered();
+    console.log(isRegisteredUser);
+    if (isRegisteredUser) {
+      console.log(' se ha registrado')
+      // Handle login
+      axios.post(`${config.apiUrl}/auth/login`, { email, password })
+        .then(response => {
+          console.log('Logged in:', response.data);
+          // Handle successful login
+        })
+        .catch(error => {
+          console.error('Login error:', error);
+        });
+    } else if (email && password && username) {
+      console.log('No se ha registrado.')
+      // Handle signup
+      axios.post(`${config.apiUrl}/users/signup`, { email, username, password, role: 'user' })
+        .then(response => {
+          console.log('Signed up:', response.data);
+          // redirect to home.
+          window.location.href = '/';
+        })
+        .catch(error => {
+          console.error('Signup error:', error);
+        });
+    } else {
+      setIsLogin(isRegisteredUser);
+    }
   };
 
   return (
@@ -44,8 +66,6 @@ const LoginSignup = () => {
             id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            // check if email is registered after element loses focus
-            // onBlur={checkIfRegistered}
             required
           />
         </div>
