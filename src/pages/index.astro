@@ -1,26 +1,8 @@
 ---
-// Importar el componente Home
-import Home from '../components/Home/Home.jsx';
-import NavBar from '../components/Navbar/Navbar.jsx';
-import Footer from '../components/Footer/Footer';
-import "../styles/main.css";
+import Layout from '../layouts/Layout.astro';
+import Home from '../components/Home/Home';
 
-// Manejo de sesiones
-import { getSession } from '../middleware/session';
-const session = await getSession(Astro.cookies.get('auth_token')?.value);
-const isAuthenticated = session.authenticated;
-const user = session.user;
 ---
-
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Hossio - Descubre donde caer</title>
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@400;700&family=Lato:wght@400;700&family=Montserrat:wght@400;700&family=Source+Sans+Pro:wght@400;700&display=swap">
-  </head>
-  <body>
-	<NavBar userAuthenticated={isAuthenticated} user={user} client:only="react"/>
+<Layout title='Hossio - Descubre donde caer'>
   <Home client:load/>
-  <Footer/>
-  </body>
-</html>
+</Layout>
