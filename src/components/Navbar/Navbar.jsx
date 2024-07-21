@@ -1,4 +1,3 @@
-import React from 'react';
 import './Navbar.css';
 import {placesData as places } from '../../data/places';
 import { useEffect, useState } from 'react';
@@ -42,7 +41,7 @@ const NavBar = ({userAuthenticated, user}) => {
         </form>
       </div>
       <div className="navbar-right">
-        <a href="/owners" className="btn-reverse">Para propietarios</a>
+        <a href="/loginOwners" className="btn-reverse">Para propietarios</a>
         {!userAuthenticated && (<><a href="/login" className="navbar-link">Iniciar sesión</a>
         <a href="/login" className="navbar-link">Registrarse</a></>)}
         {userAuthenticated && (<p>Bienvenido, usuario!</p>)}

@@ -1,0 +1,73 @@
+.login-signup-container {
+  min-width: 500px; /* Aumenta el ancho máximo del formulario */
+  margin: 50px auto;
+  padding: 30px; /* Aumenta el padding para hacer más espacioso el formulario */
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.login-signup-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-signup-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 20px; /* Aumenta el margen inferior para más espacio entre los campos */
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px; /* Aumenta el padding para más espacio dentro del input */
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box; /* Asegura que el padding no afecte el tamaño total del input */
+}
+
+button {
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--color-primary); /* Main color of Hossio */
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #0088cc;
+}
+
+.go-back-btn-container {
+  display: flex;
+}
+
+.go-back-btn-container a {
+  color: black;
+  padding: 15px;
+  height: 12px;
+  display: flex;
+  align-items: center; /* Centers the SVG vertically */
+  justify-content: center; /* Centers the SVG horizontally, optional */
+  border-radius: 50%;
+  border: 1px solid black;
+  transition: background-color 0.5s;
+}
+
+
+.go-back-btn-container a:hover {
+  background-color: rgba(148, 148, 148, 0.414);
+}

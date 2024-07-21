@@ -1,0 +1,25 @@
+---
+import OwnerLoginSignup from '../components/OwnerLoginSignup/OwnerLoginSignup';
+import '../styles/main.css';
+---
+
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Login/Signup Propietarios - Hossio</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <OwnerLoginSignup client:only="react" />
+  </body>
+</html>
