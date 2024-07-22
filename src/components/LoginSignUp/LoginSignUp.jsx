@@ -42,7 +42,7 @@ const LoginSignup = () => {
     } else if (email && password && username) {
       console.log('No se ha registrado.')
       // Handle signup
-      axios.post(`${config.apiUrl}/users/signup`, { email, username, password, role: 'user' })
+      axios.post(`${config.apiUrl}/auth/signup`, { email, username, password, role: 'user' },  { withCredentials: true })
         .then(response => {
           console.log('Signed up:', response.data);
           // redirect to home.

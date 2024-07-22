@@ -6,7 +6,6 @@ const JWT_SECRET = 'hossio'; // Asegúrate de usar una clave secreta segura y al
 
 // Función para decodificar y verificar el JWT
 export async function getSession(token) {
-  console.log(token);
   if (token) {
     try {
       // Decodifica el JWT y verifica su validez
