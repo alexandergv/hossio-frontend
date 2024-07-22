@@ -26,9 +26,7 @@ const LoginSignup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const isRegisteredUser = await checkIfRegistered();
-    console.log(isRegisteredUser);
     if (isRegisteredUser) {
-      console.log('Se ha registrado')
       // Handle login
       axios.post(`${config.apiUrl}/auth/login`, { email, password }, { withCredentials: true })
         .then(response => {
@@ -44,7 +42,6 @@ const LoginSignup = () => {
       // Handle signup
       axios.post(`${config.apiUrl}/auth/signup`, { email, username, password, role: 'user' },  { withCredentials: true })
         .then(response => {
-          console.log('Signed up:', response.data);
           // redirect to home.
           window.location.href = '/';
         })
