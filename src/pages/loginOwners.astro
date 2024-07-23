@@ -1,6 +1,20 @@
 ---
 import OwnerLoginSignup from '../components/OwnerLoginSignup/OwnerLoginSignup';
 import '../styles/main.css';
+
+import { getSession } from '../middleware/session';
+const session = await getSession(Astro.cookies.get('auth_token')?.value);
+const isAuthenticated = session.authenticated;
+const user = session.user;
+
+if(isAuthenticated) {
+  switch(user.role) {
+    case 'user' :
+      return Astro.redirect('/');
+    case 'owner' :
+    return Astro.redirect('/owners');
+  }
+}
 ---
 
 <html>

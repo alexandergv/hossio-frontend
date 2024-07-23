@@ -1,7 +1,16 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import SearchResultsPage from '../components/SearchResultsPage/SearchResultsPage';
+
+import { getSession } from '../middleware/session';
+const session = await getSession(Astro.cookies.get('auth_token')?.value);
+const isAuthenticated = session.authenticated;
+const user = session.user;
+
+if(isAuthenticated && user.role =='owner') {
+  return Astro.redirect('/owners');
+}
 ---
-  <Layout title='Resultados de Búsqueda - Hossio'>
+  <Layout session={session} title='Resultados de Búsqueda - Hossio'>
   <SearchResultsPage client:load query={Astro.url.searchParams.get('query') || ''}/>
   </Layout>

@@ -5,6 +5,19 @@ import Navbar from '../components/Navbar/Navbar'
 import "../styles/main.css";
 import Layout from "../layouts/Layout.astro"
 
+import { getSession } from '../middleware/session';
+const session = await getSession(Astro.cookies.get('auth_token')?.value);
+const isAuthenticated = session.authenticated;
+const user = session.user;
+
+if(isAuthenticated) {
+  switch(user.role) {
+    case 'user' :
+      return Astro.redirect('/');
+    case 'owner' :
+    return Astro.redirect('/owners');
+  }
+}
 ---
     <style>
 .page-container {
@@ -14,7 +27,7 @@ align-items: center;
 height: 100vh;
 }
 </style>
-<Layout title='Login/Signup - Hossio'>
+<Layout session={session} title='Login/Signup - Hossio'>
   <div class="page-container">
     <LoginSignup client:load/>
   </div>

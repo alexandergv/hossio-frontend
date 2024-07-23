@@ -1,17 +1,19 @@
 ---
 interface Props {
 	title: string;
+	session: {
+		authenticated: boolean,
+		user: any
+	};
 }
 
 const { title } = Astro.props;
 import NavBar from '../components/Navbar/Navbar.jsx';
 import Footer from '../components/Footer/Footer';
 import "../styles/main.css";
-// Manejo de sesiones
-const locals: any = Astro.locals;
-
-const user = locals.user;
-const isAuthenticated = locals.isAuthenticated;
+const { session }: any = Astro.props;
+const isAuthenticated = session.authenticated;
+const user = session.user;
 
 if(user?.role == 'owner') {
 	// return Astro.redirect('/owners');
