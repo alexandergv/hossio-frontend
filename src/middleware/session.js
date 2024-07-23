@@ -10,6 +10,7 @@ export async function getSession(token) {
     try {
       // Decodifica el JWT y verifica su validez
       const decoded = jwt.verify(token, JWT_SECRET);
+      console.log(decoded)
       return { authenticated: true, user: decoded };
     } catch (err) {
       // Token inválido o expirado

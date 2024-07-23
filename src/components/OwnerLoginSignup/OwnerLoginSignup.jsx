@@ -37,7 +37,7 @@ const LoginSignup = () => {
         .then(response => {
           console.log('Logged in:', response.data);
           // Handle successful login
-          window.location.href = '/';
+          window.location.href = '/owners';
         })
         .catch(error => {
           console.error('Login error:', error);

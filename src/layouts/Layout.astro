@@ -7,12 +7,15 @@ const { title } = Astro.props;
 import NavBar from '../components/Navbar/Navbar.jsx';
 import Footer from '../components/Footer/Footer';
 import "../styles/main.css";
-
 // Manejo de sesiones
-import { getSession } from '../middleware/session';
-const session = await getSession(Astro.cookies.get('auth_token')?.value);
-const isAuthenticated = session.authenticated;
-const user = session.user;
+const locals: any = Astro.locals;
+
+const user = locals.user;
+const isAuthenticated = locals.isAuthenticated;
+
+if(user?.role == 'owner') {
+	// return Astro.redirect('/owners');
+}
 ---
 
 <!doctype html>

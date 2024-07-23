@@ -1,6 +1,19 @@
 import React from 'react';
+import axios from 'axios';
+import config from '../../config';
 
 const SideNav = ({ setSelectedSection }) => {
+  const onLogout = (e) => {
+    e.preventDefault();
+    console.log(e);
+    // Elimina la cookie de autenticación
+   axios.post(`${config.apiUrl}/auth/logout`,{}, { withCredentials: true }).then((response) => {
+    // Redirige al usuario a la página de inicio
+       window.location.href = '/';
+   })
+}
+
+
   return (
     <nav className="sidenav">
       <ul>
@@ -13,8 +26,7 @@ const SideNav = ({ setSelectedSection }) => {
       <li><a href="#analytics" onClick={() => setSelectedSection('analytics')}>An&aacute;lisis y Reportes</a></li>
       <li><a href="#settings" onClick={() => setSelectedSection('settings')}>Configuraci&oacute;n de Cuenta</a></li>
       <li><a href="#help" onClick={() => setSelectedSection('help')}>Ayuda y Soporte</a></li>
-      {/* <li><a href="#logout">Cerrar Sesi&oacute;n</a></li> */}
-      <li><a href="/">Cerrar Sesi&oacute;n</a></li>
+      <li><a href="#" onClick={onLogout}>Cerrar Sesi&oacute;n</a></li>
       </ul>
     </nav>
   );
