@@ -4,7 +4,7 @@ import ReviewComments from "../../components/ReviewComments/ReviewComments";
 import ReviewInput from '../../components/ReviewInput/ReviewInput';
 import Map from '../../components/Map/Map'; 
 import Layout from '../../layouts/Layout.astro';
-import axios from 'axios';
+import axiosInstance from 'services/axiosConfig'
 import config from '../../config';
 
 export interface Review {
@@ -27,7 +27,7 @@ interface Place {
 
 const { placeId } = Astro.params;
 const placesData = async () : Promise<Place> => {
-  let response = await axios.get(`${config.apiUrl}/places/getById/${placeId}`);
+  let response = await axiosInstance.get(`/places/getById/${placeId}`);
   const place: Place = response.data
   return place;
 }
@@ -49,11 +49,6 @@ const user = session.user;
 if(isAuthenticated && user.role =='owner') {
   return Astro.redirect('/owners');
 }
-
-const handleReviewSubmit = (reviewText: string) => {
-  console.log(`Review submitted for place ${placeDetails.name}: ${reviewText}`);
-  // Aquí puedes agregar lógica para enviar la reseña a tu backend
-};
 
 ---
 <style>
@@ -109,7 +104,7 @@ const handleReviewSubmit = (reviewText: string) => {
         <p>{placeDetails.description}</p>
         <p>Calificación promedio: {placeDetails.rating} / 5</p>
       </div>
-      <ReviewInput client:load placeId={placeDetails.id} onSubmit={handleReviewSubmit} />
-      <ReviewComments client:visible reviews={placeDetails.reviews} />
+      <ReviewInput client:load placeId={placeId} userId={session.user?.sub}/>
+      <ReviewComments client:visible placeId={placeId}/>
     </main>
   </Layout>

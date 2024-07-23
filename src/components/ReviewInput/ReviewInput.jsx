@@ -1,18 +1,30 @@
 import React, { useState } from 'react';
 import ReviewStars from '../ReviewStars/ReviewStars'
 import './ReviewInput.css';
+import config from '../../config';
+import axiosInstance from 'services/axiosConfig';
 
-const ReviewInput = ({ placeId, onSubmit }) => {
+const ReviewInput = ({ placeId, userId }) => {
   const [reviewText, setReviewText] = useState('');
+  const [rating, setRating] = useState();
 
   const handleInputChange = (e) => {
     setReviewText(e.target.value);
   };
 
+  const onSubmit = async (reviewData) => {
+
+    try {
+      const response = await axiosInstance.post(`/reviews/newReview`, reviewData);
+      console.log('Review created:', response.data);
+    } catch (error) {
+      console.error('Error creating review:', error);
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit({ text: reviewText, rating });
+    onSubmit({ text: reviewText, rating: rating,place: placeId, user: userId });
     setReviewText('');
     setRating(0);
   };
@@ -28,7 +40,7 @@ const ReviewInput = ({ placeId, onSubmit }) => {
             placeholder="Escribe tu reseña aquí..."
             required
           ></textarea>
-          <ReviewStars/>
+          <ReviewStars rating={rating} setRating={setRating} />
           <div className="divider"></div>
           <button type="submit" className="send-button">➤</button>
         </div>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PlaceCard from '../PlaceCard/PlaceCard';
-import axios from 'axios';
+import axiosInstance from 'services/axiosConfig'
 import config from '../../config';
 import './Home.css';
 
@@ -11,7 +11,7 @@ const Home = () => {
   useEffect(() => {
     const fetchPlaces = async () => {
       try {
-        const response = await axios.get(`${config.apiUrl}/places/GetAll`);
+        const response = await axiosInstance.get(`/places/GetAll`);
         setPlaces(response.data);
       } catch (error) {
         console.error('Error fetching places:', error);
@@ -26,7 +26,7 @@ const Home = () => {
       <h1>Descubre donde <span className='highlight-text'>caer</span></h1>
       <div className="place-list">
         {places.map(place => (
-          <PlaceCard key={place.id} place={place} />
+          <PlaceCard key={place._id} place={place} />
         ))}
       </div>
     </div>

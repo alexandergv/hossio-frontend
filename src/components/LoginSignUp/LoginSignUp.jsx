@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import axiosInstance from 'services/axiosConfig'
 import config from '../../config';
 import './LoginSignup.css';
 
@@ -12,7 +12,7 @@ const LoginSignup = () => {
 
   const checkIfRegistered = async () => {
     try {
-      const response = await axios.post(`${config.apiUrl}/users/check`, { email });
+      const response = await axiosInstance.post(`/users/check`, { email });
       return(response.data.isRegistered);
     } catch (error) {
       console.error('Error checking registration status:', error);
@@ -28,7 +28,7 @@ const LoginSignup = () => {
     const isRegisteredUser = await checkIfRegistered();
     if (isRegisteredUser) {
       // Handle login
-      axios.post(`${config.apiUrl}/auth/login`, { email, password }, { withCredentials: true })
+      axiosInstance.post(`/auth/login`, { email, password }, { withCredentials: true })
         .then(response => {
           console.log('Logged in:', response.data);
           // Handle successful login
@@ -40,7 +40,7 @@ const LoginSignup = () => {
     } else if (email && password && username) {
       console.log('No se ha registrado.')
       // Handle signup
-      axios.post(`${config.apiUrl}/auth/signup`, { email, username, password, role: 'user' },  { withCredentials: true })
+      axiosInstance.post(`/auth/signup`, { email, username, password, role: 'user' },  { withCredentials: true })
         .then(response => {
           // redirect to home.
           window.location.href = '/';

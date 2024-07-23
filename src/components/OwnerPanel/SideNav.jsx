@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from 'axios';
+import axiosInstance from 'services/axiosConfig'
 import config from '../../config';
 
 const SideNav = ({ setSelectedSection }) => {
@@ -7,7 +7,7 @@ const SideNav = ({ setSelectedSection }) => {
     e.preventDefault();
     console.log(e);
     // Elimina la cookie de autenticación
-   axios.post(`${config.apiUrl}/auth/logout`,{}, { withCredentials: true }).then((response) => {
+   axiosInstance.post(`/auth/logout`,{}, { withCredentials: true }).then((response) => {
     // Redirige al usuario a la página de inicio
        window.location.href = '/';
    })

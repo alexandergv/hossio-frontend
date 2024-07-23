@@ -1,5 +1,5 @@
 import React, { useState, forwardRef, useImperativeHandle } from 'react';
-import axios from 'axios';
+import axiosInstance from 'services/axiosConfig'
 import './ImageUploader.css';
 
 const ImageUploader = forwardRef(({ onImagesUploaded }, ref) => {
@@ -32,7 +32,7 @@ const ImageUploader = forwardRef(({ onImagesUploaded }, ref) => {
           });
       });
 
-      axios.all(uploaders)
+      axiosInstance.all(uploaders)
         .then((urls) => {
           onImagesUploaded(urls);
           resolve(urls);

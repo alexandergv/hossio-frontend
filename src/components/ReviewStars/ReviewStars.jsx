@@ -1,9 +1,13 @@
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './ReviewStars.css';
 
-const ReviewStars = ({readOnly, ratingScore}) => {
-  const [rating, setRating] = useState(ratingScore);
+const ReviewStars = ({readOnly, ratingScore, rating, setRating}) => {
+  useEffect(() => {
+    if(ratingScore) {
+      setRating(ratingScore);
+    }
+  },[])
 
   const handleRatingChange = (newRating) => {
     if (!readOnly) {

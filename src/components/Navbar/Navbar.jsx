@@ -3,7 +3,7 @@ import {placesData as places } from '../../data/places';
 import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch,faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
-import axios from 'axios';
+import axiosInstance from 'services/axiosConfig'
 import config from '../../config';
 
 const NavBar = ({userAuthenticated, user}) => {
@@ -25,7 +25,7 @@ const NavBar = ({userAuthenticated, user}) => {
 
   const onLogout = () => {
        // Elimina la cookie de autenticación
-      axios.post(`${config.apiUrl}/auth/logout`,{}, { withCredentials: true }).then((response) => {
+      axiosInstance.post(`/auth/logout`,{}, { withCredentials: true }).then((response) => {
        // Redirige al usuario a la página de inicio
           window.location.href = '/';
       })

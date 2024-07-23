@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import Map from '../../Map/Map';
 import LocationPicker from './LocationPicker';
-import axios from 'axios';
+import axiosInstance from 'services/axiosConfig'
 import './BusinessProfile.css';
 import config from '../../../config';
 import ImageUploader from '../../ImageUploader/ImageUploader';
@@ -13,7 +13,7 @@ const BusinessProfile = () => {
 
   useEffect(() => {
     const getBusiness = async () => {
-      let response = await axios.get(`${config.apiUrl}/business/getById/6fbaffd9-7f01-4098-8a69-8271d0dd3acb`);
+      let response = await axiosInstance.get(`/business/getById/6fbaffd9-7f01-4098-8a69-8271d0dd3acb`);
       let business = response.data;
 
       // Set info for business
@@ -76,12 +76,12 @@ const BusinessProfile = () => {
             let placeInfoTemp = placeInfo;
             placeInfoTemp.images = urls;
             delete placeInfoTemp._id;
-            const placesResponse = await axios.post(`${config.apiUrl}/places/AddNewPlace`, placeInfoTemp);
+            const placesResponse = await axiosInstance.post(`/places/AddNewPlace`, placeInfoTemp);
 
             let businessInfoTemp = businessInfo;
             businessInfoTemp.place = placesResponse.data;
             delete businessInfoTemp._id;
-            const BusinessResponse = await axios.post(`${config.apiUrl}/business/AddNewBusinness`, businessInfoTemp);
+            const BusinessResponse = await axiosInstance.post(`/business/AddNewBusinness`, businessInfoTemp);
             console.log('Business info saved:', BusinessResponse.data);
             setIsEditing(false);
           })

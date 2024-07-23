@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import axiosInstance from 'services/axiosConfig'
 import config from '../../config';
 import './OwnerLoginSignup.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -15,7 +15,7 @@ const LoginSignup = () => {
 
   const checkIfRegistered = async () => {
     try {
-      const response = await axios.post(`${config.apiUrl}/users/check`, { email });
+      const response = await axiosInstance.post(`/users/check`, { email });
       return(response.data.isRegistered);
     } catch (error) {
       console.error('Error checking registration status:', error);
@@ -33,7 +33,7 @@ const LoginSignup = () => {
     if (isRegisteredUser) {
       console.log('Se ha registrado')
       // Handle login
-      axios.post(`${config.apiUrl}/auth/login`, { email, password }, { withCredentials: true })
+      axiosInstance.post(`/auth/login`, { email, password }, { withCredentials: true })
         .then(response => {
           console.log('Logged in:', response.data);
           // Handle successful login
@@ -45,7 +45,7 @@ const LoginSignup = () => {
     } else if (email && password && username) {
       console.log('No se ha registrado.')
       // Handle signup
-      axios.post(`${config.apiUrl}/auth/signup`, { email, username, password, role: 'owner' }, { withCredentials: true })
+      axiosInstance.post(`/auth/signup`, { email, username, password, role: 'owner' }, { withCredentials: true })
         .then(response => {
           console.log('Signed up:', response.data);
           // redirect to home.
