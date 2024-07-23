@@ -45,11 +45,11 @@ const LoginSignup = () => {
     } else if (email && password && username) {
       console.log('No se ha registrado.')
       // Handle signup
-      axios.post(`${config.apiUrl}/users/signup`, { email, username, password, role: 'owner' })
+      axios.post(`${config.apiUrl}/auth/signup`, { email, username, password, role: 'owner' }, { withCredentials: true })
         .then(response => {
           console.log('Signed up:', response.data);
           // redirect to home.
-          window.location.href = '/';
+          window.location.href = '/owners';
         })
         .catch(error => {
           console.error('Signup error:', error);
