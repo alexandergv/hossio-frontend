@@ -4,13 +4,36 @@ import ReviewComments from "../../components/ReviewComments/ReviewComments";
 import ReviewInput from '../../components/ReviewInput/ReviewInput';
 import Map from '../../components/Map/Map'; 
 import Layout from '../../layouts/Layout.astro';
-import { placesData } from "../../data/places";
+import axios from 'axios';
+import config from '../../config';
+
+export interface Review {
+    text: string;
+    author: string;
+}
+  
+
+interface Place {
+    id: string;
+    name: string;
+    description: string;
+    rating: number;
+    images: string[];
+    reviews: Review[];
+    latitude: string;
+    longitude: string;
+}
+  
 
 const { placeId } = Astro.params;
-const placeDetails = placesData.find(
-  // use -1 to avoid passing null as an argument to parseInt
-  (place) => place.id === parseInt(placeId != null ? placeId : "-1"),
-);
+const placesData = async () : Promise<Place> => {
+  let response = await axios.get(`${config.apiUrl}/places/getById/${placeId}`);
+  const place: Place = response.data
+  return place;
+}
+
+const placeDetails: Place =  await placesData();
+
 
 if (!placeDetails) {
   Astro.response.status = 404;
@@ -22,6 +45,15 @@ const handleReviewSubmit = (reviewText: string) => {
   console.log(`Review submitted for place ${placeDetails.name}: ${reviewText}`);
   // Aquí puedes agregar lógica para enviar la reseña a tu backend
 };
+
+import { getSession } from '../../middleware/session';
+const session = await getSession(Astro.cookies.get('auth_token')?.value);
+const isAuthenticated = session.authenticated;
+const user = session.user;
+
+if(isAuthenticated && user.role =='owner') {
+  return Astro.redirect('/owners');
+}
 ---
 <style>
       .place-details {
@@ -61,7 +93,7 @@ const handleReviewSubmit = (reviewText: string) => {
         margin-left: 20px;
       }
 </style>
-<Layout title=`${placeDetails.name} - Hossio``>
+<Layout session={session} title=`${placeDetails.name} - Hossio``>
     <main class="place-details">
       <h1>{placeDetails.name}</h1>
       <div class="place-content">
