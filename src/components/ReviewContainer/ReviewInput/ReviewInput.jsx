@@ -24,7 +24,13 @@ const ReviewInput = ({ placeId, userId, onReviewPosted }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit({ text: reviewText, rating: rating,place: placeId, user: userId });
+    let reviewObj = {
+      text: reviewText, 
+      rating: rating,
+      place: placeId, 
+      user: userId 
+    }
+    onSubmit(reviewObj);
     setReviewText('');
     setRating(0);
   };

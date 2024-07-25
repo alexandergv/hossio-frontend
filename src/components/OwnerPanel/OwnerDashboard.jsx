@@ -11,25 +11,16 @@ import AnalyticsContent from './AnalyticsContent';
 import SettingsContent from './SettingsContent';
 import HelpContent from './HelpContent';
 
-const OwnerDashboard = () => {
+const OwnerDashboard = ({user}) => {
   const [selectedSection, setSelectedSection] = useState('dashboard');
 
   const renderContent = () => {
-    const myBusiness = {
-      id: "1",
-      name: 'Mi Negocio',
-      address: 'Las Americas km 19, Sector los carpintersos, c/girasoles',
-      phone: '809-674-1235',
-      email: 'minegocio@gmail.com',
-      description: 'Un negocio de ocio.'
-    }
-
 
     switch (selectedSection) {
       case 'dashboard':
         return <DashboardContent />;
       case 'profile':
-        return <BusinessProfile/>;
+        return <BusinessProfile userId={user.sub}/>;
       case 'reviews':
         return <ReviewsContent />;
       case 'events':

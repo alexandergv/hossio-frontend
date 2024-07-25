@@ -5,52 +5,52 @@ import Map from '../../Map/Map';
 import LocationPicker from './LocationPicker';
 import axiosInstance from 'services/axiosConfig'
 import './BusinessProfile.css';
-import config from '../../../config';
 import ImageUploader from '../../ImageUploader/ImageUploader';
 
 
-const BusinessProfile = () => {
+const BusinessProfile = ({userId}) => {
 
+  const [businessInfo, setBusinessInfo] = useState(
+    {userId,
+      name : '',
+      address : '',
+      phone : '',
+      email : '',
+      description : '',
+    });
+  const [placeInfo, setPlaceInfo] = useState({});
+  const [location, setLocation] = useState([18.468692510573238, -69.93240723128731]); // Ubicación inicial
+  const [isEditing, setIsEditing] = useState(!businessInfo);
+  const [ImagesUrls, setImagesUrls] = useState([])
+  const imageUploaderRef = useRef(null);
+  
   useEffect(() => {
-    const getBusiness = async () => {
-      let response = await axiosInstance.get(`/business/getById/6fbaffd9-7f01-4098-8a69-8271d0dd3acb`);
-      let business = response.data;
+    if(!userId)
+      throw new Error("User Id was not defined");
 
-      // Set info for business
-      setBusinessInfo(business);
-      // Set info for place
-      setPlaceInfo(business.place);
-      // Set location for map
-      setLocation([business.place.latitude, business.place.longitude])
+    const getBusiness = async () => {
+      let business = (await axiosInstance.get(`/business/getByUserId/${userId}`)).data;
+
+      if(business) {
+        console.log(business);
+        // Set info for business
+        setBusinessInfo(business);
+        // Set info for place
+        let placeInfo = (await axiosInstance.get(`/places/getById/${business.place}`)).data;
+        setPlaceInfo(placeInfo);
+        console.log(placeInfo);
+        // Set location for map
+        setLocation([placeInfo.latitude, placeInfo.longitude])
+      }
     }
     getBusiness();
   },[])
 
   
 
-  const [businessInfo, setBusinessInfo] = useState({});
-  const [placeInfo, setPlaceInfo] = useState({});
-  const [location, setLocation] = useState([18.468692510573238, -69.93240723128731]); // Ubicación inicial
-  const [isEditing, setIsEditing] = useState(!businessInfo);
-  const [ImagesUrls, setImagesUrls] = useState([])
-  const imageUploaderRef = useRef(null);
 
   useEffect(() => {
-    let e = {
-      target: {
-        name: "place",
-        value:  {
-          id: 1,
-          name: businessInfo.name,
-          description: businessInfo.description,
-          rating: 0,
-          images: ["https://fastly.4sqi.net/img/general/600x600/11650357_IYY1ggRVQ-WuoxU63Sm-J8gKB0QXicQzH5uxy5QmTgQ.jpg"],
-          reviews: [],
-          latitude: location[0],
-          longitude: location[1]
-      }
-      }
-    }
+   
   },[location]);
 
 
@@ -68,18 +68,20 @@ const BusinessProfile = () => {
     try {
 
       if (imageUploaderRef.current) {
-      console.log(imageUploaderRef.current);
         imageUploaderRef.current.handleUpload()
           .then(async (urls) => {
            // Sending new place first;
-            console.log(placeInfo);
             let placeInfoTemp = placeInfo;
             placeInfoTemp.images = urls;
+            placeInfoTemp.latitude = location[0];
+            placeInfoTemp.longitude = location[1];
             delete placeInfoTemp._id;
             const placesResponse = await axiosInstance.post(`/places/AddNewPlace`, placeInfoTemp);
 
+            console.log(placesResponse);
             let businessInfoTemp = businessInfo;
-            businessInfoTemp.place = placesResponse.data;
+            businessInfoTemp.place = placesResponse.data._id;
+            console.log('businessInfoTemp',businessInfoTemp);
             delete businessInfoTemp._id;
             const BusinessResponse = await axiosInstance.post(`/business/AddNewBusinness`, businessInfoTemp);
             console.log('Business info saved:', BusinessResponse.data);
