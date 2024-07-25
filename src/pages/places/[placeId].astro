@@ -1,11 +1,8 @@
 ---
 import Carrousel from "../../components/Carrousel/Carrousel";
-import ReviewComments from "../../components/ReviewComments/ReviewComments";
-import ReviewInput from '../../components/ReviewInput/ReviewInput';
 import Map from '../../components/Map/Map'; 
 import Layout from '../../layouts/Layout.astro';
 import axiosInstance from 'services/axiosConfig'
-import config from '../../config';
 
 export interface Review {
     text: string;
@@ -42,6 +39,7 @@ if (!placeDetails) {
 };
 
 import { getSession } from '../../middleware/session';
+import ReviewContainer from "components/ReviewContainer/ReviewContainer";
 const session = getSession(Astro.cookies.get('auth_token')?.value);
 const isAuthenticated = session.authenticated;
 const user = session.user;
@@ -104,7 +102,7 @@ if(isAuthenticated && user.role =='owner') {
         <p>{placeDetails.description}</p>
         <p>Calificación promedio: {placeDetails.rating} / 5</p>
       </div>
-      <ReviewInput client:load placeId={placeId} userId={session.user?.sub}/>
-      <ReviewComments client:visible placeId={placeId}/>
+      <ReviewContainer client:load userId={session.user?.sub} 
+      placeId={placeId} isAuthenticated={isAuthenticated}/>
     </main>
   </Layout>

@@ -2,10 +2,12 @@
 import React, { useEffect, useState } from 'react';
 import './ReviewStars.css';
 
-const ReviewStars = ({readOnly, ratingScore, rating, setRating}) => {
+const ReviewStars = ({readOnly, ratingScore, rating, setRating= () => console.error('default function setRating shouldnt be called.') }) => {
   useEffect(() => {
-    if(ratingScore) {
+    if(ratingScore && !readOnly) {
       setRating(ratingScore);
+    } else if(readOnly) {
+      rating = ratingScore;
     }
   },[])
 
@@ -21,7 +23,7 @@ const ReviewStars = ({readOnly, ratingScore, rating, setRating}) => {
         {[1, 2, 3, 4, 5].map((star) => (
           <span
             key={star}
-            className={`star ${rating >= star ? 'selected' : ''}`}
+            className={`star ${rating >= star || ratingScore >= star ? 'selected' : ''}`}
             onClick={() =>  handleRatingChange(star)}
             style={{ cursor: readOnly ? 'default' : 'pointer' }}
           >

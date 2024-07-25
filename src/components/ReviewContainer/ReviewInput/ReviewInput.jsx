@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import ReviewStars from '../ReviewStars/ReviewStars'
+import ReviewStars from '../../ReviewStars/ReviewStars'
 import './ReviewInput.css';
-import config from '../../config';
 import axiosInstance from 'services/axiosConfig';
 
-const ReviewInput = ({ placeId, userId }) => {
+const ReviewInput = ({ placeId, userId, onReviewPosted }) => {
   const [reviewText, setReviewText] = useState('');
   const [rating, setRating] = useState();
 
@@ -16,6 +15,7 @@ const ReviewInput = ({ placeId, userId }) => {
 
     try {
       const response = await axiosInstance.post(`/reviews/newReview`, reviewData);
+      onReviewPosted();
       console.log('Review created:', response.data);
     } catch (error) {
       console.error('Error creating review:', error);
