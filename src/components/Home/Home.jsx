@@ -1,24 +1,54 @@
 import React, { useState, useEffect } from 'react';
 import PlaceCard from '../PlaceCard/PlaceCard';
 import axiosInstance from 'services/axiosConfig'
-import config from '../../config';
 import './Home.css';
 
 const Home = () => {
+  const [location, setLocation] = useState({ latitude: null, longitude: null });
   const [places, setPlaces] = useState([]);
 
 
+  const fetchNearbyPlaces = async (latitude, longitude) => {
+    try {
+      const response = await axiosInstance.get('/places/nearby', {
+        params: {
+          latitude,
+          longitude,
+        },
+      });
+      setPlaces(response.data);
+    } catch (error) {
+      console.error("Error fetching nearby places", error);
+    }
+  };
+
   useEffect(() => {
-    const fetchPlaces = async () => {
-      try {
-        const response = await axiosInstance.get(`/places/GetAll`);
-        setPlaces(response.data);
-      } catch (error) {
-        console.error('Error fetching places:', error);
-      }
-    };
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          console.log(position);
+          setLocation({ latitude, longitude });
+          fetchNearbyPlaces(latitude, longitude);
+        },
+        (error) => {
+          console.error("Error getting location", error);
+        }
+      );
+    } else {
+      console.error("Geolocation is not supported by this browser.");
+    }
+
+    // const fetchPlaces = async () => {
+    //   try {
+    //     const response = await axiosInstance.get(`/places/GetAll`);
+    //     setPlaces(response.data);
+    //   } catch (error) {
+    //     console.error('Error fetching places:', error);
+    //   }
+    // };
   
-    fetchPlaces();
+    // fetchPlaces();
   }, []);
 
   return (

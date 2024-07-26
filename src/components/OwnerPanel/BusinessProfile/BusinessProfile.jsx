@@ -40,7 +40,7 @@ const BusinessProfile = ({userId}) => {
         setPlaceInfo(placeInfo);
         console.log(placeInfo);
         // Set location for map
-        setLocation([placeInfo.latitude, placeInfo.longitude])
+        setLocation([placeInfo.location.coordinates.latitude, placeInfo.location.coordinates.longitude])
       }
     }
     getBusiness();
@@ -73,8 +73,9 @@ const BusinessProfile = ({userId}) => {
            // Sending new place first;
             let placeInfoTemp = placeInfo;
             placeInfoTemp.images = urls;
-            placeInfoTemp.latitude = location[0];
-            placeInfoTemp.longitude = location[1];
+            placeInfoTemp.location = {
+              coordinates: location
+            }
             delete placeInfoTemp._id;
             const placesResponse = await axiosInstance.post(`/places/AddNewPlace`, placeInfoTemp);
 
