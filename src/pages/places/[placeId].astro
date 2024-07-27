@@ -17,15 +17,17 @@ interface Place {
     rating: number;
     images: string[];
     reviews: Review[];
-    latitude: string;
-    longitude: string;
+    location: { 
+      type: string;
+      coordinates: number[];
+    }
 }
   
 
 const { placeId } = Astro.params;
 const placesData = async () : Promise<Place> => {
   let response = await axiosInstance.get(`/places/getById/${placeId}`);
-  const place: Place = response.data
+  const place: Place = response.data;
   return place;
 }
 
@@ -95,7 +97,7 @@ if(isAuthenticated && user.role =='owner') {
           <Carrousel client:load images={placeDetails.images} />
         </div>
         <div class="place-map">
-          <Map client:only="react" latitude={placeDetails.latitude} longitude={placeDetails.longitude} name={placeDetails.name} />
+          <Map client:only="react" latitude={placeDetails.location.coordinates[0]} longitude={placeDetails.location.coordinates[1]} name={placeDetails.name} />
         </div>
       </div>
       <div class="place-info">

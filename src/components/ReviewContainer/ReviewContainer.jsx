@@ -30,7 +30,7 @@ const ReviewContainer = ({isAuthenticated, placeId, userId}) => {
     <>
     { isAuthenticated ? 
         <ReviewInput placeId={placeId} userId={userId} onReviewPosted={onReviewPosted}/>
-        : <p class="review">Inicia sesión para poder dejar una reseña.</p> 
+        : <p className="review">Inicia sesión para poder dejar una reseña.</p> 
         }
         <ReviewComments reviews={reviews}/>
     </>
