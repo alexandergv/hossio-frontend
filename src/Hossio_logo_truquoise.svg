@@ -1,0 +1,29 @@
+<svg width="217" height="208" viewBox="0 0 217 208" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="217" height="208"/>
+<path d="M217 104C217 161.438 168.423 208 108.5 208C48.5771 208 0 161.438 0 104C0 46.5624 48.5771 0 108.5 0C168.423 0 217 46.5624 217 104Z" fill="#1ABC9C" fill-opacity="0.788235"/>
+<mask id="mask0_0_1" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="49" y="40" width="119" height="113">
+<ellipse cx="108.5" cy="96.5" rx="59.5" ry="56.5" fill="black"/>
+</mask>
+<g mask="url(#mask0_0_1)">
+<rect x="49" y="40" width="59" height="113" fill="black"/>
+</g>
+<path d="M107.5 195L92.3446 141.75L122.655 141.75L107.5 195Z" fill="black"/>
+<ellipse cx="108.5" cy="98.5" rx="52.5" ry="51.5" fill="black"/>
+<circle cx="108" cy="96" r="48" fill="#ABFFEF"/>
+<ellipse cx="107" cy="96" rx="38" ry="39" fill="black"/>
+<mask id="mask1_0_1" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="60" y="48" width="96" height="96">
+<circle cx="108" cy="96" r="48" fill="black"/>
+</mask>
+<g mask="url(#mask1_0_1)">
+<rect x="109" y="47" width="68" height="108" fill="black"/>
+</g>
+<circle cx="108.5" cy="28.5" r="7.5" fill="black"/>
+<path d="M109.5 134.5V128" stroke="black"/>
+<path d="M122.3 132.5C119.3 134 115.909 134.811 110.3 135V128.5C113.229 128.666 114.871 128.661 117.8 128.5C121.8 127.7 122.466 127.167 122.3 127V102.5H94.7998V125.5L90.2998 122L82.7998 116L78.7998 108C78.0185 105.089 77.7121 103.313 77.2998 100C76.9124 97.5142 76.8879 95.6089 77.2998 91C78.5194 87.9825 79.1746 86.3432 80.2998 83.5C81.5048 80.6771 83.7998 79.5 85.2998 77C86.7998 74.5 90.2998 72.5 90.2998 72.5C90.2998 72.5 93.0789 70.9702 94.7998 70.5V94H122.3V67C126.3 68.5 128.966 70.3333 129.3 70.5C131.362 71.8216 132.328 72.7131 133.8 74.5C136.232 77.2277 137.463 78.6685 139.3 81C141.556 84.6807 143.8 87 143.8 91C143.8 95 144.005 98.2815 143.8 102.5C143.271 107.027 142.844 109.242 141.8 112.5C139.075 117.9 137.313 120.509 133.8 124.5C129.476 128.523 125.3 131 122.3 132.5Z" fill="#4DE3C5" stroke="#44DDEE" stroke-opacity="0.235294"/>
+<mask id="mask2_0_1" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="76" y="69" width="49" height="59">
+<ellipse cx="100.5" cy="98.5" rx="24.5" ry="29.5" fill="#44DDEE" fill-opacity="0.235294"/>
+</mask>
+<g mask="url(#mask2_0_1)">
+<rect x="76" y="69" width="19" height="58" fill="#1ABC9C"/>
+</g>
+</svg>

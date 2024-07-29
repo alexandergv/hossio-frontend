@@ -4,7 +4,8 @@ import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch,faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import axiosInstance from 'services/axiosConfig'
-import config from '../../config';
+import hossioLogo from '../../Hossio_logo_truquoise.svg';
+
 
 const NavBar = ({userAuthenticated, user}) => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -27,14 +28,17 @@ const NavBar = ({userAuthenticated, user}) => {
        // Elimina la cookie de autenticación
       axiosInstance.post(`/auth/logout`,{}, { withCredentials: true }).then((response) => {
        // Redirige al usuario a la página de inicio
-          window.location.href = '/';
+       window.location.reload();   
       })
   }
 
   return (
     <nav className="navbar">
       <div className="navbar-left">
-        <a href="/"><h1 className="navbar-title">Hoss<span className='highlight-text'>i</span>o</h1></a>
+        <a href="/">
+        <img src={hossioLogo.src} alt="Hossio Logo" className="navbar-logo" />
+        <h1 className="navbar-title">Hoss<span className='highlight-text'>i</span>o</h1>
+        </a>
       </div>
       <div className="navbar-center">
         <form onSubmit={handleSearchSubmit}>
