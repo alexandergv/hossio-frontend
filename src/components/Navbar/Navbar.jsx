@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch,faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import axiosInstance from 'services/axiosConfig'
-import hossioLogo from '../../Hossio_logo_truquoise.svg';
+import hossioLogo from '../../Hossio_logo_truquoise_blank.svg';
 
 
 const NavBar = ({userAuthenticated, user}) => {

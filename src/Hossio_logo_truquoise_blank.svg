@@ -1,0 +1,28 @@
+<svg width="112" height="174" viewBox="0 0 112 174" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="112" height="174"/>
+<mask id="mask0_0_1" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="19" width="119" height="113">
+<ellipse cx="59.5" cy="75.5" rx="59.5" ry="56.5" fill="black"/>
+</mask>
+<g mask="url(#mask0_0_1)">
+<rect y="19" width="59" height="113" fill="black"/>
+</g>
+<path d="M58.5 174L43.3446 120.75L73.6554 120.75L58.5 174Z" fill="black"/>
+<ellipse cx="59.5" cy="77.5" rx="52.5" ry="51.5" fill="black"/>
+<circle cx="59" cy="75" r="48" fill="#ABFFEF"/>
+<ellipse cx="58" cy="75" rx="38" ry="39" fill="black"/>
+<mask id="mask1_0_1" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="11" y="27" width="96" height="96">
+<circle cx="59" cy="75" r="48" fill="black"/>
+</mask>
+<g mask="url(#mask1_0_1)">
+<rect x="60" y="26" width="68" height="108" fill="black"/>
+</g>
+<circle cx="59.5" cy="7.5" r="7.5" fill="black"/>
+<path d="M60.5 113.5V107" stroke="black"/>
+<path d="M73.2998 111.5C70.2998 113 66.9094 113.811 61.2998 114V107.5C64.2288 107.666 65.8709 107.661 68.7998 107.5C72.7998 106.7 73.4665 106.167 73.2998 106V81.5H45.7998V104.5L41.2998 101L33.7998 95L29.7998 87C29.0185 84.0892 28.7121 82.3135 28.2998 79C27.9124 76.5142 27.8879 74.6089 28.2998 70C29.5194 66.9825 30.1746 65.3432 31.2998 62.5C32.5048 59.6771 34.7998 58.5 36.2998 56C37.7998 53.5 41.2998 51.5 41.2998 51.5C41.2998 51.5 44.0789 49.9702 45.7998 49.5V73H73.2998V46C77.2998 47.5 79.9665 49.3333 80.2998 49.5C82.3624 50.8216 83.3278 51.7131 84.7998 53.5C87.2322 56.2277 88.463 57.6685 90.2998 60C92.5561 63.6807 94.7998 66 94.7998 70C94.7998 74 95.0051 77.2815 94.7998 81.5C94.2715 86.0272 93.8441 88.2424 92.7998 91.5C90.0746 96.8995 88.313 99.509 84.7998 103.5C80.4756 107.523 76.2998 110 73.2998 111.5Z" fill="#4DE3C5" stroke="#44DDEE" stroke-opacity="0.235294"/>
+<mask id="mask2_0_1" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="27" y="48" width="49" height="59">
+<ellipse cx="51.5" cy="77.5" rx="24.5" ry="29.5" fill="#44DDEE" fill-opacity="0.235294"/>
+</mask>
+<g mask="url(#mask2_0_1)">
+<rect x="27" y="48" width="19" height="58" fill="#1ABC9C"/>
+</g>
+</svg>

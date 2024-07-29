@@ -1,0 +1,68 @@
+/* PlaceCardSkeleton.css */
+
+.place-card-skeleton {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 250px;
+    margin: 10px;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    animation: pulse 1.5s infinite;
+  }
+  
+  .place-card-subContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .skeleton {
+    background-color: #e0e0e0;
+    border-radius: 4px;
+  }
+  
+  .place-image-skeleton {
+    width: 100%;
+    height: 200px;
+  }
+  
+  .place-details-skeleton {
+    width: 100%;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .place-name-skeleton {
+    width: 60%;
+    height: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .place-description-skeleton {
+    width: 80%;
+    height: 15px;
+    margin-bottom: 10px;
+  }
+  
+  .place-rating-skeleton {
+    width: 40%;
+    height: 20px;
+  }
+  
+  @keyframes pulse {
+    0% {
+      background-color: #e0e0e0;
+    }
+    50% {
+      background-color: #f0f0f0;
+    }
+    100% {
+      background-color: #e0e0e0;
+    }
+  }
+  

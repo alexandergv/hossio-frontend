@@ -40,7 +40,7 @@ const BusinessProfile = ({userId}) => {
         setPlaceInfo(placeInfo);
         console.log(placeInfo);
         // Set location for map
-        setLocation([placeInfo.location.coordinates.latitude, placeInfo.location.coordinates.longitude])
+        setLocation([placeInfo.location.coordinates[0], placeInfo.location.coordinates[1]])
       }
     }
     getBusiness();
