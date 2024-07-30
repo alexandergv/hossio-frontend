@@ -43,8 +43,8 @@ const Home = () => {
           const { latitude, longitude } = position.coords;
           console.log(position);
           setLocation({ latitude, longitude });
-          // fetchNearbyPlaces(latitude, longitude);
-          fetchPlaces();
+          fetchNearbyPlaces(latitude, longitude);
+          // fetchPlaces();
         },
         (error) => {
           console.error("Error getting location", error);
@@ -61,7 +61,7 @@ const Home = () => {
       <h1>Descubre donde <span className='highlight-text'>caer</span></h1>
       <div className="place-list">
         { loading ?
-        (Array(10).fill(0).map((x) => <PlaceCardSkeleton />) )
+        (Array(10).fill(0).map((x,index) => <PlaceCardSkeleton key={index} />) )
         : (places.map(place => (
           <PlaceCard key={place._id} place={place} />
             )
