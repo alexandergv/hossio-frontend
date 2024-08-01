@@ -133,6 +133,7 @@ const LoginSignup = () => {
             value={password}
             onInvalid={e => e.target.setCustomValidity(requiredMessage)}
             onChange={(e) => setPassword(e.target.value)}
+            autoComplete="on"
             required
           />
         </div>

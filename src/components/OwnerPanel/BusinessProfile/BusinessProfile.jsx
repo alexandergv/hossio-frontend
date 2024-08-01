@@ -9,40 +9,44 @@ import ImageUploader from '../../ImageUploader/ImageUploader';
 
 
 const BusinessProfile = ({userId}) => {
-
-  const [businessInfo, setBusinessInfo] = useState(
-    {userId,
-      name : '',
-      address : '',
-      phone : '',
-      email : '',
-      description : '',
-    });
+  const businessInfoDefault = 
+  {userId,
+    name : '',
+    address : '',
+    phone : '',
+    email : '',
+    description : ''
+  }
+  const [businessInfo, setBusinessInfo] = useState(businessInfoDefault);
   const [placeInfo, setPlaceInfo] = useState({});
   const [location, setLocation] = useState([18.468692510573238, -69.93240723128731]); // Ubicación inicial
   const [isEditing, setIsEditing] = useState(!businessInfo);
   const [ImagesUrls, setImagesUrls] = useState([])
   const imageUploaderRef = useRef(null);
   
+  const getBusiness = async () => {
+    let business = (await axiosInstance.get(`/business/getByUserId/${userId}`)).data;
+
+    if(business) {
+      console.log(business);
+      // Set info for business
+      setBusinessInfo(business);
+      // Set info for place
+      let placeInfo = (await axiosInstance.get(`/places/getById/${business.place}`)).data;
+      setPlaceInfo(placeInfo);
+      console.log(placeInfo);
+      // Set location for map
+      setLocation([placeInfo.location.coordinates[0], placeInfo.location.coordinates[1]])
+    } else {
+      let userInfo = (await axiosInstance.get(`/users/getById/${userId}`)).data;
+      setBusinessInfo({...businessInfoDefault, email: userInfo.email})
+    }
+  }
+
   useEffect(() => {
     if(!userId)
-      throw new Error("User Id was not defined");
+      throw new Error("User Id was not defined"); 
 
-    const getBusiness = async () => {
-      let business = (await axiosInstance.get(`/business/getByUserId/${userId}`)).data;
-
-      if(business) {
-        console.log(business);
-        // Set info for business
-        setBusinessInfo(business);
-        // Set info for place
-        let placeInfo = (await axiosInstance.get(`/places/getById/${business.place}`)).data;
-        setPlaceInfo(placeInfo);
-        console.log(placeInfo);
-        // Set location for map
-        setLocation([placeInfo.location.coordinates[0], placeInfo.location.coordinates[1]])
-      }
-    }
     getBusiness();
   },[])
 
