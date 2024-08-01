@@ -1,6 +1,6 @@
 /* Estilos para SideNav */
 .sidenav {
-    width: 200px;
+    width: 240px;
     background-color: var(--color-primary);
     position: fixed;
     top: 0;
@@ -25,12 +25,17 @@
     font-size: 16px;
     display: block;
     padding: 10px;
-    border-radius: 4px;
     transition: background-color 0.3s ease;
+    border-bottom: 1px solid #ffffff5c;;
   }
   
   .sidenav ul li a:hover {
     background-color: var(--color-accent);
+    border-radius: 4px;
+  }
+
+  .sidenav-icon-text {
+    margin-left: 5px;
   }
   
   /* Estilos para OwnerDashboard */

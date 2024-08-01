@@ -1,6 +1,7 @@
-import React from 'react';
 import axiosInstance from 'services/axiosConfig'
-import config from '../../config';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTachometerAlt, faBuilding, faStar, faCalendarAlt, faImages, faEnvelope, faChartLine, faCog, faLifeRing, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+
 
 const SideNav = ({ setSelectedSection }) => {
   const onLogout = (e) => {
@@ -16,18 +17,18 @@ const SideNav = ({ setSelectedSection }) => {
 
   return (
     <nav className="sidenav">
-      <ul>
-      <li><a href="#dashboard" onClick={() => setSelectedSection('dashboard')}>Dashboard</a></li>
-      <li><a href="#profile" onClick={() => setSelectedSection('profile')}>Perfil del Negocio</a></li>
-      <li><a href="#reviews" onClick={() => setSelectedSection('reviews')}>Gesti&oacute;n de Rese&ntilde;as</a></li>
-      <li><a href="#events" onClick={() => setSelectedSection('events')}>Eventos y Promociones</a></li>
-      <li><a href="#gallery" onClick={() => setSelectedSection('gallery')}>Galer&iacute;a de Im&aacute;genes</a></li>
-      <li><a href="#messages" onClick={() => setSelectedSection('messages')}>Mensajes</a></li>
-      <li><a href="#analytics" onClick={() => setSelectedSection('analytics')}>An&aacute;lisis y Reportes</a></li>
-      <li><a href="#settings" onClick={() => setSelectedSection('settings')}>Configuraci&oacute;n de Cuenta</a></li>
-      <li><a href="#help" onClick={() => setSelectedSection('help')}>Ayuda y Soporte</a></li>
-      <li><a href="#" onClick={onLogout}>Cerrar Sesi&oacute;n</a></li>
-      </ul>
+    <ul>
+      <li><a href="#dashboard" onClick={() => setSelectedSection('dashboard')}><FontAwesomeIcon icon={faTachometerAlt} /> <span className="sidenav-icon-text">Dashboard</span></a></li>
+      <li><a href="#profile" onClick={() => setSelectedSection('profile')}><FontAwesomeIcon icon={faBuilding} /> <span className="sidenav-icon-text">Perfil del Negocio</span></a></li>
+      <li><a href="#reviews" onClick={() => setSelectedSection('reviews')}><FontAwesomeIcon icon={faStar} /> <span className="sidenav-icon-text">Gesti&oacute;n de Rese&ntilde;as</span></a></li>
+      <li><a href="#events" onClick={() => setSelectedSection('events')}><FontAwesomeIcon icon={faCalendarAlt} /> <span className="sidenav-icon-text"> Eventos y Promociones</span></a></li>
+      <li><a href="#gallery" onClick={() => setSelectedSection('gallery')}><FontAwesomeIcon icon={faImages} /> <span className="sidenav-icon-text">Galer&iacute;a de Im&aacute;genes</span></a></li>
+      <li><a href="#messages" onClick={() => setSelectedSection('messages')}><FontAwesomeIcon icon={faEnvelope} /> <span className="sidenav-icon-text">Mensajes</span></a></li>
+      <li><a href="#analytics" onClick={() => setSelectedSection('analytics')}><FontAwesomeIcon icon={faChartLine} /> <span className="sidenav-icon-text"></span>An&aacute;lisis y Reportes</a></li>
+      <li><a href="#settings" onClick={() => setSelectedSection('settings')}><FontAwesomeIcon icon={faCog} /> <span className="sidenav-icon-text">Configuraci&oacute;n de Cuenta</span></a></li>
+      <li><a href="#help" onClick={() => setSelectedSection('help')}><FontAwesomeIcon icon={faLifeRing} /> <span className="sidenav-icon-text">Ayuda y Soporte</span></a></li>
+      <li><a href="#" onClick={onLogout}><FontAwesomeIcon icon={faSignOutAlt} /> <span className="sidenav-icon-text">Cerrar Sesi&oacute;n</span></a></li>
+    </ul>
     </nav>
   );
 };
