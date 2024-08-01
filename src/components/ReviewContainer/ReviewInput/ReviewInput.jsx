@@ -6,20 +6,24 @@ import axiosInstance from 'services/axiosConfig';
 const ReviewInput = ({ placeId, userId, onReviewPosted }) => {
   const [reviewText, setReviewText] = useState('');
   const [rating, setRating] = useState();
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleInputChange = (e) => {
     setReviewText(e.target.value);
   };
 
   const onSubmit = async (reviewData) => {
-
     try {
+      setIsLoading(true);
       const response = await axiosInstance.post(`/reviews/newReview`, reviewData);
       onReviewPosted();
       console.log('Review created:', response.data);
     } catch (error) {
       console.error('Error creating review:', error);
+    } finally {
+      setIsLoading(false);
     }
+    
   };
 
   const handleSubmit = (e) => {
@@ -36,7 +40,7 @@ const ReviewInput = ({ placeId, userId, onReviewPosted }) => {
   };
 
   return (
-    <div className="review-input-container">
+    <div className={`review-input-container ${isLoading ? 'loading' : ''}`}>
       <h3>Deja una reseña</h3>
       <form onSubmit={handleSubmit} className="review-form">
         <div className="input-with-button">
@@ -45,10 +49,14 @@ const ReviewInput = ({ placeId, userId, onReviewPosted }) => {
             onChange={handleInputChange}
             placeholder="Escribe tu reseña aquí..."
             required
+            disabled={isLoading}
           ></textarea>
-          <ReviewStars rating={rating} setRating={setRating} />
+          <ReviewStars style={{position: 'absolute',
+            bottom:'0px', left: '10px', display:'flex'
+          }} 
+          rating={rating} setRating={setRating} readOnly={isLoading}/>
           <div className="divider"></div>
-          <button type="submit" className="send-button">➤</button>
+          <button type="submit" className="send-button" disabled={isLoading}>➤</button>
         </div>
       </form>
     </div>

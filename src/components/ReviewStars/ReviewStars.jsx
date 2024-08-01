@@ -2,7 +2,9 @@
 import React, { useEffect, useState } from 'react';
 import './ReviewStars.css';
 
-const ReviewStars = ({readOnly, ratingScore, rating, setRating= () => console.error('default function setRating shouldnt be called.') }) => {
+const ReviewStars = ({readOnly, ratingScore, rating, setRating= () => console.error('default function setRating shouldnt be called.') 
+  , style
+}) => {
   useEffect(() => {
     if(ratingScore && !readOnly) {
       setRating(ratingScore);
@@ -19,7 +21,7 @@ const ReviewStars = ({readOnly, ratingScore, rating, setRating= () => console.er
 
 
     return(
-        <div className={`review-stars ${readOnly ? 'read-only' : 'editable'}`}>
+        <div style={style} className={`review-stars ${readOnly ? 'read-only' : 'editable'}`}>
         {[1, 2, 3, 4, 5].map((star) => (
           <span
             key={star}

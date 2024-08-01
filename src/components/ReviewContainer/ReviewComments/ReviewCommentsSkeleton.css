@@ -1,0 +1,55 @@
+/* ReviewCommentsSkeleton.css */
+.review-comments {
+    margin-top: 20px;
+  }
+  
+  .review.skeleton {
+    background-color: #ffffff;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .skeleton-text {
+    background-color: #e0e0e0;
+    border-radius: 4px;
+    margin-bottom: 5px;
+  }
+  
+  .skeleton-review-text {
+    height: 14px;
+    width: 80%;
+  }
+  
+  .skeleton-review-author {
+    height: 12px;
+    width: 40%;
+    margin-top: 10px;
+  }
+  
+  .skeleton-stars {
+    height: 16px;
+    width: 100px;
+    background-color: #e0e0e0;
+    border-radius: 4px;
+    margin-top: 10px;
+  }
+  
+  /* Animation */
+  @keyframes loading {
+    0% {
+      background-position: -200px 0;
+    }
+    100% {
+      background-position: calc(200px + 100%) 0;
+    }
+  }
+  
+  .skeleton-text,
+  .skeleton-stars {
+    animation: loading 1.5s infinite linear;
+    background: linear-gradient(to right, #e0e0e0 8%, #f0f0f0 18%, #e0e0e0 33%);
+    background-size: 200px 100%;
+  }
+  
