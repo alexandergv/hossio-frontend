@@ -30,7 +30,7 @@ const SearchResultsPage = ({ query }) => {
         (Array(5).fill(0).map((x,index) => <PlaceCardSkeleton key={index} />) )
         :
           (searchResults.map((place) => (
-          <PlaceCard key={place.id} place={place} />
+          <PlaceCard key={place._id} place={place} />
         ))
         )}
         {searchResults.length == 0 && (

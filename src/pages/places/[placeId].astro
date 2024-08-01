@@ -95,7 +95,7 @@ if(isAuthenticated && user.role =='owner') {
       <h1>{placeDetails.name}</h1>
       <div class="place-content">
         <div class="place-images">
-          <Carrousel client:load images={placeDetails.images} />
+          <Carrousel client:load images={placeDetails.images.reverse()} />
         </div>
         <div class="place-map">
           <Map client:only="react" latitude={placeDetails.location.coordinates[0]} longitude={placeDetails.location.coordinates[1]} name={placeDetails.name} />

@@ -8,7 +8,7 @@ const PlaceCard = ({ place }) => {
   return (
     <a href={`/places/${place._id}`} className="place-card">
     <div className="place-card-subContainer">
-      <img src={place.images[0]} alt={place.name} className="place-image" />
+      <img src={place.images[place.images.length - 1]} alt={place.name} className="place-image" />
       <div className="place-details">
         <h2 className="place-name">{place.name}</h2>
         <p className="place-description">{place.description}</p>

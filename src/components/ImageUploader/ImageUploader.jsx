@@ -1,18 +1,22 @@
-import React, { useState, forwardRef, useImperativeHandle } from 'react';
+import React, { useState, forwardRef, useImperativeHandle, useEffect } from 'react';
 import axios from 'axios';
 import './ImageUploader.css';
 
-const ImageUploader = forwardRef(({ onImagesUploaded }, ref) => {
-  const [images, setImages] = useState([]);
-  const [urls, setUrls] = useState([]);
+const ImageUploader = forwardRef(({ onImagesUploaded, imagesUrls }, ref) => {
+  const [imageFiles, setImageFiles] = useState([]);
+  const [urls, setUrls] = useState(imagesUrls ?? []);
 
   const handleImageChange = (e) => {
-    setImages([...e.target.files]);
+    setImageFiles([...e.target.files]);
   };
+
+  useEffect(() => {
+    console.log(imagesUrls);
+  },[])
 
   const handleUpload = async () => {
     return new Promise((resolve, reject) => {
-      const uploaders = images.map((image) => {
+      const uploaders = imageFiles.map((image) => {
         const formData = new FormData();
         formData.append('file', image);
         formData.append('upload_preset', 'ml_default');

@@ -21,7 +21,7 @@ const BusinessProfile = ({userId}) => {
   const [placeInfo, setPlaceInfo] = useState({});
   const [location, setLocation] = useState([18.468692510573238, -69.93240723128731]); // Ubicación inicial
   const [isEditing, setIsEditing] = useState(!businessInfo);
-  const [ImagesUrls, setImagesUrls] = useState([])
+  const [imagesUrls, setImagesUrls] = useState([])
   const imageUploaderRef = useRef(null);
   
   const getBusiness = async () => {
@@ -37,6 +37,7 @@ const BusinessProfile = ({userId}) => {
       console.log(placeInfo);
       // Set location for map
       setLocation([placeInfo.location.coordinates[0], placeInfo.location.coordinates[1]])
+      setImagesUrls(placeInfo.images)
     } else {
       let userInfo = (await axiosInstance.get(`/users/getById/${userId}`)).data;
       setBusinessInfo({...businessInfoDefault, email: userInfo.email})
@@ -74,22 +75,22 @@ const BusinessProfile = ({userId}) => {
       if (imageUploaderRef.current) {
         imageUploaderRef.current.handleUpload()
           .then(async (urls) => {
-           // Sending new place first;
+            // Sending new place first;
             let placeInfoTemp = placeInfo;
-            placeInfoTemp.images = urls;
+            placeInfoTemp.images = [...urls, ...imagesUrls];
             placeInfoTemp.location = {
               coordinates: location
             }
-            delete placeInfoTemp._id;
-            const placesResponse = await axiosInstance.post(`/places/AddNewPlace`, placeInfoTemp);
-
+            console.log(placeInfoTemp);
+            const placesResponse = await axiosInstance.post(`/places/AddOrUpdate`, placeInfoTemp);
             console.log(placesResponse);
+            
             let businessInfoTemp = businessInfo;
             businessInfoTemp.place = placesResponse.data._id;
-            console.log('businessInfoTemp',businessInfoTemp);
-            delete businessInfoTemp._id;
-            const BusinessResponse = await axiosInstance.post(`/business/AddNewBusinness`, businessInfoTemp);
-            console.log('Business info saved:', BusinessResponse.data);
+            console.log('businessInfoTemp', businessInfoTemp);
+            const BusinessResponse = await axiosInstance.post(`/business/AddOrUpdate`, businessInfoTemp);
+            console.log('Business info saved:', BusinessResponse.data);            
+           
             setIsEditing(false);
           })
           .catch((error) => {
@@ -197,7 +198,7 @@ const BusinessProfile = ({userId}) => {
           </div>
           <div className="form-group">
           {/* <label htmlFor="images">imágenes del lugar</label> */}
-          <ImageUploader ref={imageUploaderRef} onImagesUploaded={handleImagesUploaded} />
+          <ImageUploader ref={imageUploaderRef} onImagesUploaded={handleImagesUploaded} imagesUrls={imagesUrls}/>
           </div>
           <div className="form-group">
           <label htmlFor="locationPicker">Ubicacion del lugar</label>
