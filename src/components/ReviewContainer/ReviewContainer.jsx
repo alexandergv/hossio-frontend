@@ -6,6 +6,7 @@ import axiosInstance from 'services/axiosConfig';
 const ReviewContainer = ({isAuthenticated, placeId, userId}) => {
   const [reviews, setReviews] = useState([]);
   const [loadingComments, setLoadingComments] = useState(true);
+  const [userHasCommented, setUserHasCommented] = useState(false);
 
   const onReviewPosted = async () => {
     await fetchReviews();
@@ -15,7 +16,8 @@ const ReviewContainer = ({isAuthenticated, placeId, userId}) => {
     try {
       setLoadingComments(true);
       const response = await axiosInstance.get(`/reviews/byPlaceId/${placeId}`);
-      setReviews(response.data);
+      setReviews(response.data.reviews);
+      setUserHasCommented(response.data.userHasCommented)
       setLoadingComments(false);
     } catch (error) {
       console.error('Error fetching reviews:', error);
@@ -32,7 +34,7 @@ const ReviewContainer = ({isAuthenticated, placeId, userId}) => {
   return (
     <>
     { isAuthenticated ? 
-        <ReviewInput placeId={placeId} userId={userId} onReviewPosted={onReviewPosted}/>
+        <ReviewInput hasCommented={userHasCommented} placeId={placeId} userId={userId} onReviewPosted={onReviewPosted}/>
         : <p className="review">Inicia sesión para poder dejar una reseña.</p> 
         }
         <ReviewComments isloading={loadingComments} reviews={reviews}/>

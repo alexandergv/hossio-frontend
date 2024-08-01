@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReviewStars from '../../ReviewStars/ReviewStars'
 import './ReviewInput.css';
 import axiosInstance from 'services/axiosConfig';
 
-const ReviewInput = ({ placeId, userId, onReviewPosted }) => {
+const ReviewInput = ({ placeId, userId, onReviewPosted, hasCommented }) => {
   const [reviewText, setReviewText] = useState('');
   const [rating, setRating] = useState();
   const [isLoading, setIsLoading] = useState(false);
@@ -11,6 +11,10 @@ const ReviewInput = ({ placeId, userId, onReviewPosted }) => {
   const handleInputChange = (e) => {
     setReviewText(e.target.value);
   };
+
+  useEffect(() => {
+     setIsLoading(hasCommented);
+  }, [hasCommented])
 
   const onSubmit = async (reviewData) => {
     try {
@@ -39,6 +43,10 @@ const ReviewInput = ({ placeId, userId, onReviewPosted }) => {
     setRating(0);
   };
 
+  const placeHolder = (hasCommented) ? 'Ya has dejado una reseña en este lugar'
+  : 
+  (isLoading ? 'Posteando reseña...' : 'Escribe tu reseña aquí...')
+
   return (
     <div className={`review-input-container ${isLoading ? 'loading' : ''}`}>
       <h3>Deja una reseña</h3>
@@ -47,7 +55,7 @@ const ReviewInput = ({ placeId, userId, onReviewPosted }) => {
           <textarea
             value={reviewText}
             onChange={handleInputChange}
-            placeholder="Escribe tu reseña aquí..."
+            placeholder={placeHolder}
             required
             disabled={isLoading}
           ></textarea>
