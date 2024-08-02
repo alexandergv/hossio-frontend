@@ -12,8 +12,16 @@ const Home = () => {
   const [places, setPlaces] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [lastEvents, setLastEvents] = useState([]);
 
-  const openModal = () => {
+
+  const fetchLastEvents = async () => {
+    const lastEvents = (await axiosInstance.get('/events/latest')).data;
+    setLastEvents(lastEvents);
+  }
+
+  const openModal = async () => {
+    await fetchLastEvents();
     setIsModalOpen(true);
   };
 
@@ -66,6 +74,8 @@ const Home = () => {
       console.error("Geolocation is not supported by this browser.");
     }
 
+
+
   }, []);
 
   return (
@@ -88,7 +98,7 @@ const Home = () => {
         )
         }
       </div>
-      {isModalOpen && <EventsModal onClose={closeModal} />}
+      {isModalOpen && <EventsModal  events={lastEvents} onClose={closeModal} />}
     </div>
   );
 };

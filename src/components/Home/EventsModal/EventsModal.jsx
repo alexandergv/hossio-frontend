@@ -1,19 +1,23 @@
 import React from 'react';
 import './EventsModal.css';
 
-const EventsModal = ({ onClose }) => {
-  // Aquí deberías hacer la llamada a la API para obtener los eventos
-
+const EventsModal = ({ onClose, events }) => {
   return (
     <div className="modal-overlay">
       <div className="modal-content">
         <button className="close-button" onClick={onClose}>✕</button>
         <h2>Últimos Eventos</h2>
-        {/* Aquí deberías mapear los eventos obtenidos */}
         <div className="events-list">
-          <p>Evento 1</p>
-          <p>Evento 2</p>
-          <p>Evento 3</p>
+          {events.map((event, index) => (
+            <a href={`/places/${event.placeId}`} className="event-card">
+              <img src={event.image} alt={event.title} className="event-image" />
+              <div className="event-details">
+                <h3 className="event-title">{event.title}</h3>
+                <p className="event-place">Lugar: {event.placeName}</p> 
+                <p className="event-summary">{event.summary}</p>
+              </div>
+            </a>
+          ))}
         </div>
       </div>
     </div>

@@ -110,7 +110,7 @@ if(isAuthenticated && user.role =='owner') {
       </div>
       <div class="place-info">
         <p>{placeDetails.description}</p>
-        <p><strong>Calificación promedio: </strong> {placeDetails.rating} / 5</p>
+        <p><strong>Calificación promedio: </strong> {placeDetails.rating.toPrecision(1)} / 5</p>
       </div>
       <ReviewContainer client:load userId={session.user?.sub} 
       placeId={placeId} isAuthenticated={isAuthenticated}/>
