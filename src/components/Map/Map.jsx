@@ -7,6 +7,12 @@ import './Map.css';
 const Map = ({ latitude, longitude, name }) => {
   const position = [latitude, longitude];
 
+  const openInGoogleMaps = () => {
+    const googleMapsUrl = `https://www.google.com/maps?q=${latitude},${longitude}`;
+    window.open(googleMapsUrl, '_blank');
+  };
+
+
   // Fix for default marker icon issues
   delete L.Icon.Default.prototype._getIconUrl;
   L.Icon.Default.mergeOptions({
@@ -16,6 +22,7 @@ const Map = ({ latitude, longitude, name }) => {
   });
 
   return (
+    <div className="map-container">
     <MapContainer center={position} zoom={13} scrollWheelZoom={true} style={{ height: '400px', width: '100%' }}>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -25,6 +32,10 @@ const Map = ({ latitude, longitude, name }) => {
         <Popup>{name}</Popup>
       </Marker>
     </MapContainer>
+    <button className="open-google-maps-button" onClick={openInGoogleMaps}>
+        Abrir en Google Maps
+      </button>
+    </div>
   );
 };
 
