@@ -3,4 +3,6 @@
     flex-wrap: wrap;
     justify-content: center;
     padding: 20px;
+    min-height: 396px;
+    align-content: center;
   }

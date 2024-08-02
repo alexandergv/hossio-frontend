@@ -51,6 +51,11 @@ const BusinessProfile = ({userId}) => {
     getBusiness();
   },[])
 
+  const handleCancel = async () => {
+    await getBusiness();
+    setIsEditing(false);
+  }
+
   
 
 
@@ -107,8 +112,20 @@ const BusinessProfile = ({userId}) => {
     setIsEditing(true);
   };
 
-  const handleDelete = () => {
-    // Implement delete logic (e.g., API call to delete business)
+  const handleDelete = async () => {
+    if(placeInfo._id) {
+      const placesResponse = await axiosInstance.delete(`/places/${placeInfo._id}`);
+    }
+
+    if(businessInfo._id) {
+      const BusinessResponse = await axiosInstance.delete(`/business/${businessInfo._id}`);
+    } else {
+      throw "Executed function without a business id.";
+    }
+
+    await getBusiness();
+
+    // // Implement delete logic (e.g., API call to delete business)
     console.log('Business deleted:', businessInfo.id);
   };
 
@@ -207,8 +224,8 @@ const BusinessProfile = ({userId}) => {
           <div className="actions">
             <button className="save-button" onClick={handleSave}>Guardar</button>
             {businessInfo && (
-              <button className="delete-button" onClick={handleDelete}>
-                <FontAwesomeIcon icon={faTrash} /> Eliminar
+              <button className="delete-button" onClick={handleCancel}>
+                <FontAwesomeIcon icon={faTrash} /> Cancelar
               </button>
             )}
           </div>
@@ -223,6 +240,11 @@ const BusinessProfile = ({userId}) => {
           <button className="edit-button" onClick={handleEdit}>
             <FontAwesomeIcon icon={faEdit} /> Editar
           </button>
+          {businessInfo._id && (
+              <button className="delete-button" onClick={handleDelete}>
+                <FontAwesomeIcon icon={faTrash} /> Eliminar
+              </button>
+            )}
         </div>
       )}
     </div>

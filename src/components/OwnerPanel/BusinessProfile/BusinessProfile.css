@@ -32,8 +32,9 @@
   }
   
   .actions {
-    text-align: center;
+    display: flex;
     margin-top: 20px;
+    justify-content: center;
   }
   
   button {
