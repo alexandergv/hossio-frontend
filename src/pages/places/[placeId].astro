@@ -33,6 +33,13 @@ const placesData = async () : Promise<Place> => {
 
 const placeDetails: Place =  await placesData();
 
+const averageRating = async () : Promise<number> => {
+  let response = await axiosInstance.get(`/reviews/averageRating/${placeId}`);
+  const averageRating: number = response.data.averageRating;
+  return averageRating;
+}
+
+placeDetails.rating = await averageRating();
 
 if (!placeDetails) {
   Astro.response.status = 404;
@@ -103,7 +110,7 @@ if(isAuthenticated && user.role =='owner') {
       </div>
       <div class="place-info">
         <p>{placeDetails.description}</p>
-        <p>Calificación promedio: {placeDetails.rating} / 5</p>
+        <p><strong>Calificación promedio: </strong> {placeDetails.rating} / 5</p>
       </div>
       <ReviewContainer client:load userId={session.user?.sub} 
       placeId={placeId} isAuthenticated={isAuthenticated}/>
