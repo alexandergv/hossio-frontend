@@ -10,11 +10,44 @@
   .home-container h1 {
     font-family: 'Montserrat', sans-serif;
     font-size: 2rem;
-    margin-bottom: 20px;
+    margin-bottom: 7px;
+    margin-top: 20px;
   }
   
   .place-list {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+  }
+
+  .action-buttons-container{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+    padding-right: 90px;
+  }
+
+  .events-button {
+    background-color: white;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .events-button span {
+    font-weight: bold;
+  }
+
+  .home-container hr {
+    width: 91%;
+    border: 1px solid #bad6c76e;
+  }
+  
+  .events-button:hover {
+    background-color: #f0f0f0;
   }
