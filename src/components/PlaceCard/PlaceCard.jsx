@@ -12,7 +12,7 @@ const PlaceCard = ({ place }) => {
     e.preventDefault(); // Prevent navigation
     setIsFavorite(!isFavorite);
   };
-
+  const isOpen = place.isOpen; //place.isOpen;
 
   return (
     <a href={`/places/${place._id}`} className="place-card">
@@ -20,9 +20,12 @@ const PlaceCard = ({ place }) => {
     <div className="favorite-icon" onClick={toggleFavorite}>
     <FontAwesomeIcon className={`${isFavorite ? 'heart-active' : ''}`} color='#48D1B2' icon={faHeart} />
      </div>
+     <div className={`status-label ${isOpen ? 'open' : 'closed'}`}>
+          {isOpen ? 'Abierto ahora' : 'Cerrado'}
+      </div>
       <img src={place.images[place.images.length - 1]} alt={place.name} className="place-image" />
       <div className="place-details">
-        <h2 className="place-name">{place.name}</h2>
+        <h2 className="place-name">{`${place.name.slice(0,34)}${ place.name.length > 34 ? '...' : ''}`}</h2>
         <p className="place-description">{place.description}</p>
         <span className="place-rating">Calificacion: <ReviewStars readOnly={true} ratingScore={place.rating} 
         rating={rating} setRating={setRating}/></span>

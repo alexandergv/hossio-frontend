@@ -82,10 +82,18 @@ const Home = () => {
     <div className="home-container">
       <h1>Descubre donde <span className='highlight-text'>caer</span></h1>
       <div className="action-buttons-container">
-      <button className="events-button" onClick={openModal}>
+        {!loading ?
+        (<button className="events-button" onClick={openModal}>
         <FontAwesomeIcon color='#48D1B2' icon={faCalendarAlt} />
         <span> Eventos</span>
-      </button> 
+      </button>)
+      : (
+        <button className="events-button">
+          <span>...</span>
+        </button>
+      ) 
+        }
+
       </div>
       <hr />
       <div className="place-list">

@@ -50,6 +50,7 @@
   padding: 10px 15px;
   cursor: pointer;
   border-radius: 50%;
+  font-weight: bold;
   transition: background 0.15s;
 }
 
