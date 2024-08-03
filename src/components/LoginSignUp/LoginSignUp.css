@@ -41,13 +41,41 @@
     border: none;
     border-radius: 5px;
     background-color: #00aaff; /* Main color of Hossio */
-    color: white;
     font-size: 16px;
     cursor: pointer;
+    font-weight: bold;
+    color: white;
+    font-family: inherit;
     transition: background-color 0.3s;
   }
   
   button:hover {
     background-color: #0088cc;
   }
+
+  .login-signup-container hr {
+    margin-top: 44px;
+    opacity: 0.5;
+  }
+
+  .login-signup-container p {
+    margin: 10px 0px;
+  }
+
+  .pseudo-link {
+    color: #009eee;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.15s;
+  }
+  .pseudo-link:hover {
+    color: #006ca2;
+  }
   
+  /* social login buttons */
+  .social-login-buttons {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }

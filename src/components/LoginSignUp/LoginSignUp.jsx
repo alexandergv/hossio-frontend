@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axiosInstance from 'services/axiosConfig'
-import config from '../../config';
+import { auth, googleProvider, appleProvider } from '../../../firebaseConfig'; 
+import GoogleSignButton from 'components/signInButtons/GoogleSignButton';
 import './LoginSignup.css';
 
 const LoginSignup = () => {
@@ -53,10 +54,29 @@ const LoginSignup = () => {
     }
   };
 
+  const handleGoogleLogin = async () => {
+    try {
+      await auth.signInWithPopup(googleProvider);
+      // Redirige o muestra mensaje de éxito
+    } catch (error) {
+      console.error('Error al iniciar sesión con Google:', error);
+    }
+  };
+
+  const handleAppleLogin = async () => {
+    try {
+      await auth.signInWithPopup(appleProvider);
+      // Redirige o muestra mensaje de éxito
+    } catch (error) {
+      console.error('Error al iniciar sesión con Apple:', error);
+    }
+  };
+
+
   return (
     <div className="login-signup-container">
       <form onSubmit={handleSubmit}>
-        <h2>{isLogin ? 'Iniciar Sesión' : 'Registrarse'}</h2>
+        <h2>{(isLogin ? '¡Bienvenido/a!' : 'Registrate')}</h2>
         <div className="form-group">
           <label htmlFor="email">Correo Electrónico:</label>
           <input
@@ -89,8 +109,14 @@ const LoginSignup = () => {
             required
           />
         </div>
-        <button type="submit">{isLogin ? 'Iniciar Sesión' : 'Registrarse'}</button>
+        <button type="submit">{isLogin ? 'Continuar' : 'Registrarse'}</button>
       </form>
+      {isLogin && <p>¿Usuario nuevo? <span onClick={() => setIsLogin(false)} className='pseudo-link'>Registrate</span>.</p>}
+      {!isLogin && <p>¿ya tienes una cuenta? <span onClick={() => setIsLogin(true)} className='pseudo-link'>Inicia sesión</span>.</p>}
+      <hr />
+      <div className="social-login-buttons">
+        <GoogleSignButton/>
+      </div>
     </div>
   );
 };
