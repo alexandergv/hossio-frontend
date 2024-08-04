@@ -4,6 +4,7 @@ import { auth, googleProvider, appleProvider } from '../../../firebaseConfig';
 import GoogleSignButton from 'components/signInButtons/GoogleSignButton';
 import './LoginSignup.css';
 
+
 const LoginSignup = ({isLoginProp}) => {
   const [isLogin, setIsLogin] = useState(isLoginProp);
   const [email, setEmail] = useState('');

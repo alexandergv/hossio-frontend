@@ -4,7 +4,7 @@ import './OwnerLoginSignup.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
-const LoginSignup = () => {
+const OwnerLoginSignup = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
@@ -142,4 +142,4 @@ const LoginSignup = () => {
   );
 };
 
-export default LoginSignup;
+export default OwnerLoginSignup;
