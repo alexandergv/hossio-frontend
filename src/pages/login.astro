@@ -3,7 +3,7 @@ import React from 'react';
 import LoginSignup from '../components/LoginSignUp/LoginSignUp';
 import "../styles/main.css";
 import Layout from "../layouts/Layout.astro"
-import { getSession } from '../middleware/session';
+import { getSession } from '../CustomMiddleware/session';
 
 const isLogin =  Astro.url.searchParams.get('register') == null;
 

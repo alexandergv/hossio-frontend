@@ -2,7 +2,7 @@
 import NavBar from '../components/Navbar/Navbar.jsx';
 import OwnerDashboard from '../components/OwnerPanel/OwnerDashboard';
 import "../styles/main.css";
-import { getSession } from '../middleware/session.js';
+import { getSession } from '../CustomMiddleware/session.js';
 
 const session = getSession(Astro.cookies.get('auth_token')?.value);
 const isAuthenticated = session.authenticated;
