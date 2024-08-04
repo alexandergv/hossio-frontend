@@ -1,5 +1,4 @@
 import './Navbar.css';
-import {placesData as places } from '../../data/places';
 import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch,faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
