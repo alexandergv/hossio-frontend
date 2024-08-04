@@ -57,7 +57,7 @@ const NavBar = ({userAuthenticated, user}) => {
       <div className="navbar-right">
         {(user == null)  && <a href="/loginOwners" className="btn-reverse">Para propietarios</a>}
         {!userAuthenticated && (<><a href="/login" className="navbar-link">Iniciar sesión</a>
-        <a href="/login" className="navbar-link">Registrarse</a></>)}
+        <a href="/login?register" className="navbar-link">Registrarse</a></>)}
         {userAuthenticated && (<p>Bienvenido, {user.username}!</p>)}
         {userAuthenticated && (<button className="logout-button" onClick={onLogout}>
       <FontAwesomeIcon icon={faSignOutAlt} /> Cerrar Sesión

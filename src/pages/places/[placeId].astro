@@ -2,17 +2,25 @@
 import Carrousel from "../../components/Carrousel/Carrousel";
 import Map from '../../components/Map/Map'; 
 import Layout from '../../layouts/Layout.astro';
+import PlaceDetails from "components/PlaceDetails/PlaceDetails";
 import axiosInstance from 'services/axiosConfig'
+import { getSession } from '../../middleware/session';
+import ReviewContainer from "components/ReviewContainer/ReviewContainer";
 
 export interface Review {
     text: string;
     author: string;
 }
+
+// export interface PlaceDetails {
+//     description: string;
+// }
   
 
 interface Place {
     id: string;
     name: string;
+    // placeDetails: PlaceDetails;
     description: string;
     rating: number;
     images: string[];
@@ -22,7 +30,14 @@ interface Place {
       coordinates: number[];
     }
 }
-  
+
+const session = getSession(Astro.cookies.get('auth_token')?.value);
+const isAuthenticated = session.authenticated;
+const user = session.user;
+
+if(isAuthenticated && user.role =='owner') {
+  return Astro.redirect('/owners');
+}
 
 const { placeId } = Astro.params;
 const placesData = async () : Promise<Place> => {
@@ -31,7 +46,7 @@ const placesData = async () : Promise<Place> => {
   return place;
 }
 
-const placeDetails: Place =  await placesData();
+const placeInfo: Place =  await placesData();
 
 const averageRating = async () : Promise<number> => {
   let response = await axiosInstance.get(`/reviews/averageRating/${placeId}`);
@@ -39,22 +54,27 @@ const averageRating = async () : Promise<number> => {
   return averageRating;
 }
 
-placeDetails.rating = await averageRating();
+placeInfo.rating = await averageRating();
 
-if (!placeDetails) {
+if (!placeInfo) {
   Astro.response.status = 404;
   Astro.response.statusText = 'Not found';
   throw Error("no page with this id was found")
 };
 
-import { getSession } from '../../middleware/session';
-import ReviewContainer from "components/ReviewContainer/ReviewContainer";
-const session = getSession(Astro.cookies.get('auth_token')?.value);
-const isAuthenticated = session.authenticated;
-const user = session.user;
-
-if(isAuthenticated && user.role =='owner') {
-  return Astro.redirect('/owners');
+const placeD = {
+  "description": placeInfo.description,
+  "rating": placeInfo.rating,
+  "averagePrice": "$20 - $50",
+  "types": ["Restaurante", "Bar"],
+  "schedule": {
+    "Lunes": { "open": "10:00 AM", "close": "10:00 PM" },
+    "Martes": { "open": "10:00 AM", "close": "10:00 PM" },
+    "Miércoles": { "open": "10:00 AM", "close": "10:00 PM" },
+    "Jueves": { "open": "10:00 AM", "close": "10:00 PM" },
+    "Viernes": { "open": "10:00 AM", "close": "10:00 PM" }
+  },
+  "features": ["Parqueo disponible", "Cobro en la entrada", "Wifi gratuito"]
 }
 
 ---
@@ -70,21 +90,12 @@ if(isAuthenticated && user.role =='owner') {
         margin-bottom: 20px;
         text-align: center;
       }
-
-      .place-info {
-        display: flex;
-        flex-direction: column;
-      }
-
-      .place-info p {
-        margin-bottom: 10px;
-      }
-
       .place-content {
         display: flex;
         justify-content: space-between;
         margin-top: 20px;
-        max-height: 400px
+        max-height: 400px;
+        margin-bottom: 32px;
       }
 
       .place-images,
@@ -97,21 +108,18 @@ if(isAuthenticated && user.role =='owner') {
         margin-left: 20px;
       }
 </style>
-<Layout session={session} title=`${placeDetails.name} - Hossio``>
+<Layout session={session} title=`${placeInfo.name} - Hossio``>
     <main class="place-details">
-      <h1>{placeDetails.name}</h1>
+      <h1>{placeInfo.name}</h1>
       <div class="place-content">
         <div class="place-images">
-          <Carrousel client:load images={placeDetails.images.reverse()} />
+          <Carrousel client:load images={placeInfo.images.reverse()} />
         </div>
         <div class="place-map">
-          <Map client:only="react" latitude={placeDetails.location.coordinates[0]} longitude={placeDetails.location.coordinates[1]} name={placeDetails.name} />
+          <Map client:only="react" latitude={placeInfo.location.coordinates[0]} longitude={placeInfo.location.coordinates[1]} name={placeInfo.name} />
         </div>
       </div>
-      <div class="place-info">
-        <p>{placeDetails.description}</p>
-        <p><strong>Calificación promedio: </strong> {placeDetails.rating.toPrecision(1)} / 5</p>
-      </div>
+      <PlaceDetails placeDetails={placeD}/>
       <ReviewContainer client:load userId={session.user?.sub} 
       placeId={placeId} isAuthenticated={isAuthenticated}/>
     </main>

@@ -4,8 +4,8 @@ import { auth, googleProvider, appleProvider } from '../../../firebaseConfig';
 import GoogleSignButton from 'components/signInButtons/GoogleSignButton';
 import './LoginSignup.css';
 
-const LoginSignup = () => {
-  const [isLogin, setIsLogin] = useState(true);
+const LoginSignup = ({isLoginProp}) => {
+  const [isLogin, setIsLogin] = useState(isLoginProp);
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -19,10 +19,6 @@ const LoginSignup = () => {
       console.error('Error checking registration status:', error);
     }
   };
-
-  // useEffect(() => {
-  //   setIsLogin(isRegistered);
-  // }, [isRegistered]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

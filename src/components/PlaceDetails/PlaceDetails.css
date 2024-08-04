@@ -1,0 +1,26 @@
+.place-details-container {
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .place-info {
+    margin-top: 20px;
+  }
+  
+  .place-type-labels {
+    margin-top: 10px;
+  }
+  
+  .place-type {
+    display: inline-block;
+    background-color: #1abc9c;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-right: 5px;
+    font-size: 12px;
+  }
+  
