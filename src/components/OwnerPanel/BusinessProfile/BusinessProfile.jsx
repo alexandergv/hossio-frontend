@@ -63,11 +63,13 @@ const BusinessProfile = ({userId}) => {
   },[location]);
 
   const handleBusinessChange = (e) => {
+    e.target.setCustomValidity(''); 
     const { name, value } = e.target;
     setBusinessInfo({ ...businessInfo, [name]: value });
   };
 
   const handlePlaceChange = (e) => {
+    e.target.setCustomValidity(''); 
     const { name, value } = e.target;
     setPlaceInfo({ ...placeInfo, [name.replace('place','')]: value });
   };
@@ -156,6 +158,26 @@ const BusinessProfile = ({userId}) => {
     setImagesUrls(urls);
   };
 
+
+  const checkIdValid = (text) => {
+    console.log();
+    if(text == '') {
+      return requiredMessage;
+    }
+    const pattern = /^[0-9]{11}$/;
+    let textIsValidId = pattern.test(text);
+    if(!textIsValidId) {
+      return "Documento de identificación inválido.";
+    }
+    return '';
+  }
+  const requiredMessage = "Este campo es requerido."
+
+  const handleInvalid = (e) => {
+    const requiredMessage = "Este campo es requerido.";
+    e.target.setCustomValidity(requiredMessage);
+  };
+  
   return (
     <div className="business-profile">
       <h2>Perfil del Negocio</h2>
@@ -167,8 +189,9 @@ const BusinessProfile = ({userId}) => {
               type="text"
               id="name"
               name="name"
-              value={businessInfo.name}
               required
+              value={businessInfo.name}
+              onInvalid={handleInvalid}
               onChange={handleBusinessChange}
             />
           </div>
@@ -199,6 +222,7 @@ const BusinessProfile = ({userId}) => {
               id="email"
               name="email"
               required
+              onInvalid={handleInvalid}
               value={businessInfo.email}
               onChange={handleBusinessChange}
             />
@@ -220,6 +244,7 @@ const BusinessProfile = ({userId}) => {
               id="placename"
               name="placename"
               required
+              onInvalid={handleInvalid}
               value={placeInfo.name}
               onChange={handlePlaceChange}
             />
@@ -230,6 +255,7 @@ const BusinessProfile = ({userId}) => {
               id="placedescription"
               name="placedescription"
               required
+              onInvalid={handleInvalid}
               value={placeInfo.description}
               onChange={handlePlaceChange}
             />
