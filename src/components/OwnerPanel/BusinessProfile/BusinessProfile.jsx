@@ -85,18 +85,27 @@ const BusinessProfile = ({userId}) => {
             }
             console.log(placeInfoTemp);
             const placesResponse = await axiosInstance.post(`/places/AddOrUpdate`, placeInfoTemp);
+            if (placesResponse.status < 200 || placesResponse.status >= 300) {
+              throw new Error(`Fallo a la hora de guardar información del lugar.: ${placesResponse.statusText}`);
+            }
+            
             console.log(placesResponse);
             
             let businessInfoTemp = businessInfo;
             businessInfoTemp.place = placesResponse.data._id;
             console.log('businessInfoTemp', businessInfoTemp);
             const BusinessResponse = await axiosInstance.post(`/business/AddOrUpdate`, businessInfoTemp);
+            
+            if (BusinessResponse.status < 200 || BusinessResponse.status >= 300) {
+              throw new Error(`Fallo a la hora de guardar información del negocio.: ${BusinessResponse.statusText}`);
+            }
             console.log('Business info saved:', BusinessResponse.data);            
            
             setIsEditing(false);
+            showSuccessAlert('Información de negocio guardada con éxito.');
           })
           .catch((error) => {
-            console.error('Error al subir imágenes:', error);
+            throw error;
           });
       }
      }  
@@ -112,17 +121,21 @@ const BusinessProfile = ({userId}) => {
   };
 
   const handleDelete = async () => {
-    if(placeInfo._id) {
-      const placesResponse = await axiosInstance.delete(`/places/${placeInfo._id}`);
+    const confirmed = await showConfirmationAlert('¿Estás seguro de que deseas borrar la información de este negocio?');
+    if(confirmed) {
+      if(placeInfo._id) {
+        const placesResponse = await axiosInstance.delete(`/places/${placeInfo._id}`);
+      }
+  
+      if(businessInfo._id) {
+        const BusinessResponse = await axiosInstance.delete(`/business/${businessInfo._id}`);
+      } else {
+        throw "Executed function without a business id.";
+      }
+      showSuccessAlert('Información de negocio borrada con éxito.');
+      await getBusiness();
     }
 
-    if(businessInfo._id) {
-      const BusinessResponse = await axiosInstance.delete(`/business/${businessInfo._id}`);
-    } else {
-      throw "Executed function without a business id.";
-    }
-
-    await getBusiness();
 
     // // Implement delete logic (e.g., API call to delete business)
     console.log('Business deleted:', businessInfo.id);
