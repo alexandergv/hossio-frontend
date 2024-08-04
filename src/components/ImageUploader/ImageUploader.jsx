@@ -1,6 +1,7 @@
 import React, { useState, forwardRef, useImperativeHandle, useEffect } from 'react';
 import axios from 'axios';
 import './ImageUploader.css';
+import configVariables from 'configVariables';
 
 const ImageUploader = forwardRef(({ onImagesUploaded, imagesUrls }, ref) => {
   const [imageFiles, setImageFiles] = useState([]);
@@ -18,13 +19,13 @@ const ImageUploader = forwardRef(({ onImagesUploaded, imagesUrls }, ref) => {
       const uploaders = imageFiles.map((image) => {
         const formData = new FormData();
         formData.append('file', image);
-        formData.append('upload_preset', 'ml_default');
-        formData.append('api_key', '314479846384867');
+        formData.append('upload_preset', configVariables.mediaServicePreset);
+        formData.append('api_key', configVariables.mediaServiceKey);
         formData.append('timestamp', (Date.now() / 1000) | 0);
 
         return axios
           .post(
-            `https://api.cloudinary.com/v1_1/dq5xhipwo/image/upload`,
+            configVariables.mediaServiceUrl,
             formData,
             { headers: { 'X-Requested-With': 'XMLHttpRequest' } }
           )
