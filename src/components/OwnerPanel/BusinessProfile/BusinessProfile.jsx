@@ -6,7 +6,7 @@ import LocationPicker from './LocationPicker';
 import axiosInstance from 'services/axiosConfig'
 import './BusinessProfile.css';
 import ImageUploader from '../../ImageUploader/ImageUploader';
-import { ShowModal } from '../../../utils/ModalHelper';
+import { showSuccessAlert, showErrorAlert, showConfirmationAlert } from '../../../utils/alerts';
 
 const BusinessProfile = ({userId}) => {
   const businessInfoDefault = 
@@ -56,13 +56,9 @@ const BusinessProfile = ({userId}) => {
     setIsEditing(false);
   }
 
-  
-
-
   useEffect(() => {
    
   },[location]);
-
 
   const handleBusinessChange = (e) => {
     const { name, value } = e.target;
@@ -76,40 +72,37 @@ const BusinessProfile = ({userId}) => {
 
   const handleSave = async () => {
     try {
-      const confirmed = await ShowModal('¿Estás seguro de que deseas guardar la información de este negocio?');
-     
+      const confirmed = await showConfirmationAlert('¿Estás seguro de que deseas guardar la información de este negocio?');
      if(confirmed) {
-      console.log('confirmado.');
-     } else {
-      console.log('No confirmado.');
-     }
-      // if (imageUploaderRef.current) {
-      //   imageUploaderRef.current.handleUpload()
-      //     .then(async (urls) => {
-      //       // Sending new place first;
-      //       let placeInfoTemp = placeInfo;
-      //       placeInfoTemp.images = [...urls, ...imagesUrls];
-      //       placeInfoTemp.location = {
-      //         coordinates: location
-      //       }
-      //       console.log(placeInfoTemp);
-      //       const placesResponse = await axiosInstance.post(`/places/AddOrUpdate`, placeInfoTemp);
-      //       console.log(placesResponse);
+      if (imageUploaderRef.current) {
+        imageUploaderRef.current.handleUpload()
+          .then(async (urls) => {
+            // Sending new place first;
+            let placeInfoTemp = placeInfo;
+            placeInfoTemp.images = [...urls, ...imagesUrls];
+            placeInfoTemp.location = {
+              coordinates: location
+            }
+            console.log(placeInfoTemp);
+            const placesResponse = await axiosInstance.post(`/places/AddOrUpdate`, placeInfoTemp);
+            console.log(placesResponse);
             
-      //       let businessInfoTemp = businessInfo;
-      //       businessInfoTemp.place = placesResponse.data._id;
-      //       console.log('businessInfoTemp', businessInfoTemp);
-      //       const BusinessResponse = await axiosInstance.post(`/business/AddOrUpdate`, businessInfoTemp);
-      //       console.log('Business info saved:', BusinessResponse.data);            
+            let businessInfoTemp = businessInfo;
+            businessInfoTemp.place = placesResponse.data._id;
+            console.log('businessInfoTemp', businessInfoTemp);
+            const BusinessResponse = await axiosInstance.post(`/business/AddOrUpdate`, businessInfoTemp);
+            console.log('Business info saved:', BusinessResponse.data);            
            
-      //       setIsEditing(false);
-      //     })
-      //     .catch((error) => {
-      //       console.error('Error al subir imágenes:', error);
-      //     });
-      // }
+            setIsEditing(false);
+          })
+          .catch((error) => {
+            console.error('Error al subir imágenes:', error);
+          });
+      }
+     }  
 
     } catch (error) {
+      showErrorAlert(error);
       console.error('Error saving business info:', error);
     }
   };
