@@ -5,6 +5,7 @@
     --color-accent: #E67E22; /* Naranja */
     --color-link: #3498DB; /* Azul Claro */
     --color-text: #333; /* Color de Texto General */
+    --color-danger: #dc3545; /* Color de Texto General */
   }
 
 body {
@@ -31,4 +32,12 @@ h1, h2, h3, h4, h5, h6 {
 p, a, li {
   font-family: 'Roboto', 'Open Sans', 'Source Sans Pro', sans-serif;
   text-decoration: none;
+}
+
+.btn-danger {
+  background-color: var(--color-danger);
+}
+
+.btn-danger:hover {
+    filter: brightness(85%);
 }

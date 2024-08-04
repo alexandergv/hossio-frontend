@@ -49,10 +49,11 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
+    transition: filter 0.15s ease-in;
   }
   
   button:hover {
-    background-color: #0088cc;
+    filter: brightness(95%);
   }
   
   .save-button {
