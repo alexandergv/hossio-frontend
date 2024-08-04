@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import axiosInstance from 'services/axiosConfig'
-import config from '../../config';
 import './OwnerLoginSignup.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
