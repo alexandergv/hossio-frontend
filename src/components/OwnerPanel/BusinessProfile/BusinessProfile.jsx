@@ -17,9 +17,11 @@ const BusinessProfile = ({userId}) => {
     email : '',
     description : ''
   }
+  const defaultLocation = [18.47619001344168, -69.91351604461671];
+
   const [businessInfo, setBusinessInfo] = useState(businessInfoDefault);
   const [placeInfo, setPlaceInfo] = useState({});
-  const [location, setLocation] = useState([18.468692510573238, -69.93240723128731]); // Ubicación inicial
+  const [location, setLocation] = useState(defaultLocation); // Ubicación inicial
   const [isEditing, setIsEditing] = useState(!businessInfo);
   const [imagesUrls, setImagesUrls] = useState([])
   const imageUploaderRef = useRef(null);
@@ -70,12 +72,16 @@ const BusinessProfile = ({userId}) => {
     setPlaceInfo({ ...placeInfo, [name.replace('place','')]: value });
   };
 
-  const handleSave = async () => {
+  const handleSave = async (e) => {
+    e.preventDefault();
     try {
+      if(location[0] == defaultLocation[0] && location[1] == defaultLocation[1])
+          throw new Error("Debe seleccionar la ubicación del lugar.");
+
       const confirmed = await showConfirmationAlert('¿Estás seguro de que deseas guardar la información de este negocio?');
      if(confirmed) {
       if (imageUploaderRef.current) {
-        imageUploaderRef.current.handleUpload()
+        await imageUploaderRef.current.handleUpload()
           .then(async (urls) => {
             // Sending new place first;
             let placeInfoTemp = placeInfo;
@@ -105,14 +111,13 @@ const BusinessProfile = ({userId}) => {
             showSuccessAlert('Información de negocio guardada con éxito.');
           })
           .catch((error) => {
-            throw error;
+             throw new Error(error);
           });
       }
      }  
 
     } catch (error) {
       showErrorAlert(error);
-      console.error('Error saving business info:', error);
     }
   };
 
@@ -155,7 +160,7 @@ const BusinessProfile = ({userId}) => {
     <div className="business-profile">
       <h2>Perfil del Negocio</h2>
       {isEditing ? (
-        <div>
+        <form onSubmit={handleSave}>
           <div className="form-group">
             <label htmlFor="name">Nombre del negocio</label>
             <input
@@ -163,6 +168,7 @@ const BusinessProfile = ({userId}) => {
               id="name"
               name="name"
               value={businessInfo.name}
+              required
               onChange={handleBusinessChange}
             />
           </div>
@@ -192,6 +198,7 @@ const BusinessProfile = ({userId}) => {
               type="email"
               id="email"
               name="email"
+              required
               value={businessInfo.email}
               onChange={handleBusinessChange}
             />
@@ -212,6 +219,7 @@ const BusinessProfile = ({userId}) => {
               type="text"
               id="placename"
               name="placename"
+              required
               value={placeInfo.name}
               onChange={handlePlaceChange}
             />
@@ -221,6 +229,7 @@ const BusinessProfile = ({userId}) => {
             <textarea
               id="placedescription"
               name="placedescription"
+              required
               value={placeInfo.description}
               onChange={handlePlaceChange}
             />
@@ -234,14 +243,14 @@ const BusinessProfile = ({userId}) => {
           <LocationPicker initialLocation={location} onLocationSelect={handleLocationSelect} />
           </div>
           <div className="actions">
-            <button className="save-button" onClick={handleSave}>Guardar</button>
+            <button className="save-button" type="submit">Guardar</button>
             {businessInfo && (
-              <button className="delete-button" onClick={handleCancel}>
+              <button className="delete-button" type="button" onClick={handleCancel}>
                 <FontAwesomeIcon icon={faTrash} /> Cancelar
               </button>
             )}
           </div>
-        </div>
+        </form>
       ) : (
         <div>
           <p><strong>Nombre del negocio:</strong> {businessInfo.name}</p>

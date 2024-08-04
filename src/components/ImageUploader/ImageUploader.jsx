@@ -11,7 +11,6 @@ const ImageUploader = forwardRef(({ onImagesUploaded, imagesUrls }, ref) => {
   };
 
   useEffect(() => {
-    console.log(imagesUrls);
   },[])
 
   const handleUpload = async () => {
@@ -38,7 +37,10 @@ const ImageUploader = forwardRef(({ onImagesUploaded, imagesUrls }, ref) => {
 
       axios.all(uploaders)
         .then((urls) => {
-          onImagesUploaded(urls);
+          if(imagesUrls.length == 0 && urls.length == 0) {
+            throw "Debe almenos subir una imagen del lugar.";
+          }
+          // onImagesUploaded(urls);
           resolve(urls);
         })
         .catch(reject);
