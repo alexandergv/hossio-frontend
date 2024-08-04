@@ -1,5 +1,6 @@
 import GitHub from '@auth/core/providers/github';
 import { defineConfig } from 'auth-astro';
+import configVariables from 'configVariables';
 
 export default defineConfig({
     providers: [],
@@ -12,5 +13,5 @@ export default defineConfig({
         sameSite: 'lax',
       },
     },
-    secret: 'hossio',
+    secret: configVariables.jwtSecret,
   });

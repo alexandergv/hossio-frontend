@@ -1,10 +1,9 @@
 import axios from 'axios'
-import configs from 'config';
-
+import configVariables from 'configVariables';
 
 // Create an axios instance
 const axiosInstance = axios.create({
-  baseURL: configs.apiUrl
+  baseURL: configVariables.apiUrl,
 });
 
 axiosInstance.defaults.withCredentials = true;

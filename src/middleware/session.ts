@@ -1,8 +1,8 @@
 import jwt from 'jsonwebtoken';
-import cookie from 'cookie';
+import configVariables from 'configVariables';
 
 // Clave secreta usada para firmar el JWT
-const JWT_SECRET = 'hossio'; // Asegúrate de usar una clave secreta segura y almacenarla de manera segura
+const JWT_SECRET = configVariables.jwtSecret; // Asegúrate de usar una clave secreta segura y almacenarla de manera segura
 
 // Función para decodificar y verificar el JWT
 export function getSession(token: string | undefined)
