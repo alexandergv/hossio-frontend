@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axiosInstance from 'services/axiosConfig'
 import { auth, googleProvider, appleProvider } from '../../../firebaseConfig'; 
 import GoogleSignButton from 'components/signInButtons/GoogleSignButton';
-import './LoginSignup.css';
+import './LoginSign.css';
 
 
 const LoginSignup = ({isLoginProp}) => {
