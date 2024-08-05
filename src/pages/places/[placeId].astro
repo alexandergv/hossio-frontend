@@ -12,15 +12,17 @@ export interface Review {
     author: string;
 }
 
-// export interface PlaceDetails {
-//     description: string;
-// }
+export interface PlaceDetails {
+    schedule: object;
+    type: string[];
+    characteristics: string[]
+}
   
 
 interface Place {
     id: string;
     name: string;
-    // placeDetails: PlaceDetails;
+    placeDetails: PlaceDetails;
     description: string;
     rating: number;
     images: string[];
@@ -62,20 +64,20 @@ if (!placeInfo) {
   throw Error("no page with this id was found")
 };
 
-const placeD = {
-  "description": placeInfo.description,
-  "rating": placeInfo.rating,
-  "averagePrice": "$20 - $50",
-  "types": ["Restaurante", "Bar"],
-  "schedule": {
-    "Lunes": { "open": "10:00 AM", "close": "10:00 PM" },
-    "Martes": { "open": "10:00 AM", "close": "10:00 PM" },
-    "Miércoles": { "open": "10:00 AM", "close": "10:00 PM" },
-    "Jueves": { "open": "10:00 AM", "close": "10:00 PM" },
-    "Viernes": { "open": "10:00 AM", "close": "10:00 PM" }
-  },
-  "features": ["Parqueo disponible", "Cobro en la entrada", "Wifi gratuito"]
-}
+// const placeD = {
+//   "description": placeInfo.description,
+//   "rating": placeInfo.rating,
+//   "averagePrice": "$20 - $50",
+//   "types": ["Restaurante", "Bar"],
+//   "schedule": {
+//     "Lunes": { "open": "10:00 AM", "close": "10:00 PM" },
+//     "Martes": { "open": "10:00 AM", "close": "10:00 PM" },
+//     "Miércoles": { "open": "10:00 AM", "close": "10:00 PM" },
+//     "Jueves": { "open": "10:00 AM", "close": "10:00 PM" },
+//     "Viernes": { "open": "10:00 AM", "close": "10:00 PM" }
+//   },
+//   "features": ["Parqueo disponible", "Cobro en la entrada", "Wifi gratuito"]
+// }
 
 ---
 <style>
@@ -119,7 +121,7 @@ const placeD = {
           <Map client:only="react" latitude={placeInfo.location.coordinates[0]} longitude={placeInfo.location.coordinates[1]} name={placeInfo.name} />
         </div>
       </div>
-      <PlaceDetails placeDetails={placeD}/>
+      <PlaceDetails placeInfo={placeInfo}/>
       <ReviewContainer client:load userId={session.user?.sub} 
       placeId={placeId} isAuthenticated={isAuthenticated}/>
     </main>

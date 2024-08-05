@@ -121,3 +121,6 @@
 .status-label.closed {
   background-color: #dc3545;
 }
+.status-label.unknown {
+  background-color: #bcb41a;
+}
