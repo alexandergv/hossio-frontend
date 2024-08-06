@@ -34,7 +34,7 @@ const NavBar = ({ userAuthenticated, user }) => {
 
   const onLogout = () => {
     axiosInstance.post(`/auth/logout`, {}, { withCredentials: true }).then((response) => {
-      window.location.reload();
+      // window.location.reload();
     });
   };
 
