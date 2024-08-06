@@ -4,7 +4,6 @@ import ScheduleTable from './ScheduleTable';
 import PlaceFeatures from './PlaceFeatures';
 
 const PlaceDetails = ({ placeInfo }) => {
-  console.log(placeInfo)
   return (
     <div className="place-details-container">
       <h2>Detalles del lugar</h2>
