@@ -65,4 +65,14 @@
       background-color: #e0e0e0;
     }
   }
-  
+  @media (max-width: 583px) {
+    .place-card-skeleton {
+     width: 400px; 
+    }
+   }
+   
+   @media (max-width: 484px) {
+    .place-card-skeleton {
+      width: 344px; 
+     }
+    }

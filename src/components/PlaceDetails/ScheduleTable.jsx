@@ -17,8 +17,8 @@ const ScheduleTable = ({ schedule }) => {
           {Object.entries(schedule).map(([day, hours], index) => (
             <tr key={index}>
               <td>{day}</td>
-              <td>{hours.open}</td>
-              <td>{hours.close}</td>
+              <td>{hours.open == '' ? 'No indicado.' : hours.open}</td>
+              <td>{hours.close == '' ? 'No indicado.' : hours.open}</td>
             </tr>
           ))}
         </tbody>

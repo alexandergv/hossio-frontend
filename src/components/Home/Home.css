@@ -52,3 +52,11 @@
   .events-button:hover {
     background-color: #f0f0f0;
   }
+
+  @media (max-width: 484px) {
+    .home-container h1 {
+      margin-bottom: 19px;
+      text-align: center;  
+      font-size: 28px; 
+    }
+  }

@@ -7,6 +7,9 @@ import axiosInstance from 'services/axiosConfig'
 import './BusinessProfile.css';
 import ImageUploader from '../../ImageUploader/ImageUploader';
 import { showSuccessAlert, showErrorAlert, showConfirmationAlert } from '../../../utils/alerts';
+import SchedulePicker from './SchedulePicker';
+import CharacteristicsPicker from './CharacteristicsPicker';
+import PlaceTypesPicker from './PlaceTypesPicker';
 
 const BusinessProfile = ({userId}) => {
   const businessInfoDefault = 
@@ -19,27 +22,42 @@ const BusinessProfile = ({userId}) => {
   }
   const defaultLocation = [18.47619001344168, -69.91351604461671];
 
+  const placeDetailsInfoDefault = {
+    schedule: {
+      monday: { open: '', close: '' },
+      tuesday: { open: '', close: '' },
+      wednesday: { open: '', close: '' },
+      thursday: { open: '', close: '' },
+      friday: { open: '', close: '' },
+      saturday: { open: '', close: '' },
+      sunday: { open: '', close: '' },
+    },
+    type: [],
+    characteristics: []
+  }
+
   const [businessInfo, setBusinessInfo] = useState(businessInfoDefault);
   const [placeInfo, setPlaceInfo] = useState({});
+  const [placeDetailsInfo, setPlaceDetailsInfo] = useState(placeDetailsInfoDefault);
   const [location, setLocation] = useState(defaultLocation); // Ubicación inicial
   const [isEditing, setIsEditing] = useState(!businessInfo);
   const [imagesUrls, setImagesUrls] = useState([])
   const imageUploaderRef = useRef(null);
-  
+
   const getBusiness = async () => {
     let business = (await axiosInstance.get(`/business/getByUserId/${userId}`)).data;
 
     if(business) {
-      console.log(business);
       // Set info for business
       setBusinessInfo(business);
       // Set info for place
       let placeInfo = (await axiosInstance.get(`/places/getById/${business.place}`)).data;
       setPlaceInfo(placeInfo);
-      console.log(placeInfo);
       // Set location for map
       setLocation([placeInfo.location.coordinates[0], placeInfo.location.coordinates[1]])
       setImagesUrls(placeInfo.images)
+      console.log(placeInfo);
+      setPlaceDetailsInfo(placeInfo.placeDetails ?? placeDetailsInfoDefault);
     } else {
       let userInfo = (await axiosInstance.get(`/users/getById/${userId}`)).data;
       setBusinessInfo({...businessInfoDefault, email: userInfo.email})
@@ -54,13 +72,31 @@ const BusinessProfile = ({userId}) => {
   },[])
 
   const handleCancel = async () => {
-    await getBusiness();
-    setIsEditing(false);
+    const confirmed = await showConfirmationAlert('¿Está seguro de que quiere cancelar? se perderá cualquier dato modificado.');
+    if(confirmed) {
+      await getBusiness();
+      setIsEditing(false);
+    }
   }
 
   useEffect(() => {
    
   },[location]);
+
+  const handlePlaceDetailsChange = (event) => {
+    // Destructuring to get the name and value from the event
+    const { name, value } = event.target;
+  
+    // Updating the state or whatever method you're using to handle changes
+    setPlaceDetailsInfo(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+
+    // console.log(value);
+    // console.log(placeDetailsInfo)
+  };
+  
 
   const handleBusinessChange = (e) => {
     e.target.setCustomValidity(''); 
@@ -74,11 +110,39 @@ const BusinessProfile = ({userId}) => {
     setPlaceInfo({ ...placeInfo, [name.replace('place','')]: value });
   };
 
+  const handleScheduleChange = (e, day, timeType) => {
+    const value = e.target.value;
+    setPlaceDetailsInfo(prevInfo => ({
+      ...prevInfo,
+      schedule: {
+        ...prevInfo.schedule,
+        [day]: {
+          ...prevInfo.schedule[day],
+          [timeType]: value,
+        },
+      },
+    }));
+  };
+
+  const handleCharacteristicChange = (e) => {
+    const { value, checked } = e.target;
+    setPlaceDetailsInfo(prevInfo => {
+      const updatedCharacteristics = checked
+        ? [...prevInfo.characteristics, value]
+        : prevInfo.characteristics.filter(item => item !== value);
+  
+      return { ...prevInfo, characteristics: updatedCharacteristics };
+    });
+  };
+
   const handleSave = async (e) => {
     e.preventDefault();
     try {
       if(location[0] == defaultLocation[0] && location[1] == defaultLocation[1])
           throw new Error("Debe seleccionar la ubicación del lugar.");
+
+      if(placeDetailsInfo.type.length == 0)
+        throw new Error("Debe seleccionar al menos un tipo de lugar.");
 
       const confirmed = await showConfirmationAlert('¿Estás seguro de que deseas guardar la información de este negocio?');
      if(confirmed) {
@@ -91,6 +155,8 @@ const BusinessProfile = ({userId}) => {
             placeInfoTemp.location = {
               coordinates: location
             }
+            placeInfoTemp.placeDetails = placeDetailsInfo;
+
             console.log(placeInfoTemp);
             const placesResponse = await axiosInstance.post(`/places/AddOrUpdate`, placeInfoTemp);
             if (placesResponse.status < 200 || placesResponse.status >= 300) {
@@ -118,13 +184,14 @@ const BusinessProfile = ({userId}) => {
       }
      }  
 
+     console.log(placeDetailsInfo);
     } catch (error) {
       showErrorAlert(error);
     }
   };
 
-  const handleEdit = () => {
-    setIsEditing(true);
+  const handleEdit = async () => {
+      setIsEditing(true);
   };
 
   const handleDelete = async () => {
@@ -158,25 +225,12 @@ const BusinessProfile = ({userId}) => {
     setImagesUrls(urls);
   };
 
-
-  const checkIdValid = (text) => {
-    console.log();
-    if(text == '') {
-      return requiredMessage;
-    }
-    const pattern = /^[0-9]{11}$/;
-    let textIsValidId = pattern.test(text);
-    if(!textIsValidId) {
-      return "Documento de identificación inválido.";
-    }
-    return '';
-  }
-  const requiredMessage = "Este campo es requerido."
-
   const handleInvalid = (e) => {
     const requiredMessage = "Este campo es requerido.";
     e.target.setCustomValidity(requiredMessage);
   };
+
+  const types = ["Restaurante", "Bar", "Parque"];
   
   return (
     <div className="business-profile">
@@ -249,6 +303,7 @@ const BusinessProfile = ({userId}) => {
               onChange={handlePlaceChange}
             />
           </div>
+          <PlaceTypesPicker handlePlaceDetailsChange={handlePlaceDetailsChange} placeDetailsInfo={placeDetailsInfo}/>
           <div className="form-group">
             <label htmlFor="placedescription">Descripcion del lugar</label>
             <textarea
@@ -268,6 +323,10 @@ const BusinessProfile = ({userId}) => {
           <label htmlFor="locationPicker">Ubicacion del lugar</label>
           <LocationPicker initialLocation={location} onLocationSelect={handleLocationSelect} />
           </div>
+          <h2>Horario de Disponibilidad</h2>
+          <SchedulePicker handleScheduleChange={handleScheduleChange} placeDetailsInfo={placeDetailsInfo} />
+          <h2>Características del lugar</h2>
+          <CharacteristicsPicker placeDetailsInfo={placeDetailsInfo} handleCharacteristicChange={handleCharacteristicChange}/>    
           <div className="actions">
             <button className="save-button" type="submit">Guardar</button>
             {businessInfo && (

@@ -1,51 +1,109 @@
-/* Estilos para SideNav */
-.sidenav {
-    width: 240px;
+/* OwnerPanelStyles.css */
+
+.owner-dashboard {
+  display: flex;
+}
+
+.hamburger-menu {
+  display: none;
+  font-size: 24px;
+  padding: 10px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  position: fixed;
+  top: 3px;
+  left: 1px;
+  z-index: 10;
+}
+
+@media (max-width: 768px) {
+  .hamburger-menu {
+    display: block;
     background-color: var(--color-primary);
+    z-index: 10001;
+  }
+  
+  .sidenav {
     position: fixed;
     top: 0;
     left: 0;
     height: 100%;
-    padding: 20px;
-    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-  }
-  
-  .sidenav ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .sidenav ul li {
-    margin: 20px 0;
-  }
-  
-  .sidenav ul li a {
-    color: #fff;
-    text-decoration: none;
-    font-size: 16px;
-    display: block;
-    padding: 10px;
-    transition: background-color 0.3s ease;
-    border-bottom: 1px solid #ffffff5c;;
-  }
-  
-  .sidenav ul li a:hover {
-    background-color: var(--color-accent);
-    border-radius: 4px;
+    width: 240px;
+    background-color: var(--color-primary);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 10000;
   }
 
-  .sidenav-icon-text {
-    margin-left: 5px;
+  .sidenav.open {
+    transform: translateX(0);
   }
-  
-  /* Estilos para OwnerDashboard */
-  .owner-dashboard {
-    display: flex;
+
+  .hamburger-menu.sidenav-open {
+    background-color: transparent;
   }
-  
+
   .content {
-    margin-left: 260px; /* Espacio para el sidenav */
+    overflow-x: hidden;
+    margin-left: 0;
     padding: 20px;
     width: 100%;
   }
-  
+
+  .content-shift {
+    margin-left: 240px;
+  }
+}
+
+/* Estilos generales para SideNav */
+.sidenav {
+  width: 240px;
+  min-width: 240px;
+  background-color: var(--color-primary);
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+  position: fixed;
+}
+
+.sidenav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidenav ul li {
+  margin: 20px 0;
+}
+
+.sidenav ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px;
+  display: block;
+  padding: 10px;
+  transition: background-color 0.3s ease;
+  border-bottom: 1px solid #ffffff5c;
+}
+
+.sidenav ul li a:hover {
+  background-color: var(--color-accent);
+  border-radius: 4px;
+}
+
+.sidenav-icon-text {
+  margin-left: 5px;
+}
+
+/* Estilos para OwnerDashboard */
+.content {
+  margin-left: 260px; /* Espacio para el sidenav */
+  padding: 20px;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+@media (max-width: 768px) {
+  .content {
+    margin-left: 0; /* Sin espacio para el sidenav en dispositivos móviles */
+  }
+}

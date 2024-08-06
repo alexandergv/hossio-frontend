@@ -6,21 +6,24 @@ import PlaceDetails from "components/PlaceDetails/PlaceDetails";
 import axiosInstance from 'services/axiosConfig'
 import { getSession } from '../../CustomMiddleware/session';
 import ReviewContainer from "components/ReviewContainer/ReviewContainer";
+import "./_placeStyles.css";
 
 export interface Review {
     text: string;
     author: string;
 }
 
-// export interface PlaceDetails {
-//     description: string;
-// }
+export interface PlaceDetails {
+    schedule: object;
+    type: string[];
+    characteristics: string[]
+}
   
 
 interface Place {
     id: string;
     name: string;
-    // placeDetails: PlaceDetails;
+    placeDetails: PlaceDetails;
     description: string;
     rating: number;
     images: string[];
@@ -41,9 +44,16 @@ if(isAuthenticated && user.role =='owner') {
 
 const { placeId } = Astro.params;
 const placesData = async () : Promise<Place> => {
-  let response = await axiosInstance.get(`/places/getById/${placeId}`);
-  const place: Place = response.data;
-  return place;
+
+  try {
+    let response = await axiosInstance.get(`/places/getById/${placeId}`);
+    const place: Place = response.data;
+    return place;
+  } catch (error) {
+    Astro.response.status = 404;
+    Astro.response.statusText = 'Not found';
+    throw Error("no page with this id was found")
+  }
 }
 
 const placeInfo: Place =  await placesData();
@@ -62,52 +72,22 @@ if (!placeInfo) {
   throw Error("no page with this id was found")
 };
 
-const placeD = {
-  "description": placeInfo.description,
-  "rating": placeInfo.rating,
-  "averagePrice": "$20 - $50",
-  "types": ["Restaurante", "Bar"],
-  "schedule": {
-    "Lunes": { "open": "10:00 AM", "close": "10:00 PM" },
-    "Martes": { "open": "10:00 AM", "close": "10:00 PM" },
-    "Miércoles": { "open": "10:00 AM", "close": "10:00 PM" },
-    "Jueves": { "open": "10:00 AM", "close": "10:00 PM" },
-    "Viernes": { "open": "10:00 AM", "close": "10:00 PM" }
-  },
-  "features": ["Parqueo disponible", "Cobro en la entrada", "Wifi gratuito"]
-}
+// const placeD = {
+//   "description": placeInfo.description,
+//   "rating": placeInfo.rating,
+//   "averagePrice": "$20 - $50",
+//   "types": ["Restaurante", "Bar"],
+//   "schedule": {
+//     "Lunes": { "open": "10:00 AM", "close": "10:00 PM" },
+//     "Martes": { "open": "10:00 AM", "close": "10:00 PM" },
+//     "Miércoles": { "open": "10:00 AM", "close": "10:00 PM" },
+//     "Jueves": { "open": "10:00 AM", "close": "10:00 PM" },
+//     "Viernes": { "open": "10:00 AM", "close": "10:00 PM" }
+//   },
+//   "features": ["Parqueo disponible", "Cobro en la entrada", "Wifi gratuito"]
+// }
 
 ---
-<style>
-      .place-details {
-        padding: 20px;
-        max-width: 930px;
-        margin: 0 auto;
-      }
-
-      .place-details h1 {
-        font-size: 32px;
-        margin-bottom: 20px;
-        text-align: center;
-      }
-      .place-content {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 20px;
-        max-height: 400px;
-        margin-bottom: 32px;
-      }
-
-      .place-images,
-      .place-map {
-        flex: 1;
-        margin-right: 20px;
-      }
-
-      .place-map {
-        margin-left: 20px;
-      }
-</style>
 <Layout session={session} title=`${placeInfo.name} - Hossio``>
     <main class="place-details">
       <h1>{placeInfo.name}</h1>
@@ -116,10 +96,10 @@ const placeD = {
           <Carrousel client:load images={placeInfo.images.reverse()} />
         </div>
         <div class="place-map">
-          <Map client:only="react" latitude={placeInfo.location.coordinates[0]} longitude={placeInfo.location.coordinates[1]} name={placeInfo.name} />
+          <Map client:only="react" className="place-details-map" latitude={placeInfo.location.coordinates[0]} longitude={placeInfo.location.coordinates[1]} name={placeInfo.name} />
         </div>
       </div>
-      <PlaceDetails placeDetails={placeD}/>
+      <PlaceDetails placeInfo={placeInfo}/>
       <ReviewContainer client:load userId={session.user?.sub} 
       placeId={placeId} isAuthenticated={isAuthenticated}/>
     </main>

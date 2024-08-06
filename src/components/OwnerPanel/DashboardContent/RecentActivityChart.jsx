@@ -30,10 +30,31 @@ const RecentActivityChart = ({ data }) => {
     ],
   };
 
+  const options = {
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      x: {
+        title: {
+          display: true,
+          text: 'Fecha',
+        },
+      },
+      y: {
+        title: {
+          display: true,
+          text: 'Cantidad',
+        },
+      },
+    },
+  };
+
+
   return (
-    <div>
-      <h3>Actividad Reciente</h3>
-      <Line data={chartData} />
+    <div className="chart-container">
+      <div className="chart-wrapper">
+        <Line data={chartData} options={options} />
+      </div>
     </div>
   );
 };

@@ -9,6 +9,9 @@ const PlaceFeatures = ({ features }) => {
         {features.map((feature, index) => (
           <li key={index}>{feature}</li>
         ))}
+        {
+          features.length == 0 && 'Sin características indicadas.'
+        }
       </ul>
     </div>
   );

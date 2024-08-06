@@ -6,6 +6,7 @@
     --color-link: #3498DB; /* Azul Claro */
     --color-text: #333; /* Color de Texto General */
     --color-danger: #dc3545; /* Color de Texto General */
+    --sm-screen-size: 768px;
   }
 
 body {

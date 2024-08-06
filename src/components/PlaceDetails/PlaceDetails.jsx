@@ -3,21 +3,25 @@ import './PlaceDetails.css';
 import ScheduleTable from './ScheduleTable';
 import PlaceFeatures from './PlaceFeatures';
 
-const PlaceDetails = ({ placeDetails }) => {
+const PlaceDetails = ({ placeInfo }) => {
+  console.log(placeInfo)
   return (
     <div className="place-details-container">
       <h2>Detalles del lugar</h2>
       <div className="place-info">
-        <p>{placeDetails.description}</p>
-        <p><strong>Calificación promedio: </strong> {placeDetails.rating.toPrecision(1)} / 5</p>
-        <p><strong>Precio promedio: </strong> {placeDetails.averagePrice}</p>
+        <p>{placeInfo.description}</p>
+        <p><strong>Calificación promedio: </strong> {placeInfo.rating.toPrecision(1)} / 5</p>
+        <p><strong>Precio promedio: </strong> {placeInfo.averagePrice ?? 'Desconocido.'}</p>
         <div className="place-type-labels">
-          {placeDetails.types.map((type, index) => (
+          {placeInfo.placeDetails.type.map((type, index) => (
             <span key={index} className="place-type">{type}</span>
           ))}
+          {
+            <span className="place-type-unknown">{'Tipo de lugar desconocido'}</span>
+          }
         </div>
-        <ScheduleTable schedule={placeDetails.schedule} />
-        <PlaceFeatures features={placeDetails.features} />
+        <ScheduleTable schedule={placeInfo.placeDetails.schedule} />
+        <PlaceFeatures features={placeInfo.placeDetails.characteristics} />
       </div>
     </div>
   );

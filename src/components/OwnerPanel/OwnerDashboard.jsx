@@ -10,9 +10,12 @@ import MessagesContent from './MessagesContent';
 import AnalyticsContent from './AnalyticsContent';
 import SettingsContent from './SettingsContent';
 import HelpContent from './HelpContent';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 const OwnerDashboard = ({user}) => {
   const [selectedSection, setSelectedSection] = useState('dashboard');
+  const [isSideNavOpen, setIsSideNavOpen] = useState(false);
 
   const renderContent = () => {
 
@@ -42,8 +45,11 @@ const OwnerDashboard = ({user}) => {
 
   return (
     <div className="owner-dashboard">
-      <SideNav setSelectedSection={setSelectedSection} />
-      <div className="content">
+      <button className={`hamburger-menu ${isSideNavOpen ? 'sidenav-open' : ''}`} onClick={() => setIsSideNavOpen(!isSideNavOpen)}>
+          <FontAwesomeIcon icon={isSideNavOpen ? faTimes : faBars} />
+      </button>
+      <SideNav isOpen={isSideNavOpen} setSelectedSection={setSelectedSection} />
+      <div className={`content ${isSideNavOpen ? 'content-shift' : ''}`}>
         {renderContent()}
       </div>
     </div>
