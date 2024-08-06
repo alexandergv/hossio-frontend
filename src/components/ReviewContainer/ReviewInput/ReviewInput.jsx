@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ReviewStars from '../../ReviewStars/ReviewStars'
 import './ReviewInput.css';
 import axiosInstance from 'services/axiosConfig';
+import { showErrorAlert } from 'utils/alerts';
 
 const ReviewInput = ({ placeId, userId, onReviewPosted, hasCommented }) => {
   const [reviewText, setReviewText] = useState('');
@@ -23,6 +24,7 @@ const ReviewInput = ({ placeId, userId, onReviewPosted, hasCommented }) => {
       onReviewPosted();
       console.log('Review created:', response.data);
     } catch (error) {
+      showErrorAlert(error);
       console.error('Error creating review:', error);
     } finally {
       setIsLoading(false);

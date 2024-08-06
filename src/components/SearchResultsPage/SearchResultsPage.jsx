@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import PlaceCard from '../PlaceCard/PlaceCard';
 import axiosInstance from 'services/axiosConfig';
 import PlaceCardSkeleton from 'components/PlaceCard/PlaceCardSkeleton';
-
+import { showErrorAlert } from 'utils/alerts';
 
 const SearchResultsPage = ({ query }) => {
     const [searchResults, setSearchResults] = useState([]);
@@ -16,6 +16,7 @@ const SearchResultsPage = ({ query }) => {
         setSearchResults(response.data);
         setLoading(false);
       } catch (error) {
+        showErrorAlert(error);
         console.error('Error searching for places:', error);
       }
     };

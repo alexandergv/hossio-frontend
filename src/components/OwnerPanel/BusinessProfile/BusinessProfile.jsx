@@ -6,7 +6,7 @@ import LocationPicker from './LocationPicker';
 import axiosInstance from 'services/axiosConfig'
 import './BusinessProfile.css';
 import ImageUploader from '../../ImageUploader/ImageUploader';
-import { showSuccessAlert, showErrorAlert, showConfirmationAlert } from '../../../utils/alerts';
+import { showSuccessAlert, showErrorAlert, showConfirmationAlert } from 'utils/alerts';
 import SchedulePicker from './SchedulePicker';
 import CharacteristicsPicker from './CharacteristicsPicker';
 import PlaceTypesPicker from './PlaceTypesPicker';

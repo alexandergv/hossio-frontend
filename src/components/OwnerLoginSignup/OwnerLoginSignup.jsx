@@ -3,6 +3,7 @@ import axiosInstance from 'services/axiosConfig';
 import './OwnerLoginSignup.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import Cookies from 'js-cookie';
 
 const OwnerLoginSignup = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -26,6 +27,18 @@ const OwnerLoginSignup = () => {
     if (isRegisteredUser) {
       axiosInstance.post(`/auth/login`, { email, password }, { withCredentials: true })
         .then(response => {
+
+          if (response.status < 200 || response.status >= 300) {
+            throw new Error(`Fallo a la hora de registrarse : ${response.statusText}`);
+          }
+
+          // Set the token in a cookie
+          Cookies.set('auth_token', response.data.token.access_token, {
+            expires: 7, // Cookie expiration in days
+            path: '',   // Path where the cookie is accessible
+            secure: true,
+            sameSite: 'None' // Ensure cross-site cookies are allowed
+          });
           console.log('Logged in:', response.data);
           window.location.href = '/owners';
         })
@@ -35,6 +48,19 @@ const OwnerLoginSignup = () => {
     } else if (email && password && username) {
       axiosInstance.post(`/auth/signup`, { email, username, password, role: 'owner' }, { withCredentials: true })
         .then(response => {
+          if (response.status < 200 || response.status >= 300) {
+            throw new Error(`Fallo a la hora de iniciar sesion : ${response.statusText}`);
+          }
+
+          // Set the token in a cookie
+          Cookies.set('auth_token', response.data.token.access_token, {
+            expires: 7, // Cookie expiration in days
+            path: '',   // Path where the cookie is accessible
+            secure: true,
+            sameSite: 'None' // Ensure cross-site cookies are allowed
+          });
+
+
           console.log('Signed up:', response.data);
           window.location.href = '/owners';
         })
