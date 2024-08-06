@@ -1,4 +1,6 @@
-.login-signup-container {
+/* OwnerLoginSignup.css */
+
+.login-signup-owner-container {
   min-width: 500px; /* Aumenta el ancho máximo del formulario */
   margin: 50px auto;
   padding: 30px; /* Aumenta el padding para hacer más espacioso el formulario */
@@ -8,12 +10,12 @@
   background-color: #fff;
 }
 
-.login-signup-container form {
+.login-signup-owner-container form {
   display: flex;
   flex-direction: column;
 }
 
-.login-signup-container h2 {
+.login-signup-owner-container h2 {
   text-align: center;
   margin-bottom: 20px;
 }
@@ -67,7 +69,28 @@ button:hover {
   transition: background-color 0.5s;
 }
 
-
 .go-back-btn-container a:hover {
   background-color: rgba(148, 148, 148, 0.414);
+}
+
+@media (max-width: 500px) {
+  .login-signup-owner-container {
+    margin-left: 0;
+    margin-right: 0;
+    min-width: 0;
+    width: 270px;
+    padding-left: 47px;
+    padding-right: 47px;
+  }
+  .login-signup-owner-container h2 {
+    font-size: 18px;
+    margin-bottom: 22px;
+    margin-top: 22px;
+  }
+  .go-back-btn-container {
+    position: relative;
+    left: -28px;
+    top: 0;
+    right: 0;
+  }
 }

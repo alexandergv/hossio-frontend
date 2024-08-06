@@ -166,7 +166,7 @@
   .navbar {
     height: 41px;
     position: sticky;
-    top: 0;
+    top: -1px;
     left: 0;
     right:0;
     bottom: 0;

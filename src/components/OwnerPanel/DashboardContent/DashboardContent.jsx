@@ -43,6 +43,7 @@ const DashboardContent = () => {
       </div>
     </div>
     <div className="dashboard-graph">
+      <h3>Actividad Reciente</h3>
       <RecentActivityChart data={activityData} />
     </div>
     <div className="dashboard-recent-activities">

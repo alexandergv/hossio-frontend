@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTachometerAlt, faBuilding, faStar, faCalendarAlt, faImages, faEnvelope, faChartLine, faCog, faLifeRing, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 
-const SideNav = ({ setSelectedSection }) => {
+const SideNav = ({ isOpen, setSelectedSection }) => {
   const onLogout = (e) => {
     e.preventDefault();
     console.log(e);
@@ -16,7 +16,7 @@ const SideNav = ({ setSelectedSection }) => {
 
 
   return (
-    <nav className="sidenav">
+    <nav className={`sidenav ${isOpen ? 'open' : 'closed'}`}>
     <ul>
       <li><a href="#dashboard" onClick={() => setSelectedSection('dashboard')}><FontAwesomeIcon icon={faTachometerAlt} /> <span className="sidenav-icon-text">Dashboard</span></a></li>
       <li><a href="#profile" onClick={() => setSelectedSection('profile')}><FontAwesomeIcon icon={faBuilding} /> <span className="sidenav-icon-text">Perfil del Negocio</span></a></li>

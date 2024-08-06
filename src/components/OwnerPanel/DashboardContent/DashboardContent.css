@@ -15,6 +15,7 @@
     display: flex;
     justify-content: space-around;
     margin-bottom: 20px;
+    gap: 15px;
   }
   
   .stat-card {
@@ -47,6 +48,7 @@
   .dashboard-graph h3, .dashboard-recent-activities h3 {
     font-size: 18px;
     margin-bottom: 10px;
+    margin-top: 0;
   }
   
   .dashboard-recent-activities ul {
@@ -59,3 +61,35 @@
     font-size: 16px;
   }
   
+  .chart-container {
+    margin: 20px 0;
+  }
+  
+  .chart-wrapper {
+    position: relative;
+    height: 400px; /* Altura inicial para pantallas más grandes */
+    width: 100%;
+  }
+
+  @media (max-width: 500px) {
+    .dashboard-stats {
+      flex-direction: column;
+      align-items: center;
+    }
+    .stat-card {
+      width: 84%;
+      margin-bottom: 10px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .chart-wrapper {
+      height: 300px; /* Altura ajustada para pantallas más pequeñas */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .chart-wrapper {
+      height: 200px; /* Altura ajustada para pantallas aún más pequeñas */
+    }
+  }
