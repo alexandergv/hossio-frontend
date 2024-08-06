@@ -1,6 +1,7 @@
 import axiosInstance from 'services/axiosConfig'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTachometerAlt, faBuilding, faStar, faCalendarAlt, faImages, faEnvelope, faChartLine, faCog, faLifeRing, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import Cookies from 'js-cookie';
 
 
 const SideNav = ({ isOpen, setSelectedSection }) => {
@@ -9,6 +10,13 @@ const SideNav = ({ isOpen, setSelectedSection }) => {
     // Elimina la cookie de autenticación
    axiosInstance.post(`/auth/logout`,{}, { withCredentials: true }).then((response) => {
     // Redirige al usuario a la página de inicio
+    if (response.status < 200 || response.status >= 300) {
+      throw new Error(`Fallo a la hora de iniciar sesion : ${response.statusText}`);
+    }
+
+    // Set the token in a cookie
+    Cookies.remove('auth_token');
+    
        window.location.href = '/';
    })
 }

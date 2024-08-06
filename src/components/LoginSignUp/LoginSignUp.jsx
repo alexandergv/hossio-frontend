@@ -4,6 +4,7 @@ import { auth, googleProvider, appleProvider } from '../../../firebaseConfig';
 import GoogleSignButton from 'components/signInButtons/GoogleSignButton';
 import Cookies from 'js-cookie';
 import './LoginSign.css';
+import { showErrorAlert } from 'utils/alerts';
 
 
 const LoginSignup = ({isLoginProp}) => {
@@ -18,6 +19,7 @@ const LoginSignup = ({isLoginProp}) => {
       const response = await axiosInstance.post(`/users/check`, { email });
       return(response.data.isRegistered);
     } catch (error) {
+      showErrorAlert(error);
       console.error('Error checking registration status:', error);
     }
   };
@@ -43,9 +45,10 @@ const LoginSignup = ({isLoginProp}) => {
 
           console.log('Logged in:', response.data);
           // Handle successful login
-          // window.location.href = '/';
+          window.location.href = '/';
         })
         .catch(error => {
+          showErrorAlert(error);
           console.error('Login error:', error);
         });
     } else if (email && password && username) {
@@ -53,10 +56,22 @@ const LoginSignup = ({isLoginProp}) => {
       // Handle signup
       axiosInstance.post(`/auth/signup`, { email, username, password, role: 'user' },  { withCredentials: true })
         .then(response => {
+          if (response.status < 200 || response.status >= 300) {
+            throw new Error(`Fallo a la hora de iniciar sesion : ${response.statusText}`);
+          }
+
+          // Set the token in a cookie
+          Cookies.set('auth_token', response.data.token.access_token, {
+            expires: 7, // Cookie expiration in days
+            path: '',   // Path where the cookie is accessible
+            secure: true,
+            sameSite: 'None' // Ensure cross-site cookies are allowed
+          });
           // redirect to home.
-          // window.location.href = '/';
+          window.location.href = '/';
         })
         .catch(error => {
+          showErrorAlert(error);
           console.error('Signup error:', error);
         });
     } else {

@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faSignOutAlt, faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 import axiosInstance from 'services/axiosConfig';
 import hossioLogo from '../../Hossio_logo_truquoise_blank.svg';
+import Cookies from 'js-cookie';
 
 const NavBar = ({ userAuthenticated, user }) => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -34,7 +35,14 @@ const NavBar = ({ userAuthenticated, user }) => {
 
   const onLogout = () => {
     axiosInstance.post(`/auth/logout`, {}, { withCredentials: true }).then((response) => {
-      // window.location.reload();
+      if (response.status < 200 || response.status >= 300) {
+        throw new Error(`Fallo a la hora de iniciar sesion : ${response.statusText}`);
+      }
+
+      // Set the token in a cookie
+      Cookies.remove('auth_token');
+
+      window.location.reload();
     });
   };
 
