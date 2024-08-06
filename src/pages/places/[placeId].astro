@@ -6,6 +6,7 @@ import PlaceDetails from "components/PlaceDetails/PlaceDetails";
 import axiosInstance from 'services/axiosConfig'
 import { getSession } from '../../CustomMiddleware/session';
 import ReviewContainer from "components/ReviewContainer/ReviewContainer";
+import "./_placeStyles.css";
 
 export interface Review {
     text: string;
@@ -43,9 +44,16 @@ if(isAuthenticated && user.role =='owner') {
 
 const { placeId } = Astro.params;
 const placesData = async () : Promise<Place> => {
-  let response = await axiosInstance.get(`/places/getById/${placeId}`);
-  const place: Place = response.data;
-  return place;
+
+  try {
+    let response = await axiosInstance.get(`/places/getById/${placeId}`);
+    const place: Place = response.data;
+    return place;
+  } catch (error) {
+    Astro.response.status = 404;
+    Astro.response.statusText = 'Not found';
+    throw Error("no page with this id was found")
+  }
 }
 
 const placeInfo: Place =  await placesData();
@@ -80,36 +88,6 @@ if (!placeInfo) {
 // }
 
 ---
-<style>
-      .place-details {
-        padding: 20px;
-        max-width: 930px;
-        margin: 0 auto;
-      }
-
-      .place-details h1 {
-        font-size: 32px;
-        margin-bottom: 20px;
-        text-align: center;
-      }
-      .place-content {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 20px;
-        max-height: 400px;
-        margin-bottom: 32px;
-      }
-
-      .place-images,
-      .place-map {
-        flex: 1;
-        margin-right: 20px;
-      }
-
-      .place-map {
-        margin-left: 20px;
-      }
-</style>
 <Layout session={session} title=`${placeInfo.name} - Hossio``>
     <main class="place-details">
       <h1>{placeInfo.name}</h1>
@@ -118,7 +96,7 @@ if (!placeInfo) {
           <Carrousel client:load images={placeInfo.images.reverse()} />
         </div>
         <div class="place-map">
-          <Map client:only="react" latitude={placeInfo.location.coordinates[0]} longitude={placeInfo.location.coordinates[1]} name={placeInfo.name} />
+          <Map client:only="react" className="place-details-map" latitude={placeInfo.location.coordinates[0]} longitude={placeInfo.location.coordinates[1]} name={placeInfo.name} />
         </div>
       </div>
       <PlaceDetails placeInfo={placeInfo}/>

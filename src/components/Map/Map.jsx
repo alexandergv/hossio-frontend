@@ -4,7 +4,8 @@ import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import './Map.css';
 
-const Map = ({ latitude, longitude, name }) => {
+const Map = ({ latitude, longitude, name, zoom = 13, 
+  style = {}, className='' }) => {
   const position = [latitude, longitude];
 
   const openInGoogleMaps = () => {
@@ -23,7 +24,8 @@ const Map = ({ latitude, longitude, name }) => {
 
   return (
     <div className="map-container">
-    <MapContainer center={position} zoom={13} scrollWheelZoom={true} style={{ height: '400px', width: '100%' }}>
+    <MapContainer center={position} zoom={zoom} scrollWheelZoom={true} 
+    className={className} style={style}>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
