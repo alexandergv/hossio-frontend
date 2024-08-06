@@ -9,7 +9,7 @@ const EventsModal = ({ onClose, events }) => {
         <h2>Últimos Eventos</h2>
         <div className="events-list">
           {events.map((event, index) => (
-            <a href={`/places/${event.placeId}`} className="event-card">
+            <a key={index} href={`/places/${event.placeId}`} className="event-card">
               <img src={event.image} alt={event.title} className="event-image" />
               <div className="event-details">
                 <h3 className="event-title">{event.title}</h3>

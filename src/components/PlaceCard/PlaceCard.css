@@ -3,6 +3,7 @@
 }
 
 .place-card {
+  background-color: #fcfcfc;
   text-decoration: none;
   color: inherit;
   border: 1px solid #ddd;
@@ -124,3 +125,23 @@
 .status-label.unknown {
   background-color: #bcb41a;
 }
+
+@media (max-width: 583px) {
+ .place-card {
+  width: 400px; 
+ }
+}
+
+@media (max-width: 484px) {
+  .place-card {
+   width: 344px; 
+  }
+  .place-image {
+    height: 250px;
+    min-height: 250px;
+  }
+
+  .status-label {
+    top: 200px;
+  }
+ }
