@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axiosInstance from 'services/axiosConfig'
 import { auth, googleProvider, appleProvider } from '../../../firebaseConfig'; 
 import GoogleSignButton from 'components/signInButtons/GoogleSignButton';
+import Cookies from 'js-cookie';
 import './LoginSign.css';
 
 
@@ -28,6 +29,18 @@ const LoginSignup = ({isLoginProp}) => {
       // Handle login
       axiosInstance.post(`/auth/login`, { email, password }, { withCredentials: true })
         .then(response => {
+          if (response.status < 200 || response.status >= 300) {
+            throw new Error(`Fallo a la hora de iniciar sesion : ${response.statusText}`);
+          }
+          
+          // Set the token in a cookie
+          Cookies.set('auth_token', response.data.token.access_token, {
+            expires: 7, // Cookie expiration in days
+            path: '',   // Path where the cookie is accessible
+            secure: true,
+            sameSite: 'None' // Ensure cross-site cookies are allowed
+          });
+
           console.log('Logged in:', response.data);
           // Handle successful login
           // window.location.href = '/';
