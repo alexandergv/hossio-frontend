@@ -6,7 +6,6 @@ import { faTachometerAlt, faBuilding, faStar, faCalendarAlt, faImages, faEnvelop
 const SideNav = ({ isOpen, setSelectedSection }) => {
   const onLogout = (e) => {
     e.preventDefault();
-    console.log(e);
     // Elimina la cookie de autenticación
    axiosInstance.post(`/auth/logout`,{}, { withCredentials: true }).then((response) => {
     // Redirige al usuario a la página de inicio

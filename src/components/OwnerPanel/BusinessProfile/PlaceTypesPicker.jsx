@@ -4,7 +4,6 @@ import './PlaceTypesPicker.css'; // Asegúrate de tener estilos adecuados para e
 const MultiSelect = ({ options, selectedValues, onChange }) => {
   const handleChange = (selectedOptions) => {
     const values = selectedOptions.map(option => option.value);
-    console.log(values);
     onChange(values);
   };
 

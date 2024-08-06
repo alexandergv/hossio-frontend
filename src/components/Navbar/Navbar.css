@@ -72,6 +72,7 @@
   border-radius: 0 5px 5px 0;
   cursor: pointer;
   font-size: 16px;
+  margin-left: 0;
 }
 
 .navbar-center .search-toggle {
@@ -190,8 +191,15 @@
 
   .navbar-center .search-toggle {
     display: block;
-    margin-left: 9px;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 8px;
   }
+
+  .navbar-center.search-open .search-toggle{
+    padding-right: 0;
+  }
+
   .navbar-center {
     justify-content: flex-end;
     margin-right: 15px;
@@ -202,6 +210,7 @@
     border: none;
     color: var(--color-primary);
     font-size: 20px;
+    margin-right: 0;
   }
 
   .search-form.open {
@@ -230,6 +239,7 @@
   .navbar-right {
     flex-direction: column;
     flex: 0;
+    width: 27px;
   }
 
   .action-buttons-container {

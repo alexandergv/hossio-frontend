@@ -30,7 +30,7 @@ const LoginSignup = ({isLoginProp}) => {
         .then(response => {
           console.log('Logged in:', response.data);
           // Handle successful login
-          window.location.href = '/';
+          // window.location.href = '/';
         })
         .catch(error => {
           console.error('Login error:', error);
@@ -41,7 +41,7 @@ const LoginSignup = ({isLoginProp}) => {
       axiosInstance.post(`/auth/signup`, { email, username, password, role: 'user' },  { withCredentials: true })
         .then(response => {
           // redirect to home.
-          window.location.href = '/';
+          // window.location.href = '/';
         })
         .catch(error => {
           console.error('Signup error:', error);
