@@ -67,15 +67,13 @@ const Home = () => {
           fetchPlaces();
         },
         (error) => {
+          fetchPlaces();
           console.error("Error getting location", error);
         }
       );
     } else {
-      console.error("Geolocation is not supported by this browser.");
+      fetchPlaces();
     }
-
-
-
   }, []);
 
   return (
