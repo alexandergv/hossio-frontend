@@ -26,4 +26,11 @@
     background-color: #f1f1f1;
     transform: scale(1.05);
   }
+
+  @media (max-width: 768px) {
+    .open-google-maps-button {
+      padding: 8px 10px;
+      font-size: 13px;
+    }
+  }
   
