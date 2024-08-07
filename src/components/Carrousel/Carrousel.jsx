@@ -21,8 +21,8 @@ const Carrousel = ({ images }) => {
           </div>
         ))}
       </div>
-      <button hidden={currentIndex == 0} className="carrousel-btn prev" onClick={prevSlide}>‹</button>
-      <button hidden={currentIndex == (images.length - 1 )} className="carrousel-btn next" onClick={nextSlide}>›</button>
+     {!(currentIndex == 0) && <button className="carrousel-btn prev" onClick={prevSlide}>‹</button>} 
+     {!(currentIndex == (images.length - 1 )) && <button className="carrousel-btn next" onClick={nextSlide}>›</button>}
       <div className="carrousel-dots">
         {images.map((_, index) => (
           <span
