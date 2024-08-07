@@ -5,6 +5,8 @@
   .features-container ul {
     list-style-type: none;
     padding: 0;
+    display: flex;
+    gap: 9px;
   }
   
   .features-container li {

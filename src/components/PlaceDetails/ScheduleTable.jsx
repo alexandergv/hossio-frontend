@@ -8,7 +8,7 @@ const ScheduleTable = ({ schedule }) => {
     wednesday: 'Miércoles', 
     thursday: 'Jueves',
     friday: 'Viernes',
-    saturday: 'Sabado',
+    saturday: 'Sábado',
     sunday: 'Domingo'
   }
 
@@ -29,7 +29,7 @@ const ScheduleTable = ({ schedule }) => {
             <tr key={index}>
               <td>{translationTable[day]}</td>
               <td>{hours.open == '' ? 'No indicado.' : hours.open}</td>
-              <td>{hours.close == '' ? 'No indicado.' : hours.open}</td>
+              <td>{hours.close == '' ? 'No indicado.' : hours.close}</td>
             </tr>
           ))}
         </tbody>
