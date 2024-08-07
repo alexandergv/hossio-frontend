@@ -72,21 +72,6 @@ if (!placeInfo) {
   throw Error("no page with this id was found")
 };
 
-// const placeD = {
-//   "description": placeInfo.description,
-//   "rating": placeInfo.rating,
-//   "averagePrice": "$20 - $50",
-//   "types": ["Restaurante", "Bar"],
-//   "schedule": {
-//     "Lunes": { "open": "10:00 AM", "close": "10:00 PM" },
-//     "Martes": { "open": "10:00 AM", "close": "10:00 PM" },
-//     "Miércoles": { "open": "10:00 AM", "close": "10:00 PM" },
-//     "Jueves": { "open": "10:00 AM", "close": "10:00 PM" },
-//     "Viernes": { "open": "10:00 AM", "close": "10:00 PM" }
-//   },
-//   "features": ["Parqueo disponible", "Cobro en la entrada", "Wifi gratuito"]
-// }
-
 ---
 <Layout session={session} title=`${placeInfo.name} - Hossio``>
     <main class="place-details">

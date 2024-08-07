@@ -15,7 +15,7 @@ const PlaceDetails = ({ placeInfo }) => {
           {placeInfo.placeDetails.type.map((type, index) => (
             <span key={index} className="place-type">{type}</span>
           ))}
-          {
+          { placeInfo.placeDetails.type.length == 0 &&
             <span className="place-type-unknown">{'Tipo de lugar desconocido'}</span>
           }
         </div>
