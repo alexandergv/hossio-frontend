@@ -82,3 +82,9 @@
 .carrousel-dots .dot.active {
   background-color: #333;
 }
+
+@media (max-width: 768px) {
+  .carrousel-item img {
+    min-height: 294px;
+  }
+}
