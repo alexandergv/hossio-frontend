@@ -57,7 +57,7 @@ const Home = () => {
   
 
   useEffect(() => {
-    if (navigator.geolocation) {
+    if (navigator.geolocation && false) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
@@ -72,7 +72,7 @@ const Home = () => {
         }
       );
     } else {
-      fetchPlaces();
+      fetchNearbyPlaces(18.48781363306469, -69.87735249800618);
     }
   }, []);
 

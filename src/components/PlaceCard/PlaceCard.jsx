@@ -29,7 +29,6 @@ const PlaceCard = ({ place }) => {
   function isPlaceOpen(schedule) {
     // Obtener el día actual de la semana y la hora actual
     const now = new Date();
-   
     const currentDay = daysOfWeek[now.getDay()];
     const currentTime = now.toTimeString().slice(0, 5); // 'HH:MM' format
   
@@ -47,8 +46,14 @@ const PlaceCard = ({ place }) => {
       return false;
     }
   
-    // Verificar si la hora actual está dentro del rango de apertura
-    return currentTime >= openTime && currentTime < closeTime;
+    // Verificar si la hora de cierre es el día siguiente
+    if (closeTime < openTime) {
+      // Si es después de la medianoche pero antes de la hora de cierre
+      return currentTime >= openTime || currentTime < closeTime;
+    } else {
+      // Si la hora de cierre es el mismo día
+      return currentTime >= openTime && currentTime < closeTime;
+    }
   }
 
   const toggleFavorite = (e) => {
@@ -80,7 +85,10 @@ const PlaceCard = ({ place }) => {
       <img src={place.images[place.images.length - 1]} alt={place.name} className="place-image" />
       <div className="place-details">
         <h2 className="place-name">{`${place.name.slice(0,34)}${ place.name.length > 34 ? '...' : ''}`}</h2>
-        <p className="place-description">{place.description}</p>
+        <p className="place-description">
+          {place.description.length == 0 && place.placeDetails.type[0]}
+          {`${place.description.slice(0,93)}${ place.description.length > 93 ? '...' : ''}`}
+          </p>
         <span className="place-rating">Calificacion: <ReviewStars readOnly={true} ratingScore={place.rating} 
         rating={rating} setRating={setRating}/></span>
       </div>
