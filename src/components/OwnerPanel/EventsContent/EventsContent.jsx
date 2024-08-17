@@ -14,7 +14,7 @@ const EventsContent = () => {
 
   useEffect(() => {
     // Obtener eventos y promociones desde el backend
-    axiosConfig.get('/api/events')
+    axiosConfig.get('/events/latest')
       .then(response => setEvents(response.data))
       .catch(error => console.error('Error fetching events:', error));
   }, []);
@@ -35,7 +35,7 @@ const EventsContent = () => {
         .catch(error => console.error('Error updating event:', error));
     } else {
       // Crear nuevo evento
-      axiosConfig.post('/api/events', currentEvent)
+      axiosConfig.post('events/create', currentEvent)
         .then(response => {
           setEvents([...events, response.data]);
           setIsModalVisible(false);
@@ -70,7 +70,7 @@ const EventsContent = () => {
 
       <Modal 
         title="Añadir/Editar Evento" 
-        visible={isModalVisible} 
+        open={isModalVisible} 
         onOk={handleOk} 
         onCancel={handleCancel}
       >
