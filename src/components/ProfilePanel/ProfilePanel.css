@@ -1,0 +1,34 @@
+.user-dashboard {
+    display: flex;
+  }
+  
+  .user-sidenav {
+    width: 240px;
+    background-color: var(--color-primary);
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .user-sidenav ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .user-sidenav ul li {
+    margin: 20px 0;
+    cursor: pointer;
+    color: #fff;
+  }
+  
+  .user-sidenav ul li:hover {
+    background-color: var(--color-accent);
+    border-radius: 4px;
+    padding: 10px;
+  }
+  
+  .content {
+    margin-left: 260px; /* Espacio para el sidenav */
+    padding: 20px;
+    width: 100%;
+  }
+  
