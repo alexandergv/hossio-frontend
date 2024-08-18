@@ -10,7 +10,7 @@ const EventsModal = ({ onClose, events }) => {
         <div className="events-list">
           {events.map((event, index) => (
             <a key={index} href={`/places/${event.placeId}`} className="event-card">
-              <img src={event.image} alt={event.title} className="event-image" />
+              <img src={event.image || "https://res.cloudinary.com/dq5xhipwo/image/upload/v1724005984/a4trmfvgcezaiibgpdjz.webp"} alt={event.title} className="event-image" />
               <div className="event-details">
                 <h3 className="event-title">{event.title}</h3>
                 <p className="event-place">Lugar: {event.placeName}</p> 
