@@ -5,6 +5,7 @@ import { faSearch, faSignOutAlt, faBars, faTimes } from '@fortawesome/free-solid
 import axiosInstance from 'services/axiosConfig';
 import hossioLogo from '../../Hossio_logo_truquoise_blank.svg';
 import Cookies from 'js-cookie';
+import UserMenu from './UserMenu/UserMenu';
 
 const NavBar = ({ userAuthenticated, user }) => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -83,12 +84,8 @@ const NavBar = ({ userAuthenticated, user }) => {
               <a href="/login?register" className="navbar-link">Registrarse</a>
             </>
           )}
-          {userAuthenticated && <p>Bienvenido, {user.username}!</p>}
-          {userAuthenticated && (
-            <button className="logout-button" onClick={onLogout}>
-              <FontAwesomeIcon icon={faSignOutAlt} /> Cerrar Sesión
-            </button>
-          )}
+          {userAuthenticated && <p>Bienvenido/a, {user.username}!</p>}
+          <UserMenu userAuthenticated={userAuthenticated} onLogout={onLogout}/>
         </div>
       </div>
     </nav>
