@@ -3,6 +3,7 @@ import './PlaceCard.css';
 import ReviewStars from '../ReviewStars/ReviewStars'; '../ReviewStars/ReviewStars.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { getAuthStatus } from 'services/authService';
 
 const PlaceCard = ({ place }) => {
   const [rating, setRating] = useState([]);
@@ -58,7 +59,11 @@ const PlaceCard = ({ place }) => {
 
   const toggleFavorite = (e) => {
     e.preventDefault(); // Prevent navigation
-    setIsFavorite(!isFavorite);
+    if(!getAuthStatus()) {
+      window.location.href = '/login'
+    }else {
+      setIsFavorite(!isFavorite);
+    }
   };
 
   useEffect(() => {

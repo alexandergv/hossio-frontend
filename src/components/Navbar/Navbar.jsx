@@ -6,8 +6,11 @@ import axiosInstance from 'services/axiosConfig';
 import hossioLogo from '../../Hossio_logo_truquoise_blank.svg';
 import Cookies from 'js-cookie';
 import UserMenu from './UserMenu/UserMenu';
+import { setAuthStatus } from 'services/authService';
 
 const NavBar = ({ userAuthenticated, user }) => {
+  setAuthStatus(userAuthenticated);
+
   const [searchTerm, setSearchTerm] = useState('');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);

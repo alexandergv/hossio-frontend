@@ -89,7 +89,7 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  gap: 15px;
+  gap: 10px;
 }
 
 .navbar-link {
@@ -160,7 +160,11 @@
 .menu {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 10px;
+}
+
+.user-profile-button {
+  font-size: 23px;
 }
 
 @media (max-width: 768px) {

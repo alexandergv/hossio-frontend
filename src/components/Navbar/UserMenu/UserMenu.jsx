@@ -21,9 +21,9 @@ const UserProfile = ({ userAuthenticated, onLogout }) => {
     {
       key: 'perfil',
       label: (
-        <>
+        <a href='/profile'>
           <FontAwesomeIcon icon={faUser} /> Perfil
-        </>
+        </a>
       ),
     },
     {
