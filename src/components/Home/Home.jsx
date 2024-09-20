@@ -7,7 +7,7 @@ import EventsModal from './EventsModal/EventsModal';
 import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const Home = () => {
+const Home = ({userId}) => {
   const [location, setLocation] = useState({ latitude: null, longitude: null });
   const [places, setPlaces] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -98,7 +98,7 @@ const Home = () => {
         { loading ?
         (Array(10).fill(0).map((x,index) => <PlaceCardSkeleton key={index} />) )
         : (places.map(place => (
-          <PlaceCard key={place._id} place={place} />
+          <PlaceCard userId={userId} key={place._id} place={place} />
             )
           )
         )

@@ -5,7 +5,7 @@ import UserSettings from './UserSettings';
 import UserFavorites from './UserFavorites';
 import './ProfilePanel.css';
 
-const ProfilePanel = () => {
+const ProfilePanel = ({userId}) => {
   const [selectedSection, setSelectedSection] = useState('profile');
 
   const renderContent = () => {
@@ -15,7 +15,7 @@ const ProfilePanel = () => {
       case 'settings':
         return <UserSettings />;
       case 'favorites':
-        return <UserFavorites />;
+        return <UserFavorites userId={userId} />;
       default:
         return <UserProfile />;
     }

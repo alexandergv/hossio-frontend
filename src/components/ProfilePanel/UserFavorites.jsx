@@ -1,16 +1,25 @@
 
 import axiosInstance from 'services/axiosConfig'
 import { useEffect, useState } from 'react';
+import PlaceCard from 'components/PlaceCard/PlaceCard';
+import PlaceCardSkeleton from 'components/PlaceCard/PlaceCardSkeleton';
 
-const UserFavorites = () => {
+const UserFavorites = ({userId}) => {
   const [favoritePlaces, setFavoritePlaces ] = useState();
+  const [loading, setLoading] = useState(true);
 
-  const fetchFavoriteplaces = () => {
-
-  }
+  const fetchFavoritePlaces = async (userId) => {
+    try {
+      const response = await axiosInstance.get(`/users/${userId}/favorite-places`);
+      setFavoritePlaces(response.data); // Assuming you have a state called setFavoritePlaces
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching favorite places", error);
+    }
+  };
 
   useEffect(() => {
-
+    fetchFavoritePlaces(userId);
   },[])
 
   const places = [];

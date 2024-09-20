@@ -12,5 +12,5 @@ if(isAuthenticated && user.role =='owner') {
 }
 ---
 <Layout session={session} title='Hossio - Descubre donde caer'>
-  <Home client:load/>
+  <Home userId={user?.sub} client:load/>
 </Layout>

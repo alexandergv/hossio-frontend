@@ -16,5 +16,5 @@ if(!user?.role) {
 ---
 
 <Layout session={session} title='Hossio - Perfil de Usuario'>
-<ProfilePanel client:load/>
+<ProfilePanel userId={user?.sub} client:load/>
 </Layout>
