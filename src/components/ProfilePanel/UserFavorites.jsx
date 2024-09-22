@@ -5,7 +5,7 @@ import PlaceCard from 'components/PlaceCard/PlaceCard';
 import PlaceCardSkeleton from 'components/PlaceCard/PlaceCardSkeleton';
 
 const UserFavorites = ({userId}) => {
-  const [favoritePlaces, setFavoritePlaces ] = useState();
+  const [favoritePlaces, setFavoritePlaces ] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const fetchFavoritePlaces = async (userId) => {
@@ -22,15 +22,14 @@ const UserFavorites = ({userId}) => {
     fetchFavoritePlaces(userId);
   },[])
 
-  const places = [];
   return (
       <div>
         <h2>Lugares Destacados</h2>
         <div className="place-list">
         { loading ?
         (Array(10).fill(0).map((x,index) => <PlaceCardSkeleton key={index} />) )
-        : (places.map(place => (
-          <PlaceCard key={place._id} place={place} />
+        : (favoritePlaces.map(place => (
+          <PlaceCard isFavorited={true} key={place._id} place={place} />
             )
           )
         )

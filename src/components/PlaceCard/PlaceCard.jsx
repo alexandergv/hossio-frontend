@@ -6,9 +6,9 @@ import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { getAuthStatus } from 'services/authService';
 import axiosInstance from 'services/axiosConfig'
 
-const PlaceCard = ({ place, userId = undefined }) => {
+const PlaceCard = ({ place, userId = undefined, isFavorited = false }) => {
   const [rating, setRating] = useState([]);
-  const [isFavorite, setIsFavorite] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(isFavorited);
   const [isOpen, setIsOpen] = useState(false);
 
   const daysOfWeek = [
