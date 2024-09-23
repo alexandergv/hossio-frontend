@@ -7,7 +7,7 @@ import EventsModal from './EventsModal/EventsModal';
 import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const Home = ({userId}) => {
+const Home = ({userId = ""}) => {
   const [location, setLocation] = useState({ latitude: null, longitude: null });
   const [places, setPlaces] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -30,12 +30,13 @@ const Home = ({userId}) => {
   };
 
 
-  const fetchNearbyPlaces = async (latitude, longitude) => {
+  const fetchNearbyPlaces = async (latitude, longitude, userId) => {
     try {
       const response = await axiosInstance.get('/places/nearby', {
         params: {
           latitude,
           longitude,
+          userId
         },
       });
       setPlaces(response.data);
@@ -72,7 +73,7 @@ const Home = ({userId}) => {
         }
       );
     } else {
-      fetchNearbyPlaces(18.48781363306469, -69.87735249800618);
+      fetchNearbyPlaces(18.48781363306469, -69.87735249800618,userId);
     }
   }, []);
 
@@ -98,7 +99,7 @@ const Home = ({userId}) => {
         { loading ?
         (Array(10).fill(0).map((x,index) => <PlaceCardSkeleton key={index} />) )
         : (places.map(place => (
-          <PlaceCard userId={userId} key={place._id} place={place} />
+          <PlaceCard isFavorited={place.isFavorite} userId={userId} key={place._id} place={place} />
             )
           )
         )
