@@ -15,7 +15,7 @@ if(isAuthenticated) {
   switch(user.role) {
     case 'user' :
       return Astro.redirect('/');
-    case 'owner' :
+    case 'owner' || 'admin' :
     return Astro.redirect('/owners');
   }
 }
