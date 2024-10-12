@@ -76,9 +76,9 @@ const NavBar = ({ userAuthenticated, user }) => {
         </button>
       </div>
       <div className={`navbar-right ${isSearchOpen ? 'search-open' : ''}`}>
-        <button className="menu-toggle" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+        {!userAuthenticated && <button className="menu-toggle" onClick={() => setIsMenuOpen(!isMenuOpen)}>
           <FontAwesomeIcon icon={isMenuOpen ? faTimes : faBars} />
-        </button>
+        </button>}
         <div className={`menu ${isMenuOpen ? 'open' : ''}`}>
           {(user == null) && <a href="/loginOwners" className="btn-reverse">Para propietarios</a>}
           {!userAuthenticated && (
@@ -88,8 +88,8 @@ const NavBar = ({ userAuthenticated, user }) => {
             </>
           )}
           {userAuthenticated && <p>Bienvenido/a, {user.username}!</p>}
-          <UserMenu userAuthenticated={userAuthenticated} onLogout={onLogout}/>
         </div>
+        <UserMenu userAuthenticated={userAuthenticated} onLogout={onLogout}/>
       </div>
     </nav>
   );

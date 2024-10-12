@@ -37,9 +37,9 @@ const UserProfile = ({ userAuthenticated, onLogout }) => {
   ];
 
   return (
-    <div>
+    <div style={{display: ( !userAuthenticated ? "none" : "block")}}>
       {userAuthenticated && (
-    <Dropdown menu={{ items, }} trigger={['click']}>
+    <Dropdown overlayStyle={{zIndex: 10001}} menu={{ items, }} trigger={['click']}>
         <Button type="link" className="user-profile-button"
          icon={<FontAwesomeIcon icon={faUserCircle} className="user-icon" />} />
     </Dropdown>
