@@ -37,12 +37,11 @@
     justify-content: center;
   }
   
-  button {
+.business-profile  button {
     padding: 10px 20px;
     margin: 0 10px;
     border: none;
     border-radius: 5px;
-    background-color: #00aaff;
     color: white;
     font-size: 16px;
     cursor: pointer;
@@ -56,28 +55,28 @@
     filter: brightness(95%);
   }
   
-  .save-button {
+  button.save-button {
     background-color: #28a745; /* Green */
   }
   
-  .save-button:hover {
+  button.save-button:hover {
     background-color: #218838; /* Darker green */
   }
   
-  .delete-button {
+  button.delete-button {
     background-color: #dc3545; /* Red */
   }
   
-  .delete-button:hover {
+  button.delete-button:hover {
     background-color: #c82333; /* Darker red */
   }
   
-  .edit-button {
+  button.edit-button {
     background-color: #ffc107; /* Yellow */
     color: #333; /* Dark text */
   }
   
-  .edit-button:hover {
+  button.edit-button:hover {
     background-color: #e0a800; /* Darker yellow */
   }
   

@@ -1,0 +1,20 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getSession } from '../CustomMiddleware/session.js';
+import ProfilePanel from 'components/ProfilePanel/ProfilePanel';
+
+const session = getSession(Astro.cookies.get('auth_token')?.value);
+const isAuthenticated = session.authenticated;
+const user = session.user;
+
+if(user?.role == 'owner') {
+      return Astro.redirect('/owner');
+}
+if(!user?.role) {
+      return Astro.redirect('/');
+}
+---
+
+<Layout session={session} title='Hossio - Perfil de Usuario'>
+<ProfilePanel userId={user?.sub} client:load/>
+</Layout>

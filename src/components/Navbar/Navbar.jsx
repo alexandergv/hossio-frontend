@@ -5,8 +5,12 @@ import { faSearch, faSignOutAlt, faBars, faTimes } from '@fortawesome/free-solid
 import axiosInstance from 'services/axiosConfig';
 import hossioLogo from '../../Hossio_logo_truquoise_blank.svg';
 import Cookies from 'js-cookie';
+import UserMenu from './UserMenu/UserMenu';
+import { setAuthStatus } from 'services/authService';
 
 const NavBar = ({ userAuthenticated, user }) => {
+  setAuthStatus(userAuthenticated);
+
   const [searchTerm, setSearchTerm] = useState('');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -72,9 +76,9 @@ const NavBar = ({ userAuthenticated, user }) => {
         </button>
       </div>
       <div className={`navbar-right ${isSearchOpen ? 'search-open' : ''}`}>
-        <button className="menu-toggle" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+        {!userAuthenticated && <button className="menu-toggle" onClick={() => setIsMenuOpen(!isMenuOpen)}>
           <FontAwesomeIcon icon={isMenuOpen ? faTimes : faBars} />
-        </button>
+        </button>}
         <div className={`menu ${isMenuOpen ? 'open' : ''}`}>
           {(user == null) && <a href="/loginOwners" className="btn-reverse">Para propietarios</a>}
           {!userAuthenticated && (
@@ -83,13 +87,9 @@ const NavBar = ({ userAuthenticated, user }) => {
               <a href="/login?register" className="navbar-link">Registrarse</a>
             </>
           )}
-          {userAuthenticated && <p>Bienvenido, {user.username}!</p>}
-          {userAuthenticated && (
-            <button className="logout-button" onClick={onLogout}>
-              <FontAwesomeIcon icon={faSignOutAlt} /> Cerrar Sesión
-            </button>
-          )}
+          {userAuthenticated && <p>Bienvenido/a, {user.username}!</p>}
         </div>
+        <UserMenu userAuthenticated={userAuthenticated} onLogout={onLogout}/>
       </div>
     </nav>
   );

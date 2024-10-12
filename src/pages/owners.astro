@@ -3,11 +3,12 @@ import NavBar from '../components/Navbar/Navbar.jsx';
 import OwnerDashboard from '../components/OwnerPanel/OwnerDashboard';
 import "../styles/main.css";
 import { getSession } from '../CustomMiddleware/session.js';
+import { AdminDashboard } from 'components/AdminDashboard/AdminDashboard';
 const session = getSession(Astro.cookies.get('auth_token')?.value);
 const isAuthenticated = session.authenticated;
 const user = session.user;
 
-if(user?.role != 'owner') {
+if(user?.role != 'owner' &&  user?.role != 'admin') {
       return Astro.redirect('/');
 }
 ---
@@ -24,6 +25,11 @@ if(user?.role != 'owner') {
   </head>
   <body>
     <div id="root"></div>
+    {user?.role == 'admin' &&
+     <AdminDashboard user={user} client:only="react"/>
+    }
+    {user?.role == 'owner' &&
     <OwnerDashboard user={user} client:only="react"/>
+    }
   </body>
 </html>

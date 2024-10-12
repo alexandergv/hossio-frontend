@@ -3,10 +3,12 @@ import './PlaceCard.css';
 import ReviewStars from '../ReviewStars/ReviewStars'; '../ReviewStars/ReviewStars.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { getAuthStatus } from 'services/authService';
+import axiosInstance from 'services/axiosConfig'
 
-const PlaceCard = ({ place }) => {
+const PlaceCard = ({ place, userId = undefined, isFavorited = false }) => {
   const [rating, setRating] = useState([]);
-  const [isFavorite, setIsFavorite] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(isFavorited);
   const [isOpen, setIsOpen] = useState(false);
 
   const daysOfWeek = [
@@ -56,9 +58,31 @@ const PlaceCard = ({ place }) => {
     }
   }
 
-  const toggleFavorite = (e) => {
+  const toggleFavorite = async (e, userId, placeId) => {
     e.preventDefault(); // Prevent navigation
-    setIsFavorite(!isFavorite);
+  
+    if (!getAuthStatus()) {
+      window.location.href = '/login';
+    } else {
+      try {
+        if (isFavorite) {
+          // Remove from favorites
+          await axiosInstance.delete(`/users/favorite-places`, {
+            data: { userId, placeId },  // Pass userId and placeId in the request body for DELETE
+          });
+          setIsFavorite(false); // Update UI
+        } else {
+          // Add to favorites
+          await axiosInstance.post(`/users/favorite-places`, {
+            userId,
+            placeId,  // Send userId and placeId in the body
+          });
+          setIsFavorite(true); // Update UI
+        }
+      } catch (error) {
+        console.error('Error updating favorite status', error);
+      }
+    }
   };
 
   useEffect(() => {
@@ -70,7 +94,7 @@ const PlaceCard = ({ place }) => {
   return (
     <a href={`/places/${place._id}`} className="place-card">
     <div className="place-card-subContainer">
-    <div className="favorite-icon" onClick={toggleFavorite}>
+    <div className="favorite-icon" onClick={(e) => toggleFavorite(e, userId, place._id)}>
     <FontAwesomeIcon className={`${isFavorite ? 'heart-active' : ''}`} color='#48D1B2' icon={faHeart} />
      </div>
      <div className={`status-label ${

@@ -4,7 +4,7 @@ import DashboardContent from './DashboardContent/DashboardContent';
 import './OwnerPanelStyles.css';
 import BusinessProfile from './BusinessProfile/BusinessProfile';
 import ReviewsContent from './ReviewsContent';
-import EventsContent from './EventsContent';
+import EventsContent from './EventsContent/EventsContent';
 import GalleryContent from './GalleryContent';
 import MessagesContent from './MessagesContent';
 import AnalyticsContent from './AnalyticsContent';
