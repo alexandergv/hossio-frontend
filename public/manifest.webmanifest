@@ -1,0 +1,21 @@
+{
+    "name": "Hossio",
+    "short_name": "Hossio",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#317EFB",
+    "icons": [
+      {
+        "src": "/icons/Hossio-logo-truquoise-blank-sm.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      },
+      {
+        "src": "/icons/Hossio-logo-truquoise-blank.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ]
+  }
+  
